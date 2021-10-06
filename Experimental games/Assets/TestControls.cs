@@ -22,5 +22,9 @@ public class TestControls : MonoBehaviour {
             gameObject.transform.Rotate(0, 10, 0, Space.Self);
 
         }
+	if (Input.GetKeyDown(KeyCode.Y)) {
+            gameObject.transform.Rotate(0, -10, 0, Space.Self);
+
+        }
     }
 }
