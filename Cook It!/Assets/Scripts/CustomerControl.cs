@@ -5,18 +5,21 @@ using UnityEngine;
 public class CustomerControl : MonoBehaviour
 {
     [SerializeField]
-    private List<string> orderItems = new List<string>(); // the items in a customers order
     private bool customerActive; // whether the customer is active
     private int ingredientInt; // which ingredient of the order is the player on
     [SerializeField]
     private GameObject[] ingredients; // the list of possible ingredients
     [SerializeField]
+    private GameObject bun;
+    [SerializeField]
     private int maxNumberOfIngredientsPerOrder = 8; // maximum ingredients per order (+2 for buns on either side)
+    private List<GameObject> items = new List<GameObject>();
+    private GameObject completed;
 
     // getters and setters
-    public string currentIngredient {
-        get { return orderItems[ingredientInt]; }
-        set { orderItems[ingredientInt] = value; }
+    public GameObject currentIngredient {
+        get { return items[ingredientInt]; }
+        set { items[ingredientInt] = value; }
     }
 
     public bool isActiveCustomer {
@@ -29,16 +32,28 @@ public class CustomerControl : MonoBehaviour
         set { ingredientInt = value; }
     }
 
-
+    private void Awake() {
+        GenerateCustomer();
+        ingredientInt = 0; // this has to be called before start, or otherwise it will remain as
+        // a high number from the previous customer and immediately be asked to call from an empty list
+    }
 
     void Start() {
-        orderItems.Add("bun"); // start with a bun
-        GenerateCustomer(); // generate the customers order
-        ingredientInt = 0; // go the start of their order
-        Debug.Log("New Customer Has Entered The Arena, first ingredient is: " + orderItems[ingredientInt]); // for testing
+        completed = new GameObject();
 
-        orderItems.Add("bun"); // end with a bun
-        orderItems.Add("completed"); // to track completeness
+        
+        ingredientInt = 0; // go the start of their order
+
+        completed.name = "completed";
+
+
+
+        items.Insert(0, bun); // start with a bun
+
+        items.Add(bun); // end with a bun
+
+        items.Add(completed); // to track completeness
+
     }
 
     // Update is called once per frame
@@ -53,7 +68,7 @@ public class CustomerControl : MonoBehaviour
         int randomNumberForIngredient = Random.Range(0, ingredients.Length); // a float for randomizing ingredients
         while (continueAdding == true) // while we sould keep adding
         {
-            orderItems.Add(ingredients[randomNumberForIngredient].name); // add an ingredient
+            items.Add(ingredients[randomNumberForIngredient]); // add an ingredient
             float testNumber = Random.Range(0.0f, 1.0f); // create a random number between 0 and 1
             // test whether random number is bigger than our test value squared (squaring weights it towards bigger numbers)
             if (testNumber <= randomNumberForContinuation * randomNumberForContinuation) { 

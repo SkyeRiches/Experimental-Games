@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gameplay : MonoBehaviour
 {
@@ -8,14 +9,33 @@ public class Gameplay : MonoBehaviour
     private float customerSpawnTimer = 100000f; // the spawn time between customers
     public GameObject customerPrefab; // a customer
     private GameObject currentCustomer; // the current (active) customer
-    private bool success; // tracks if an input is met with success
-
+    private int customersServed; // number of customers served
+    [SerializeField]
+    private Text nextIngredient;
+    private bool gameOver;
 
     void Start() {
         currentCustomer = Instantiate(customerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity); // create a custome
+        nextIngredient.text = "";
+        customersServed = 0;
+        gameOver = false;
     }
 
     private void Update() {
+
+        // update the text
+        if (!gameOver) {
+            nextIngredient.text = currentCustomer.GetComponent<CustomerControl>().currentIngredient.name + "\n Customers Served: " + customersServed;
+        }
+        else {
+            nextIngredient.text = "Game Over! \n Customers Served: \n" + customersServed;
+        }
+        
+        if (gameTimer < 0) {
+            gameOver = true;
+        }
+
+        // lower the timers
         gameTimer -= Time.deltaTime;
         customerSpawnTimer -= Time.deltaTime;
         if (gameTimer <= 0) {
@@ -30,38 +50,55 @@ public class Gameplay : MonoBehaviour
         }
 
         if (Input.anyKeyDown) { // if there is input, run the cook ingredient function
-            success = cookIngredient(currentCustomer);
+            cookIngredient(currentCustomer);
         }
 
-        if (currentCustomer.GetComponent<CustomerControl>().currentIngredient == "completed") {
+        // if the order has been completed move on to the next customer
+        if (currentCustomer.GetComponent<CustomerControl>().currentIngredient.name == "completed") {
+
+            currentCustomer.GetComponent<CustomerControl>().ingredientTracker = 0;
+            customersServed++;
             currentCustomer = Instantiate(customerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity); // if we get to the end of the customers order, bring in a new customer
+
+        }
+
+        // if the ingredient is bun, just 'add' the bun and move on to the next ingredient
+        if (currentCustomer.GetComponent<CustomerControl>().currentIngredient.tag == "bun") {
+
+            // add the bun
+            currentCustomer.GetComponent<CustomerControl>().ingredientTracker += 1;
+            Debug.Log("Reaches");
         }
     }
 
-    private bool cookIngredient(GameObject customer) {
-        bool isSuccessful = false; // if the wrong key is pressed set to false
+    private void cookIngredient(GameObject customer) {
 
-        switch (customer.GetComponent<CustomerControl>().currentIngredient) {
-            case "burger":
+
+        bool isSuccessful = false; // if the wrong key is pressed set to false
+        string tag = customer.GetComponent<CustomerControl>().currentIngredient.tag; // find the tag
+        switch (tag) {
+            case  "meat": 
                 if (Input.GetKeyDown(KeyCode.R)) {
                     isSuccessful = true; // if the R key is pressed, log success
+
                 }
+                
                 break;
 
-            case "bun":
-                if (Input.GetKeyDown(KeyCode.B)) {
+            case "vegetable" :
+                if (Input.GetKeyDown(KeyCode.Y)) {
                     isSuccessful = true; // if the T key is pressed, log success
+
                 }
                 break;
         }
         if (isSuccessful == true) {
             customer.GetComponent<CustomerControl>().ingredientTracker += 1; // move up the array to the next active ingredient
-            Debug.Log("New Ingredient Is: " + customer.GetComponent<CustomerControl>().currentIngredient); // for testing as there are no visuals
+
         }
         if (isSuccessful == false) {
             // failure mechanics
         }
-        return isSuccessful; // return whether the right or wrong key was pressed
     }
 }
 

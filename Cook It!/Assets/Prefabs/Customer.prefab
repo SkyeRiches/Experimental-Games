@@ -109,7 +109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3d02588ff793da4eab9a5891eb54629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  customerActive: 0
   ingredients:
-  - {fileID: 2488022091207828835, guid: b5c70682897aa1f4dab4f2f99947963d, type: 3}
+  - {fileID: 336528194886092458, guid: 95935faaa80f84f4395d382a14ecb9ed, type: 3}
   - {fileID: 5545212112902114560, guid: 635479ead63008b41becc8fd061c5424, type: 3}
+  - {fileID: 8574400575795206402, guid: 761a1c511ab055b40a4d7f7e5063e43c, type: 3}
+  bun: {fileID: 2488022091207828835, guid: b5c70682897aa1f4dab4f2f99947963d, type: 3}
   maxNumberOfIngredientsPerOrder: 8
