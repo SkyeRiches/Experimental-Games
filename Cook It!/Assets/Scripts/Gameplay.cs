@@ -49,7 +49,7 @@ public class Gameplay : MonoBehaviour
                 break;
 
             case "bun":
-                if (Input.GetKeyDown(KeyCode.T)) {
+                if (Input.GetKeyDown(KeyCode.B)) {
                     isSuccessful = true; // if the T key is pressed, log success
                 }
                 break;
