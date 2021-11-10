@@ -15,7 +15,7 @@ public class Gameplay : MonoBehaviour
     private bool gameOver;
 
     void Start() {
-        currentCustomer = Instantiate(customerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity); // create a custome
+        currentCustomer = Instantiate(customerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity); // create a customer
         nextIngredient.text = "";
         customersServed = 0;
         gameOver = false;
