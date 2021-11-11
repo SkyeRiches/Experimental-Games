@@ -5,20 +5,19 @@ using UnityEngine.UI;
 
 public class Gameplay : MonoBehaviour
 {
-    private float gameTimer = 30.0f; // the game timer
+    
     private float customerSpawnTimer = 100000f; // the spawn time between customers
     public GameObject customerPrefab; // a customer
     private GameObject currentCustomer; // the current (active) customer
     private int customersServed; // number of customers served
-    [SerializeField]
+    
     private Text nextIngredient;
-    private bool gameOver;
+
 
     void Start() {
         currentCustomer = Instantiate(customerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity); // create a customer
         nextIngredient.text = "";
         customersServed = 0;
-        gameOver = false;
     }
 
     private void Update() {
@@ -31,16 +30,7 @@ public class Gameplay : MonoBehaviour
             nextIngredient.text = "Game Over! \n Customers Served: \n" + customersServed;
         }
         
-        if (gameTimer < 0) {
-            gameOver = true;
-        }
-
-        // lower the timers
-        gameTimer -= Time.deltaTime;
         customerSpawnTimer -= Time.deltaTime;
-        if (gameTimer <= 0) {
-            // end the game
-        }
 
         if (customerSpawnTimer <= 0) {
             // spawn a customer and reset timer.

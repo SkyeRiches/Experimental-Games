@@ -46,8 +46,6 @@ public class CustomerControl : MonoBehaviour
 
         completed.name = "completed";
 
-
-
         items.Insert(0, bun); // start with a bun
 
         items.Add(bun); // end with a bun
