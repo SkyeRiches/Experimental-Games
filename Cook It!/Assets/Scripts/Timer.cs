@@ -9,7 +9,7 @@ public class Timer : MonoBehaviour
     private bool timeUp;
 
     [SerializeField]
-    private GameManager gameManager;
+    private GameplayManager gameManager;
 
     void Initialize(float a_timer)
     {
@@ -20,9 +20,9 @@ public class Timer : MonoBehaviour
     void Update()
     {
         // lower the timers
-        timer -= deltaTime;
+        timer -= Time.deltaTime;
 
-        if (timeUp <= 0)
+        if (timer <= 0)
         {
             timeUp = true;
             Finish();
