@@ -9,7 +9,6 @@ public class Ingredient : MonoBehaviour
 
     public string nextStep;
     protected bool isComplete;
-    [SerializeField]
     protected List<string> ingredientSteps = new List<string>();
     protected int stepInt = 0;
 

@@ -50,7 +50,7 @@ public class GameplayManager : MonoBehaviour
 
         // Publishing info
         game.step = currentStep;
-        game.ingredient = currentIngredient.name;
+        game.ingredient = currentIngredient;
 
 
 

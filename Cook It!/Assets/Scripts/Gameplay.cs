@@ -11,11 +11,21 @@ public class Gameplay : MonoBehaviour
     private GameObject customerPrefab; // a customer
     private int customersServed; // number of customers served
     private string currentState;
-    private string currentIngredient;
+
     [SerializeField]
     private Text nextIngredient;
     private CustomerControl customer;
     GameObject newCustomer;
+
+    private bool isCompleted;
+    private string completedText;
+
+    private Ingredient currentIngredient;
+
+    public Ingredient ingredient {
+        get { return currentIngredient; }
+        set { currentIngredient = value; }
+    }
 
 
     public string gameplayState {
@@ -28,10 +38,7 @@ public class Gameplay : MonoBehaviour
         set { customer = value; }
     }
 
-    public string ingredient {
-        get { return currentIngredient; }
-        set { currentIngredient = value; }
-    }
+
 
     public string step {
         get { return currentState; }
@@ -43,6 +50,7 @@ public class Gameplay : MonoBehaviour
         nextIngredient.text = "";
         customersServed = 0;
         customer = newCustomer.GetComponent<CustomerControl>();
+        isCompleted = false;
     }
 
     private void Update() {
@@ -53,7 +61,14 @@ public class Gameplay : MonoBehaviour
             customer.ingredientTracker += 1;
         }
 
-        nextIngredient.text = "Current Ingredient is: " + currentIngredient + "\n Current Step is: " + currentState;
+        if (isCompleted) {
+            completedText = "Completed!";
+        } else {
+            completedText = "NotCompleted :(";
+        }
+
+        nextIngredient.text = "Current Ingredient is: " + currentIngredient.name + "\n Current Step is: " + currentState
+            + "\nCompletion Status is: " + completedText;
 
         if (customer.currentIngredient.name == "completed") {
 
@@ -63,25 +78,34 @@ public class Gameplay : MonoBehaviour
     }
 
     public void cookIngredient(string currentState) {
-        switch (currentState) {
-            case "PeelLeaves":
-                PeelLeaves();
-                break;
-            case "Chop":
-                Chop();
-                break;
-            case "Tenderise":
-                Tenderise();
-                break;
-            case "Salt":
-                Salt();
-                break;
-            case "Cook":
-                Cook();
-                break;
-            case "Complete":
-                Complete();
-                break;
+
+        if ((Input.GetKeyDown(KeyCode.T))) {
+            if (isCompleted) {
+                customer.currentIngredient.stepTracker++;
+                isCompleted = false;
+            }
+            
+        } else {
+            switch (currentState) {
+                case "PeelLeaves":
+                    PeelLeaves();
+                    break;
+                case "Chop":
+                    Chop();
+                    break;
+                case "Tenderise":
+                    Tenderise((Meat)currentIngredient);
+                    break;
+                case "Salt":
+                    Salt();
+                    break;
+                case "Cook":
+                    Cook((Meat)currentIngredient);
+                    break;
+                case "Complete":
+                    Complete();
+                    break;
+            }
         }
     }
 
@@ -89,24 +113,23 @@ public class Gameplay : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Y)) {
             // do the animation
             // add whatever score you want
-            customer.currentIngredient.stepTracker++;
-            Debug.Log("Enters");
+            isCompleted = true;
+
         }
     }
 
     public void Chop() {
-        if (Input.GetKeyDown(KeyCode.T)) {
+        if (Input.GetKeyDown(KeyCode.R)) {
             // do the animation
             // add whatever score you want
-            customer.currentIngredient.stepTracker++;
-            Debug.Log("Enters" + customer.currentIngredient.stepTracker);
+            isCompleted = true;
         }
     }
 
-    public void Tenderise() {
+    public void Tenderise(Meat currentIngredient) {
         if (Input.GetKeyDown(KeyCode.R)) {
-            customer.currentIngredient.stepTracker++;
-            Debug.Log("Enters" + customer.currentIngredient.stepTracker);
+            currentIngredient.tenderiseStage++;
+            isCompleted = true;
         }
     }
 
@@ -114,21 +137,18 @@ public class Gameplay : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E)) {
             // do the animation
             // add whatever score you want
-            customer.currentIngredient.stepTracker++;
-            Debug.Log("Enters" + customer.currentIngredient.stepTracker);
+            isCompleted = true;
         }
     }
 
-    public void Cook() {
+    public void Cook(Meat currentIngredient) {
         if (Input.GetKeyDown(KeyCode.W)) {
-            customer.currentIngredient.stepTracker++;
-            Debug.Log("Enters" + customer.currentIngredient.stepTracker);
+            isCompleted = true;
         }
     }
 
     public void Complete() {
         customer.ingredientTracker++; // move on to the next ingredient
-        Debug.Log("Enters" + customer.currentIngredient.stepTracker);
     }
 }
 

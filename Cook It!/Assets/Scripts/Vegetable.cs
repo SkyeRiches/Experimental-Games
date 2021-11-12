@@ -25,8 +25,7 @@ public class Vegetable : Ingredient
     // Update is called once per frame
     public override void Update() {
         if (ingredientSteps.Count != 0) {
-            Debug.Log("int is: " + stepInt);
-            Debug.Log("Length is: " + ingredientSteps.Count);
+            
             nextStep = ingredientSteps[stepInt];
         }
     }
@@ -36,11 +35,11 @@ public class Vegetable : Ingredient
 
         if (hasLeaves) {
             ingredientSteps.Add("PeelLeaves");
-            Debug.Log("Adds");
+
         }
         if (needsChopping) {
             ingredientSteps.Add("Chop");
-            Debug.Log("Adds");
+
         }
         ingredientSteps.Add("Complete");
         // Debug.Log("Steps: " + ingredientSteps);

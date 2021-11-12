@@ -12,7 +12,7 @@ public class Meat : Ingredient {
     private int temp2Bucket;
 
     private float tenderise;
-    private int tenderiseStage;
+    public int tenderiseStage;
 
     private float salt;
     private int saltStage;
@@ -38,8 +38,7 @@ public class Meat : Ingredient {
         saltStage = (int)salt;
 
         if (ingredientSteps.Count != 0) {
-            Debug.Log("int is: " + stepInt);
-            Debug.Log("Length is: " + ingredientSteps.Count);
+            
             nextStep = ingredientSteps[stepInt];
         }
     }
@@ -51,10 +50,7 @@ public class Meat : Ingredient {
         ingredientSteps.Add("Salt");
         ingredientSteps.Add("Cook");
         ingredientSteps.Add("Complete");
-        Debug.Log("Adds");
-        Debug.Log("Adds");
-        Debug.Log("Adds");
-        Debug.Log("Adds");
+
     }
 
 }
