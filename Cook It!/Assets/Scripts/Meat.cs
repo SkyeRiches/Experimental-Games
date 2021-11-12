@@ -19,28 +19,42 @@ public class Meat : Ingredient {
 
     private bool stepIsComplete;
 
+    private void Awake() {
+
+        // Generate();
+
+    }
+
     // Start is called before the first frame update
     void Start() {
-        GenerateMeat();
+
     }
 
     // Update is called once per frame
-    void Update() {
+    public override void Update() {
         temp1Bucket = (int)sideTemp1;
         temp2Bucket = (int)sideTemp2;
         tenderiseStage = (int)tenderise;
         saltStage = (int)salt;
 
-        if (stepIsComplete) {
-
+        if (ingredientSteps.Count != 0) {
+            Debug.Log("int is: " + stepInt);
+            Debug.Log("Length is: " + ingredientSteps.Count);
+            nextStep = ingredientSteps[stepInt];
         }
     }
 
-    void GenerateMeat() {
+    public override void Generate() {
+        stepInt = 0;
+
         ingredientSteps.Add("Tenderise");
         ingredientSteps.Add("Salt");
         ingredientSteps.Add("Cook");
         ingredientSteps.Add("Complete");
+        Debug.Log("Adds");
+        Debug.Log("Adds");
+        Debug.Log("Adds");
+        Debug.Log("Adds");
     }
 
 }

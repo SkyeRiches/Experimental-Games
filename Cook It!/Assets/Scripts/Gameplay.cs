@@ -7,88 +7,128 @@ public class Gameplay : MonoBehaviour
 {
     
     private float customerSpawnTimer = 100000f; // the spawn time between customers
-    public GameObject customerPrefab; // a customer
-    private GameObject currentCustomer; // the current (active) customer
+    [SerializeField]
+    private GameObject customerPrefab; // a customer
     private int customersServed; // number of customers served
-    
+    private string currentState;
+    private string currentIngredient;
+    [SerializeField]
     private Text nextIngredient;
+    private CustomerControl customer;
+    GameObject newCustomer;
 
+
+    public string gameplayState {
+        get { return currentState; }
+        set { currentState = value; }
+    }
+
+    public CustomerControl currentCustomer {
+        get { return customer; }
+        set { customer = value; }
+    }
+
+    public string ingredient {
+        get { return currentIngredient; }
+        set { currentIngredient = value; }
+    }
+
+    public string step {
+        get { return currentState; }
+        set { currentState = value; }
+    }
 
     void Start() {
-        currentCustomer = Instantiate(customerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity); // create a customer
+        newCustomer = Instantiate(customerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity); // create a customer
         nextIngredient.text = "";
         customersServed = 0;
+        customer = newCustomer.GetComponent<CustomerControl>();
     }
 
     private void Update() {
 
-        // update the text
-        if (!gameOver) {
-            nextIngredient.text = currentCustomer.GetComponent<CustomerControl>().currentIngredient.name + "\n Customers Served: " + customersServed;
-        }
-        else {
-            nextIngredient.text = "Game Over! \n Customers Served: \n" + customersServed;
-        }
-        
-        customerSpawnTimer -= Time.deltaTime;
-
-        if (customerSpawnTimer <= 0) {
-            // spawn a customer and reset timer.
-            currentCustomer = Instantiate(customerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity); // if the timer runs out, replace the current customer
-
-            customerSpawnTimer = 1000000; // for the purposes of testing, i have a new customer created when the old one runs out
-        }
-
-        if (Input.anyKeyDown) { // if there is input, run the cook ingredient function
-            cookIngredient(currentCustomer);
-        }
-
-        // if the order has been completed move on to the next customer
-        if (currentCustomer.GetComponent<CustomerControl>().currentIngredient.name == "completed") {
-
-            currentCustomer.GetComponent<CustomerControl>().ingredientTracker = 0;
-            customersServed++;
-            currentCustomer = Instantiate(customerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity); // if we get to the end of the customers order, bring in a new customer
-
-        }
-
         // if the ingredient is bun, just 'add' the bun and move on to the next ingredient
-        if (currentCustomer.GetComponent<CustomerControl>().currentIngredient.tag == "bun") {
-
+        if (customer.currentIngredient.tag == "bun") {
             // add the bun
-            currentCustomer.GetComponent<CustomerControl>().ingredientTracker += 1;
-            Debug.Log("Reaches");
+            customer.ingredientTracker += 1;
+        }
+
+        nextIngredient.text = "Current Ingredient is: " + currentIngredient + "\n Current Step is: " + currentState;
+
+        if (customer.currentIngredient.name == "completed") {
+
+            newCustomer = Instantiate(customerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity);
+            customer = newCustomer.GetComponent<CustomerControl>();
         }
     }
 
-    private void cookIngredient(GameObject customer) {
-
-
-        bool isSuccessful = false; // if the wrong key is pressed set to false
-        string tag = customer.GetComponent<CustomerControl>().currentIngredient.tag; // find the tag
-        switch (tag) {
-            case  "meat": 
-                if (Input.GetKeyDown(KeyCode.R)) {
-                    isSuccessful = true; // if the R key is pressed, log success
-
-                }
-                
+    public void cookIngredient(string currentState) {
+        switch (currentState) {
+            case "PeelLeaves":
+                PeelLeaves();
                 break;
-
-            case "vegetable" :
-                if (Input.GetKeyDown(KeyCode.Y)) {
-                    isSuccessful = true; // if the T key is pressed, log success
-
-                }
+            case "Chop":
+                Chop();
+                break;
+            case "Tenderise":
+                Tenderise();
+                break;
+            case "Salt":
+                Salt();
+                break;
+            case "Cook":
+                Cook();
+                break;
+            case "Complete":
+                Complete();
                 break;
         }
-        if (isSuccessful == true) {
-            customer.GetComponent<CustomerControl>().ingredientTracker += 1; // move up the array to the next active ingredient
+    }
 
+    public void PeelLeaves() {
+        if (Input.GetKeyDown(KeyCode.Y)) {
+            // do the animation
+            // add whatever score you want
+            customer.currentIngredient.stepTracker++;
+            Debug.Log("Enters");
         }
-        if (isSuccessful == false) {
-            // failure mechanics
+    }
+
+    public void Chop() {
+        if (Input.GetKeyDown(KeyCode.T)) {
+            // do the animation
+            // add whatever score you want
+            customer.currentIngredient.stepTracker++;
+            Debug.Log("Enters" + customer.currentIngredient.stepTracker);
         }
+    }
+
+    public void Tenderise() {
+        if (Input.GetKeyDown(KeyCode.R)) {
+            customer.currentIngredient.stepTracker++;
+            Debug.Log("Enters" + customer.currentIngredient.stepTracker);
+        }
+    }
+
+    public void Salt() {
+        if (Input.GetKeyDown(KeyCode.E)) {
+            // do the animation
+            // add whatever score you want
+            customer.currentIngredient.stepTracker++;
+            Debug.Log("Enters" + customer.currentIngredient.stepTracker);
+        }
+    }
+
+    public void Cook() {
+        if (Input.GetKeyDown(KeyCode.W)) {
+            customer.currentIngredient.stepTracker++;
+            Debug.Log("Enters" + customer.currentIngredient.stepTracker);
+        }
+    }
+
+    public void Complete() {
+        customer.ingredientTracker++; // move on to the next ingredient
+        Debug.Log("Enters" + customer.currentIngredient.stepTracker);
     }
 }
 

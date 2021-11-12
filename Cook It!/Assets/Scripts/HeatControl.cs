@@ -21,6 +21,12 @@ public class HeatControl : MonoBehaviour
     private float secondsToHeat; // exposed to the editor - how long it takes to heat after we flick
     private float floatTimeForHeat; // a float used for a real version of the above ^^ 
     // Start is called before the first frame update
+
+    public float publicHeat {
+        get { return currentHeat; }
+        set { currentHeat = value; }
+    }
+
     void Start()
     {
         // set initial values

@@ -11,26 +11,39 @@ public class Vegetable : Ingredient
     [SerializeField]
     private bool needsChopping;
 
-    
+    private void Awake() {
+
+        // Generate();
+
+    }
 
     // Start is called before the first frame update
     void Start() {
-        GenerateVegetable();
+
     }
 
     // Update is called once per frame
-    void Update() {
-        
+    public override void Update() {
+        if (ingredientSteps.Count != 0) {
+            Debug.Log("int is: " + stepInt);
+            Debug.Log("Length is: " + ingredientSteps.Count);
+            nextStep = ingredientSteps[stepInt];
+        }
     }
 
-    void GenerateVegetable() {
+    public override void Generate() {
+        stepInt = 0;
+
         if (hasLeaves) {
             ingredientSteps.Add("PeelLeaves");
-
+            Debug.Log("Adds");
         }
         if (needsChopping) {
             ingredientSteps.Add("Chop");
+            Debug.Log("Adds");
         }
+        ingredientSteps.Add("Complete");
+        // Debug.Log("Steps: " + ingredientSteps);
     }
 
 }
