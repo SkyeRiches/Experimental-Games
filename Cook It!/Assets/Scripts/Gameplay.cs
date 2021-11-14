@@ -8,7 +8,7 @@ public class Gameplay : MonoBehaviour
     
     [SerializeField]
     private GameObject customerPrefab; // a customer
-    private int customersServed; // number of customers served
+    private int customersServed2; // number of customers served
     private string currentState;
 
     [SerializeField]
@@ -20,6 +20,11 @@ public class Gameplay : MonoBehaviour
     private string completedText;
 
     private Ingredient currentIngredient;
+
+    public int customersServed {
+        get { return customersServed2; }
+        set { customersServed2 = value; }
+    }
 
     public Ingredient ingredient 
     {
@@ -33,7 +38,7 @@ public class Gameplay : MonoBehaviour
         set { currentState = value; }
     }
 
-    public CustomerControl currentCustomer 
+    public CustomerControl gameplayCustomer 
     {
         get { return customer; }
         set { customer = value; }
@@ -47,24 +52,18 @@ public class Gameplay : MonoBehaviour
 
     void Start() 
     {
-        newCustomer = Instantiate(customerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity); // create a customer
+        // newCustomer = Instantiate(customerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity); // create a customer
         nextIngredient.text = "";
         customersServed = 0;
-        customer = newCustomer.GetComponent<CustomerControl>();
+        // customer = newCustomer.GetComponent<CustomerControl>();
         isCompleted = false;
     }
 
-    private void Update() 
+    void Update() 
     {
         if (customer != null)
         {
             // if the ingredient is bun, just 'add' the bun and move on to the next ingredient
-            if (customer.currentIngredient.tag == "bun")
-            {
-                // add the bun
-                customer.ingredientTracker += 1;
-            }
-
             // these needs to change to being part of a ui manager
             if (isCompleted)
             {
@@ -75,17 +74,11 @@ public class Gameplay : MonoBehaviour
                 completedText = "NotCompleted :(";
             }
 
-            nextIngredient.text = "Current Ingredient is: " + currentIngredient.name + "\n Current Step is: " + currentState + "\nCompletion Status is: " + completedText;
+            nextIngredient.text = "Current Ingredient is: " + currentIngredient.name + "\n Current Step is: " + currentState + "\nCompletion Status is: " + completedText + "\nCustomers Served: " + customersServed2;
+        } else {
+            Debug.Log("customer is null!");
         }
 
-
-        Debug.Log(customer.isActiveCustomer);
-
-        // check to see if customer is done
-        if (!customer.isActiveCustomer)
-        {
-            NextCustomer();
-        }
     }
 
     public void cookIngredient(string currentState) 
@@ -97,6 +90,9 @@ public class Gameplay : MonoBehaviour
             {
                 customer.currentIngredient.stepTracker++;
                 isCompleted = false;
+                if(currentState == "Bun Step") {
+                    Debug.Log("bun found");
+                }
             }
             
         } 
@@ -118,6 +114,9 @@ public class Gameplay : MonoBehaviour
                     break;
                 case "Cook":
                     Cook((Meat)currentIngredient);
+                    break;
+                case "Bun Step":
+                    BunStep();
                     break;
                 case "Complete":
                     Complete();
@@ -173,17 +172,13 @@ public class Gameplay : MonoBehaviour
         }
     }
 
+    public void BunStep() {
+        isCompleted = true;
+    }
+
     public void Complete() 
     {
         customer.ingredientTracker++; // move on to the next ingredient
-    }
-
-    private void NextCustomer()
-    {
-        Debug.Log("next customer");
-        Destroy(customer.gameObject);
-        newCustomer = Instantiate(customerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity);
-        customer = newCustomer.GetComponent<CustomerControl>();
     }
 }
 

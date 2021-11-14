@@ -12,7 +12,7 @@ public class Timer : MonoBehaviour
     [SerializeField]
     private GameplayManager gameManager;
 
-    void Initialize(float a_timer)
+    public void Initialize(float a_timer)
     {
         timeBegin = true;
         timer = a_timer;
@@ -35,7 +35,7 @@ public class Timer : MonoBehaviour
 
     }
     
-    bool Finish()
+    public bool Finish()
     {
         return true;
     }

@@ -50,7 +50,6 @@ public class Meat : Ingredient {
         ingredientSteps.Add("Salt");
         ingredientSteps.Add("Cook");
         ingredientSteps.Add("Complete");
-
     }
 
 }

@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventSystem: {fileID: 1357516948}
+  customerPrefab: {fileID: 6381346516587811809, guid: 669b2ffec2fb1d44cbbac52189e0f1ea, type: 3}
 --- !u!4 &119568156
 Transform:
   m_ObjectHideFlags: 0

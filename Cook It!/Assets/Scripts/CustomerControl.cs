@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CustomerControl : MonoBehaviour 
 {
@@ -14,10 +15,18 @@ public class CustomerControl : MonoBehaviour
     [SerializeField]
     private int maxNumberOfIngredientsPerOrder = 8; // maximum ingredients per order (+2 for buns on either side)
 
+    private Text text;
+    private string orderString;
+
     private List<GameObject> items = new List<GameObject>();
     [SerializeField]
     private Ingredient ingredient;
+    [SerializeField]
     private GameObject completed;
+
+    private bool textCreated = true;
+
+    
 
     // getters and setters
     public Ingredient currentIngredient 
@@ -40,28 +49,31 @@ public class CustomerControl : MonoBehaviour
 
     private void Awake() 
     {
+        ingredientInt = 0;
         GenerateCustomer();
-        ingredientInt = 0; // this has to be called before start, or otherwise it will remain as
-        // a high number from the previous customer and immediately be asked to call from an empty list
-        ingredient = items[ingredientInt].GetComponent<Ingredient>();
+         // this has to be called before start, or otherwise it will remain as
+                           // a high number from the previous customer and immediately be asked to call from an empty list
 
+        ingredient = items[ingredientInt].GetComponent<Ingredient>();
     }
 
-    void Start() 
-    {
-        completed = new GameObject();
+    void Start() {
+
 
         customerActive = true;
 
+
+
         ingredientInt = 0; // go the start of their order
 
-        completed.name = "completed";
 
-        items.Insert(0, bun); // start with a bun
+        // items.Insert(0, bun); // start with a bun
 
-        items.Add(bun); // end with a bun
+        // items.Add(bun); // end with a bun
 
-        items.Add(completed); // to track completeness
+        // items.Add(completed); // to track completeness
+
+
 
     }
 
@@ -78,6 +90,9 @@ public class CustomerControl : MonoBehaviour
         {
             customerActive = false;
         }
+
+
+
         
     }
 
@@ -86,6 +101,12 @@ public class CustomerControl : MonoBehaviour
         bool continueAdding = true; // whether we should keep adding
         float randomNumberForContinuation = (1/(float)maxNumberOfIngredientsPerOrder); // a float for probability
         int randomNumberForIngredient = Random.Range(0, ingredients.Length); // a float for randomizing ingredients
+
+        GameObject bunToAdd = bun;
+
+        bunToAdd.GetComponent<Ingredient>().Generate();
+
+        items.Add(bunToAdd);
 
         while (continueAdding == true) // while we sould keep adding
         {
@@ -106,5 +127,11 @@ public class CustomerControl : MonoBehaviour
             }
 
         }
+
+
+        completed.name = "completed";
+        items.Add(bunToAdd);
+
+        items.Add(completed);
     }
 }
