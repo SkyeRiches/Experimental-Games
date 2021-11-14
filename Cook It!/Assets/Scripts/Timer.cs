@@ -9,13 +9,11 @@ public class Timer : MonoBehaviour
     private bool timeUp;
     private bool timeBegin;
 
-    [SerializeField]
-    private GameplayManager gameManager;
-
-    public void Initialize(float a_timer)
+    public void Start()
     {
         timeBegin = true;
-        timer = a_timer;
+        timeUp = false;
+        timer = 30;
     }
 
     // Update is called once per frame
@@ -35,8 +33,9 @@ public class Timer : MonoBehaviour
 
     }
     
-    public bool Finish()
+    public void Finish()
     {
-        return true;
+        // End of round system will get triggered here
+        Debug.Log(timeUp);
     }
 }

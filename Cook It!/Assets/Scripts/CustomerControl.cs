@@ -26,8 +26,6 @@ public class CustomerControl : MonoBehaviour
 
     private bool textCreated = true;
 
-    
-
     // getters and setters
     public Ingredient currentIngredient 
     {
@@ -51,30 +49,17 @@ public class CustomerControl : MonoBehaviour
     {
         ingredientInt = 0;
         GenerateCustomer();
-         // this has to be called before start, or otherwise it will remain as
-                           // a high number from the previous customer and immediately be asked to call from an empty list
+        // this has to be called before start, or otherwise it will remain as
+        // a high number from the previous customer and immediately be asked to call from an empty list
 
         ingredient = items[ingredientInt].GetComponent<Ingredient>();
     }
 
-    void Start() {
-
-
+    void Start() 
+    {
         customerActive = true;
 
-
-
         ingredientInt = 0; // go the start of their order
-
-
-        // items.Insert(0, bun); // start with a bun
-
-        // items.Add(bun); // end with a bun
-
-        // items.Add(completed); // to track completeness
-
-
-
     }
 
     // Update is called once per frame
@@ -90,10 +75,6 @@ public class CustomerControl : MonoBehaviour
         {
             customerActive = false;
         }
-
-
-
-        
     }
 
     void GenerateCustomer() 

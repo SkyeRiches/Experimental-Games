@@ -21,6 +21,7 @@ public class Gameplay : MonoBehaviour
 
     private Ingredient currentIngredient;
 
+    #region Getters/Setters
     public int customersServed {
         get { return customersServed2; }
         set { customersServed2 = value; }
@@ -49,6 +50,7 @@ public class Gameplay : MonoBehaviour
         get { return currentState; }
         set { currentState = value; }
     }
+    #endregion
 
     void Start() 
     {
@@ -75,7 +77,9 @@ public class Gameplay : MonoBehaviour
             }
 
             nextIngredient.text = "Current Ingredient is: " + currentIngredient.name + "\n Current Step is: " + currentState + "\nCompletion Status is: " + completedText + "\nCustomers Served: " + customersServed2;
-        } else {
+        } 
+        else 
+        {
             Debug.Log("customer is null!");
         }
 
@@ -181,7 +185,3 @@ public class Gameplay : MonoBehaviour
         customer.ingredientTracker++; // move on to the next ingredient
     }
 }
-
-
-
-

@@ -11,21 +11,25 @@ public class GameplayManager : MonoBehaviour
     private string currentStep;
     private Ingredient currentIngredient;
 
-
     // customer management
     [SerializeField]
     private GameObject customerPrefab;
-    private List<GameObject> customersInScene;
     private float customerTimer;
     private GameObject currentCustomer;
     private int totalCustomers;
 
-    
-    
-    
-
     HeatControl heatControlSystem;
     Gameplay game;
+
+    private bool isReady;
+
+    #region Getters/Setters
+    public bool readyOrNot
+    {
+        get { return isReady; }
+        set { isReady = value; }
+    }
+
 
     public GameObject customer {
         get { return currentCustomer; }
@@ -49,16 +53,13 @@ public class GameplayManager : MonoBehaviour
         get { return currentIngredient; }
         set { currentIngredient = value; }
     }
+    #endregion
 
-    private void Awake() {
-        customersInScene = new List<GameObject>();
-
-    }
+    #region Functions
 
     // Start is called before the first frame update
     void Start()
     {
-        SpawnNewCustomer();
         heatControlSystem = eventSystem.GetComponent<HeatControl>();
         game = eventSystem.GetComponent<Gameplay>();
         customerTimer = 5.0f;
@@ -72,58 +73,51 @@ public class GameplayManager : MonoBehaviour
 
         if(customerTimer <= 0.0f) {
 
-            customerTimer = 15.0f;
+            customerTimer = 10.0f;
             SpawnNewCustomer();
 
         }
 
-        currentCustomer = customersInScene[0];
+        if (isReady)
+        {
+            game.gameplayCustomer = currentCustomer.GetComponent<CustomerControl>();
 
-        foreach (GameObject customer in customersInScene) {
-            if (customer == customersInScene[0]) {
-                customer.GetComponent<CustomerControl>().isActiveCustomer = true;
-            } else {
-                customer.GetComponent<CustomerControl>().isActiveCustomer = false;
+            currentHeat = heatControlSystem.publicHeat;
+            currentIngredient = game.gameplayCustomer.currentIngredient;
+            currentStep = game.gameplayCustomer.currentIngredient.nextStep;
+
+            // Publishing info
+            game.step = currentStep;
+            game.ingredient = currentIngredient;
+
+            if (game.ingredient.name == "completed")
+            {
+                Destroy(currentCustomer);
+                ReadjustCustomers();
+                game.customersServed++;
             }
+
+            // Game Loop
+            game.cookIngredient(currentStep);
+            Debug.Log(currentCustomer);
         }
 
-        game.gameplayCustomer = currentCustomer.GetComponent<CustomerControl>();
-
-        currentHeat = heatControlSystem.publicHeat;
-        currentIngredient = game.gameplayCustomer.currentIngredient;
-        currentStep = game.gameplayCustomer.currentIngredient.nextStep;
-
-        // Publishing info
-        game.step = currentStep;
-        game.ingredient = currentIngredient;
-        
-        if (game.ingredient.name == "completed") {
-            customersInScene.Remove(currentCustomer);
-
-            Destroy(currentCustomer);
-            ReadjustCustomers();
-            game.customersServed++;
-            currentCustomer = customersInScene[0];
-        }
-
-
-        // Game Loop
-        game.cookIngredient(currentStep);
-        Debug.Log(currentCustomer);
     }
 
     void SpawnNewCustomer() {
         GameObject newCustomer = Instantiate(customerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity); // create a customer
+        newCustomer.transform.SetParent(gameObject.transform);
         totalCustomers++;
         newCustomer.name = "Customer" + totalCustomers;
-        customersInScene.Add(newCustomer);
         ReadjustCustomers();
     }
 
     void ReadjustCustomers() {
-        for (int i = 0; i < customersInScene.Count; i++) {
+        for (int i = 0; i < gameObject.transform.childCount; i++) {
             // line the customers up nicely
-            customersInScene[i].transform.position = new Vector3(0, 0, 2.5f * i);
+            gameObject.transform.GetChild(i).transform.position = new Vector3(1f * i, 0, 0f);
         }
     }
 }
+
+#endregion
