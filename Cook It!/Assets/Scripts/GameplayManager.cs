@@ -14,22 +14,23 @@ public class GameplayManager : MonoBehaviour
     HeatControl heatControlSystem;
     Gameplay game;
 
-    public float gameheat {
+    public float gameheat 
+    {
         get { return currentHeat; }
         set { currentHeat = value; }
     }
 
-    public string gameState {
+    public string gameState 
+    {
         get { return currentStep; }
         set { currentStep = value; }
     }
 
-    public Ingredient gameIngredient {
+    public Ingredient gameIngredient 
+    {
         get { return currentIngredient; }
         set { currentIngredient = value; }
     }
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -47,12 +48,9 @@ public class GameplayManager : MonoBehaviour
         currentIngredient = game.currentCustomer.currentIngredient;
         currentStep = game.currentCustomer.currentIngredient.nextStep;
 
-
         // Publishing info
         game.step = currentStep;
         game.ingredient = currentIngredient;
-
-
 
         // Game Loop
         game.cookIngredient(currentStep);

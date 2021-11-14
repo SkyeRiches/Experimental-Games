@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomerControl : MonoBehaviour {
+public class CustomerControl : MonoBehaviour 
+{
     [SerializeField]
     private bool customerActive; // whether the customer is active
     private int ingredientInt; // which ingredient of the order is the player on
@@ -19,22 +20,26 @@ public class CustomerControl : MonoBehaviour {
     private GameObject completed;
 
     // getters and setters
-    public Ingredient currentIngredient {
+    public Ingredient currentIngredient 
+    {
         get { return ingredient; }
         set { ingredient = value; }
     }
 
-    public bool isActiveCustomer {
+    public bool isActiveCustomer
+    {
         get { return customerActive; }
         set { customerActive = value; }
     }
 
-    public int ingredientTracker {
+    public int ingredientTracker 
+    {
         get { return ingredientInt; }
         set { ingredientInt = value; }
     }
 
-    private void Awake() {
+    private void Awake() 
+    {
         GenerateCustomer();
         ingredientInt = 0; // this has to be called before start, or otherwise it will remain as
         // a high number from the previous customer and immediately be asked to call from an empty list
@@ -42,10 +47,11 @@ public class CustomerControl : MonoBehaviour {
 
     }
 
-    void Start() {
+    void Start() 
+    {
         completed = new GameObject();
 
-
+        customerActive = true;
 
         ingredientInt = 0; // go the start of their order
 
@@ -63,25 +69,38 @@ public class CustomerControl : MonoBehaviour {
     void Update()
     {
         ingredient = items[ingredientInt].GetComponent<Ingredient>();
-        ingredient.Update();
-        Debug.Log("Update");
+
+        if (ingredient != null)
+        {
+            ingredient.Update();
+        }
+        else
+        {
+            customerActive = false;
+        }
+        
     }
 
-    void GenerateCustomer() {
+    void GenerateCustomer() 
+    {
         bool continueAdding = true; // whether we should keep adding
         float randomNumberForContinuation = (1/(float)maxNumberOfIngredientsPerOrder); // a float for probability
         int randomNumberForIngredient = Random.Range(0, ingredients.Length); // a float for randomizing ingredients
+
         while (continueAdding == true) // while we sould keep adding
         {
             GameObject objectToAdd = ingredients[randomNumberForIngredient];
             objectToAdd.GetComponent<Ingredient>().Generate();
             items.Add(objectToAdd); // add an ingredient
             float testNumber = Random.Range(0.0f, 1.0f); // create a random number between 0 and 1
+
             // test whether random number is bigger than our test value squared (squaring weights it towards bigger numbers)
-            if (testNumber <= randomNumberForContinuation * randomNumberForContinuation) { 
+            if (testNumber <= randomNumberForContinuation * randomNumberForContinuation) 
+            { 
                 continueAdding = false; // stop adding
             }
-            else {
+            else 
+            {
                 randomNumberForContinuation += (1 / (float)maxNumberOfIngredientsPerOrder); // increase our test number
                 randomNumberForIngredient = Random.Range(0, ingredients.Length); // choose a new test value
             }
