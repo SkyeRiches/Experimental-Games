@@ -58,6 +58,9 @@ public class ScoreCalculator : MonoBehaviour
         return finalScore;
     }
 
+
+
+    // The following code is going to go unused for now, we will use it time permitting - Skye
     public float CustomerSatisfaction(float[] a_errorMargins, float a_patience)
     {
         customerSatisfaction = 0;

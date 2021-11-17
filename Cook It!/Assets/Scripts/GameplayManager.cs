@@ -21,6 +21,9 @@ public class GameplayManager : MonoBehaviour
     HeatControl heatControlSystem;
     Gameplay game;
 
+    private float orderTime;
+    private float customerPatience = 100; // THis is placeholder for now
+
     private bool isReady;
 
     #region Getters/Setters
@@ -75,11 +78,16 @@ public class GameplayManager : MonoBehaviour
 
             customerTimer = 10.0f;
             SpawnNewCustomer();
-
         }
+
+        // this is placeholder for how long they have waited for their order
+        customerPatience -= Time.deltaTime;
 
         if (isReady)
         {
+            orderTime += Time.deltaTime; // how long the order has taken to be made
+
+
             game.gameplayCustomer = currentCustomer.GetComponent<CustomerControl>();
 
             currentHeat = heatControlSystem.publicHeat;
@@ -92,14 +100,20 @@ public class GameplayManager : MonoBehaviour
 
             if (game.ingredient.name == "completed")
             {
+                gameObject.GetComponent<ScoreManager>().CalculateOrderScore(orderTime, customerPatience);
+                orderTime = 0;
+                // This is placeholder, we need a proper customer patience system, im using this purely for testing values lol - skylar
+                customerPatience = 100;
+
                 Destroy(currentCustomer);
                 ReadjustCustomers();
                 game.customersServed++;
+                gameObject.GetComponent<CustomerSelect>().enabled = true;
+
             }
 
             // Game Loop
             game.cookIngredient(currentStep);
-            Debug.Log(currentCustomer);
         }
 
     }

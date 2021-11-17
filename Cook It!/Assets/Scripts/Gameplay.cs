@@ -21,6 +21,9 @@ public class Gameplay : MonoBehaviour
 
     private Ingredient currentIngredient;
 
+    [SerializeField]
+    private GameObject gameplayManager;
+
     #region Getters/Setters
     public int customersServed {
         get { return customersServed2; }
@@ -90,13 +93,11 @@ public class Gameplay : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.T))) 
         {
-            if (isCompleted) 
+            customer.currentIngredient.stepTracker++;
+            isCompleted = false;
+            if(currentState == "Bun Step") 
             {
-                customer.currentIngredient.stepTracker++;
-                isCompleted = false;
-                if(currentState == "Bun Step") {
-                    Debug.Log("bun found");
-                }
+                Debug.Log("bun found");
             }
             
         } 
@@ -136,6 +137,10 @@ public class Gameplay : MonoBehaviour
             // do the animation
             // add whatever score you want
             isCompleted = true;
+
+            // Parameters = base score, error margin
+            // current values are placeholder for now
+            gameplayManager.GetComponent<ScoreManager>().CalculateIngredientScore(100, 0);
         }
     }
 
@@ -146,6 +151,10 @@ public class Gameplay : MonoBehaviour
             // do the animation
             // add whatever score you want
             isCompleted = true;
+
+            // Parameters = base score, error margin
+            // current values are placeholder for now
+            gameplayManager.GetComponent<ScoreManager>().CalculateIngredientScore(100, 0);
         }
     }
 
@@ -155,6 +164,10 @@ public class Gameplay : MonoBehaviour
         {
             currentIngredient.tenderiseStage++;
             isCompleted = true;
+
+            // Parameters = base score, error margin
+            // current values are placeholder for now
+            gameplayManager.GetComponent<ScoreManager>().CalculateIngredientScore(100, 0);
         }
     }
 
@@ -165,6 +178,10 @@ public class Gameplay : MonoBehaviour
             // do the animation
             // add whatever score you want
             isCompleted = true;
+
+            // Parameters = base score, error margin
+            // current values are placeholder for now
+            gameplayManager.GetComponent<ScoreManager>().CalculateIngredientScore(100, 0);
         }
     }
 
@@ -173,6 +190,10 @@ public class Gameplay : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W)) 
         {
             isCompleted = true;
+
+            // Parameters = base score, error margin
+            // current values are placeholder for now
+            gameplayManager.GetComponent<ScoreManager>().CalculateIngredientScore(100, 0);
         }
     }
 
