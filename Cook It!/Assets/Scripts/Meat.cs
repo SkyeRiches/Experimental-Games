@@ -11,13 +11,30 @@ public class Meat : Ingredient {
     private float sideTemp2;
     private int temp2Bucket;
 
-    private float tenderise;
-    public int tenderiseStage;
+    private int tenderise;
+
 
     private float salt;
     private int saltStage;
 
     private bool stepIsComplete;
+
+    public float cookingSideOne {
+        get { return sideTemp1; }
+        set { sideTemp1 = value; }
+    }
+
+    public float cookingSideTwo{
+        get { return sideTemp2; }
+        set { sideTemp2 = value; }
+        }
+        
+
+    public int tenderiseStage {
+        get { return tenderise; }
+        set { tenderise = value; }
+    }
+
 
     private void Awake() {
 

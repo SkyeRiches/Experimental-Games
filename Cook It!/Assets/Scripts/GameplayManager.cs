@@ -39,7 +39,7 @@ public class GameplayManager : MonoBehaviour
         set { currentCustomer = value; }
     }
 
-    public float gameheat 
+    public float gameHeat 
     {
         get { return currentHeat; }
         set { currentHeat = value; }
@@ -97,6 +97,9 @@ public class GameplayManager : MonoBehaviour
             // Publishing info
             game.step = currentStep;
             game.ingredient = currentIngredient;
+
+
+            Debug.Log("Test");
 
             if (game.ingredient.name == "completed")
             {

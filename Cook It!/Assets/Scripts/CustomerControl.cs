@@ -89,7 +89,7 @@ public class CustomerControl : MonoBehaviour
 
         items.Add(bunToAdd);
 
-        while (continueAdding == true) // while we sould keep adding
+        while (continueAdding == true) // while we should keep adding
         {
             GameObject objectToAdd = ingredients[randomNumberForIngredient];
             objectToAdd.GetComponent<Ingredient>().Generate();

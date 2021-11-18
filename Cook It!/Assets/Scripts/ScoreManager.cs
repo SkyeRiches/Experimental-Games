@@ -42,7 +42,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(arrayPos);
+
     }
 
     public void CalculateIngredientScore(float a_baseScore, float a_errorMargin)

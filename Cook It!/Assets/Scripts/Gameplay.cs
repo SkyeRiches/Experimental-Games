@@ -24,6 +24,8 @@ public class Gameplay : MonoBehaviour
     [SerializeField]
     private GameObject gameplayManager;
 
+    private bool meatOnSideOne;
+
     #region Getters/Setters
     public int customersServed {
         get { return customersServed2; }
@@ -83,7 +85,7 @@ public class Gameplay : MonoBehaviour
         } 
         else 
         {
-            Debug.Log("customer is null!");
+
         }
 
     }
@@ -95,10 +97,6 @@ public class Gameplay : MonoBehaviour
         {
             customer.currentIngredient.stepTracker++;
             isCompleted = false;
-            if(currentState == "Bun Step") 
-            {
-                Debug.Log("bun found");
-            }
             
         } 
         else 
@@ -146,6 +144,7 @@ public class Gameplay : MonoBehaviour
 
     public void Chop() 
     {
+
         if (Input.GetKeyDown(KeyCode.R)) 
         {
             // do the animation
@@ -187,8 +186,24 @@ public class Gameplay : MonoBehaviour
 
     public void Cook(Meat currentIngredient) 
     {
+        
+        if (meatOnSideOne) {
+            currentIngredient.cookingSideOne += gameplayManager.GetComponent<GameplayManager>().gameHeat;
+
+        } else {
+            currentIngredient.cookingSideTwo += gameplayManager.GetComponent<GameplayManager>().gameHeat;
+        }
+
+        Debug.Log("MeatSide1 = " + currentIngredient.cookingSideOne + "  MeatSide2 = " + currentIngredient.cookingSideTwo);
+        
         if (Input.GetKeyDown(KeyCode.W)) 
         {
+
+            if (meatOnSideOne) {
+                meatOnSideOne = false;
+            } else {
+                meatOnSideOne = true;
+            }
             isCompleted = true;
 
             // Parameters = base score, error margin
