@@ -17,36 +17,39 @@ public class CustomerSelect : MonoBehaviour
 
     private void Update()
     {
-        gManager.transform.GetChild(currentSelction).gameObject.GetComponent<Renderer>().material.color = Color.red;
-
-        if (Input.GetKeyDown(KeyCode.W))
+        if (gManager.transform.childCount != 0)
         {
-            // increase selection
-            currentSelction++;
-            Debug.Log(currentSelction);
+            gManager.transform.GetChild(currentSelction).gameObject.GetComponent<Renderer>().material.color = Color.red;
 
-            gManager.transform.GetChild(currentSelction - 1).gameObject.GetComponent<Renderer>().material.color = Color.white;
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                // increase selection
+                currentSelction++;
+                Debug.Log(currentSelction);
 
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            // decrease selection
-            currentSelction--;
-            Debug.Log(currentSelction);
-            gManager.transform.GetChild(currentSelction + 1).gameObject.GetComponent<Renderer>().material.color = Color.white;
-        }
+                gManager.transform.GetChild(currentSelction - 1).gameObject.GetComponent<Renderer>().material.color = Color.white;
 
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            // finalise selection
-            gManager.readyOrNot = true;
-            GameObject selectedCustomer = gManager.transform.GetChild(currentSelction).gameObject;
-            gManager.readyOrNot = true;
-            gManager.customer = selectedCustomer;
-            selectedCustomer.GetComponent<CustomerControl>().isActiveCustomer = true;
+            }
 
-            gameObject.GetComponent<CustomerSelect>().enabled = false;
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                // decrease selection
+                currentSelction--;
+                Debug.Log(currentSelction);
+                gManager.transform.GetChild(currentSelction + 1).gameObject.GetComponent<Renderer>().material.color = Color.white;
+            }
+
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                // finalise selection
+                gManager.readyOrNot = true;
+                GameObject selectedCustomer = gManager.transform.GetChild(currentSelction).gameObject;
+                gManager.readyOrNot = true;
+                gManager.customer = selectedCustomer;
+                selectedCustomer.GetComponent<CustomerControl>().isActiveCustomer = true;
+
+                gameObject.GetComponent<CustomerSelect>().enabled = false;
+            }
         }
     }
 }
