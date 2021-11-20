@@ -57,6 +57,8 @@ public class Meat : Ingredient {
 
     public override void Generate() {
         stepInt = 0;
+        sideTemp1 = 0;
+        sideTemp2 = 0;
 
         ingredientSteps.Add("Tenderise");
         ingredientSteps.Add("Salt");

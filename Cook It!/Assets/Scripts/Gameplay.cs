@@ -13,6 +13,8 @@ public class Gameplay : MonoBehaviour
 
     [SerializeField]
     private Text nextIngredient;
+    [SerializeField]
+    private Text meatText;
     private CustomerControl customer;
     GameObject newCustomer;
 
@@ -188,14 +190,17 @@ public class Gameplay : MonoBehaviour
     {
         
         if (meatOnSideOne) {
-            currentIngredient.cookingSideOne += gameplayManager.GetComponent<GameplayManager>().gameHeat;
+            currentIngredient.cookingSideOne += gameplayManager.GetComponent<GameplayManager>().gameHeat / 10000;
 
         } else {
-            currentIngredient.cookingSideTwo += gameplayManager.GetComponent<GameplayManager>().gameHeat;
+            currentIngredient.cookingSideTwo += gameplayManager.GetComponent<GameplayManager>().gameHeat / 10000;
         }
 
-        Debug.Log("MeatSide1 = " + currentIngredient.cookingSideOne + "  MeatSide2 = " + currentIngredient.cookingSideTwo);
-        
+        meatText.text = "Meat side one cookedness: " + (int)currentIngredient.cookingSideOne + "\n Meat Side two cookedness: " + (int)currentIngredient.cookingSideTwo;
+
+
+
+
         if (Input.GetKeyDown(KeyCode.W)) 
         {
 
@@ -204,7 +209,6 @@ public class Gameplay : MonoBehaviour
             } else {
                 meatOnSideOne = true;
             }
-            isCompleted = true;
 
             // Parameters = base score, error margin
             // current values are placeholder for now

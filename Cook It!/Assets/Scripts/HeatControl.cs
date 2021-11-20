@@ -50,7 +50,9 @@ public class HeatControl : MonoBehaviour
         // if we have remaining heat to add, and the timer is at 0
         if (heatToAdd > 0 && addTimer <= 0) {
             // add to current heat
-            currentHeat += 1/ fluidness;
+            if (currentHeat <= 100) {
+                currentHeat += 1 / fluidness;
+            }
             // take away from remaining heat to add
             heatToAdd -= 1/fluidness;
             // reset the timer
@@ -58,7 +60,9 @@ public class HeatControl : MonoBehaviour
         }
         if (coolingTimer <= 0) {
             // lower the heat
-            currentHeat -= 1/fluidness;
+            if (currentHeat >= 0) {
+                currentHeat -= 1 / fluidness;
+            }
             // reset the timer
             coolingTimer = timePerCool/fluidness;
         }
