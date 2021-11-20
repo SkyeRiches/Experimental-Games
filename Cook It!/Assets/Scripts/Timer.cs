@@ -37,6 +37,6 @@ public class Timer : MonoBehaviour
     {
         // End of round system will get triggered here
         float finalScore = gameObject.GetComponent<ScoreManager>().CalculateFinalScore();
-        Debug.Log(finalScore);
+        // Debug.Log(finalScore);
     }
 }

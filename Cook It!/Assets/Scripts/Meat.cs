@@ -60,6 +60,8 @@ public class Meat : Ingredient {
         sideTemp1 = 0;
         sideTemp2 = 0;
 
+        Debug.Log("Called");
+
         ingredientSteps.Add("Tenderise");
         ingredientSteps.Add("Salt");
         ingredientSteps.Add("Cook");

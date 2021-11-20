@@ -18,6 +18,7 @@ public class CustomerControl : MonoBehaviour
     private Text text;
     private string orderString;
 
+    [SerializeField]
     private List<GameObject> items = new List<GameObject>();
     [SerializeField]
     private Ingredient ingredient;
@@ -47,12 +48,15 @@ public class CustomerControl : MonoBehaviour
 
     private void Awake() 
     {
+
+
         ingredientInt = 0;
         GenerateCustomer();
+        
         // this has to be called before start, or otherwise it will remain as
         // a high number from the previous customer and immediately be asked to call from an empty list
 
-        ingredient = items[ingredientInt].GetComponent<Ingredient>();
+        // ingredient = items[ingredientInt].GetComponent<Ingredient>();
     }
 
     void Start() 
@@ -79,6 +83,8 @@ public class CustomerControl : MonoBehaviour
 
     void GenerateCustomer() 
     {
+
+
         bool continueAdding = true; // whether we should keep adding
         float randomNumberForContinuation = (1/(float)maxNumberOfIngredientsPerOrder); // a float for probability
         int randomNumberForIngredient = Random.Range(0, ingredients.Length); // a float for randomizing ingredients
@@ -91,7 +97,7 @@ public class CustomerControl : MonoBehaviour
 
         while (continueAdding == true) // while we should keep adding
         {
-            GameObject objectToAdd = ingredients[randomNumberForIngredient];
+            GameObject objectToAdd = Instantiate(ingredients[randomNumberForIngredient], new Vector3(-10f, -10f, -10f), Quaternion.identity);
             objectToAdd.GetComponent<Ingredient>().Generate();
             items.Add(objectToAdd); // add an ingredient
             float testNumber = Random.Range(0.0f, 1.0f); // create a random number between 0 and 1

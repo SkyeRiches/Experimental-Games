@@ -106,10 +106,10 @@ public class Gameplay : MonoBehaviour
             switch (currentState) 
             {
                 case "PeelLeaves":
-                    PeelLeaves();
+                    PeelLeaves((Vegetable)currentIngredient);
                     break;
                 case "Chop":
-                    Chop();
+                    Chop((Vegetable)currentIngredient);
                     break;
                 case "Tenderise":
                     Tenderise((Meat)currentIngredient);
@@ -130,37 +130,42 @@ public class Gameplay : MonoBehaviour
         }
     }
 
-    public void PeelLeaves() 
+    public void PeelLeaves(Vegetable currentIngredient) 
     {
+        meatText.text = "Ideal Peels: " + currentIngredient.idealPulls + "\n Current Peels: " + currentIngredient.pulls;
         if (Input.GetKeyDown(KeyCode.Y)) 
         {
+
+            currentIngredient.pulls++;
             // do the animation
             // add whatever score you want
-            isCompleted = true;
+
 
             // Parameters = base score, error margin
             // current values are placeholder for now
             gameplayManager.GetComponent<ScoreManager>().CalculateIngredientScore(100, 0);
+            
         }
     }
 
-    public void Chop() 
+    public void Chop(Vegetable currentIngredient) 
     {
-
+        meatText.text = "Ideal Chops: " + currentIngredient.idealChops + "\n Current Chops: " + currentIngredient.chops;
         if (Input.GetKeyDown(KeyCode.R)) 
         {
             // do the animation
             // add whatever score you want
-            isCompleted = true;
-
+            currentIngredient.chops++;
             // Parameters = base score, error margin
             // current values are placeholder for now
             gameplayManager.GetComponent<ScoreManager>().CalculateIngredientScore(100, 0);
+;
         }
     }
 
     public void Tenderise(Meat currentIngredient) 
     {
+        meatText.text = "";
         if (Input.GetKeyDown(KeyCode.R)) 
         {
             currentIngredient.tenderiseStage++;
@@ -174,6 +179,7 @@ public class Gameplay : MonoBehaviour
 
     public void Salt() 
     {
+        meatText.text = "";
         if (Input.GetKeyDown(KeyCode.E)) 
         {
             // do the animation
@@ -188,7 +194,6 @@ public class Gameplay : MonoBehaviour
 
     public void Cook(Meat currentIngredient) 
     {
-        
         if (meatOnSideOne) {
             currentIngredient.cookingSideOne += gameplayManager.GetComponent<GameplayManager>().gameHeat / 10000;
 
@@ -197,9 +202,6 @@ public class Gameplay : MonoBehaviour
         }
 
         meatText.text = "Meat side one cookedness: " + (int)currentIngredient.cookingSideOne + "\n Meat Side two cookedness: " + (int)currentIngredient.cookingSideTwo;
-
-
-
 
         if (Input.GetKeyDown(KeyCode.W)) 
         {
@@ -217,11 +219,13 @@ public class Gameplay : MonoBehaviour
     }
 
     public void BunStep() {
+        meatText.text = "";
         isCompleted = true;
     }
 
     public void Complete() 
     {
+        meatText.text = "";
         customer.ingredientTracker++; // move on to the next ingredient
     }
 }

@@ -26,6 +26,11 @@ public class GameplayManager : MonoBehaviour
 
     private bool isReady;
 
+    private bool needsToStoreData;
+    private Ingredient ingredientData;
+    private string stepData;
+    private int stepTrackerData;
+
     #region Getters/Setters
     public bool readyOrNot
     {
@@ -66,6 +71,7 @@ public class GameplayManager : MonoBehaviour
         heatControlSystem = eventSystem.GetComponent<HeatControl>();
         game = eventSystem.GetComponent<Gameplay>();
         customerTimer = 5.0f;
+
     }
 
     // Update is called once per frame
@@ -74,10 +80,35 @@ public class GameplayManager : MonoBehaviour
         // Getting info
         customerTimer -= Time.deltaTime;
 
+
+
         if(customerTimer <= 0.0f) {
 
             customerTimer = 10.0f;
+            if (currentIngredient) {
+                needsToStoreData = true;
+
+
+            } else {
+                needsToStoreData = false;
+            }
+
+            if (needsToStoreData) {
+                ingredientData = currentIngredient;
+                stepData = currentIngredient.nextStep;
+                stepTrackerData = currentIngredient.stepTracker;
+            }
+
             SpawnNewCustomer();
+
+            if (needsToStoreData) {
+                currentIngredient = ingredientData;
+                currentIngredient.nextStep = stepData;
+                currentIngredient.stepTracker = stepTrackerData;
+            }
+
+
+
         }
 
         // this is placeholder for how long they have waited for their order
@@ -87,8 +118,9 @@ public class GameplayManager : MonoBehaviour
         {
             orderTime += Time.deltaTime; // how long the order has taken to be made
 
-
-            game.gameplayCustomer = currentCustomer.GetComponent<CustomerControl>();
+            if (currentCustomer) {
+                game.gameplayCustomer = currentCustomer.GetComponent<CustomerControl>();
+            }
 
             currentHeat = heatControlSystem.publicHeat;
             currentIngredient = game.gameplayCustomer.currentIngredient;
@@ -99,7 +131,7 @@ public class GameplayManager : MonoBehaviour
             game.ingredient = currentIngredient;
 
 
-            Debug.Log("Test");
+
 
             if (game.ingredient.name == "completed")
             {
@@ -122,11 +154,14 @@ public class GameplayManager : MonoBehaviour
     }
 
     void SpawnNewCustomer() {
+
         GameObject newCustomer = Instantiate(customerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity); // create a customer
         newCustomer.transform.SetParent(gameObject.transform);
         totalCustomers++;
         newCustomer.name = "Customer" + totalCustomers;
         ReadjustCustomers();
+
+
     }
 
     void ReadjustCustomers() {

@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64cdfab35c67f647bb8f30b81a9e4db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextStep: 
-  ingredientSteps: []
   hasLeaves: 1
   needsChopping: 1
+  bestChops: 5
+  bestPulls: 4
