@@ -15,6 +15,12 @@ public class CustomerSelect : MonoBehaviour
         gManager.readyOrNot = false;
     }
 
+    private void OnEnabled()
+    {
+        currentSelction = 0;
+        gManager.readyOrNot = false;
+    }
+
     private void Update()
     {
         if (gManager.transform.childCount != 0)
@@ -44,7 +50,6 @@ public class CustomerSelect : MonoBehaviour
                 // finalise selection
                 gManager.readyOrNot = true;
                 GameObject selectedCustomer = gManager.transform.GetChild(currentSelction).gameObject;
-                gManager.readyOrNot = true;
                 gManager.customer = selectedCustomer;
                 selectedCustomer.GetComponent<CustomerControl>().isActiveCustomer = true;
 
