@@ -48,6 +48,8 @@ public class CustomerSelect : MonoBehaviour
                 gManager.customer = selectedCustomer;
                 selectedCustomer.GetComponent<CustomerControl>().isActiveCustomer = true;
 
+                selectedCustomer.GetComponent<CustomerControl>().GenerateCustomer();
+
                 gameObject.GetComponent<CustomerSelect>().enabled = false;
             }
         }

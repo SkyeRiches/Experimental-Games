@@ -51,7 +51,7 @@ public class CustomerControl : MonoBehaviour
 
 
         ingredientInt = 0;
-        GenerateCustomer();
+        //GenerateCustomer();
         
         // this has to be called before start, or otherwise it will remain as
         // a high number from the previous customer and immediately be asked to call from an empty list
@@ -69,7 +69,10 @@ public class CustomerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ingredient = items[ingredientInt].GetComponent<Ingredient>();
+        if (items.Count != 0)
+        {
+            ingredient = items[ingredientInt].GetComponent<Ingredient>();
+        }
 
         if (ingredient != null)
         {
@@ -81,9 +84,9 @@ public class CustomerControl : MonoBehaviour
         }
     }
 
-    void GenerateCustomer() 
+    public void GenerateCustomer() 
     {
-
+        Debug.Log("Generate Called");
 
         bool continueAdding = true; // whether we should keep adding
         float randomNumberForContinuation = (1/(float)maxNumberOfIngredientsPerOrder); // a float for probability
@@ -98,6 +101,7 @@ public class CustomerControl : MonoBehaviour
         while (continueAdding == true) // while we should keep adding
         {
             GameObject objectToAdd = Instantiate(ingredients[randomNumberForIngredient], new Vector3(-10f, -10f, -10f), Quaternion.identity);
+            objectToAdd.transform.parent = gameObject.transform;
             objectToAdd.GetComponent<Ingredient>().Generate();
             items.Add(objectToAdd); // add an ingredient
             float testNumber = Random.Range(0.0f, 1.0f); // create a random number between 0 and 1
