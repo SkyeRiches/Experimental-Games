@@ -19,7 +19,7 @@ public class CustomerSelect : MonoBehaviour
     {
         if (gManager.transform.childCount != 0)
         {
-            gManager.transform.GetChild(currentSelction).gameObject.GetComponent<Renderer>().material.color = Color.red;
+            gManager.transform.GetChild(currentSelction).transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = Color.red;
 
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -27,7 +27,7 @@ public class CustomerSelect : MonoBehaviour
                 currentSelction++;
                 Debug.Log(currentSelction);
 
-                gManager.transform.GetChild(currentSelction - 1).gameObject.GetComponent<Renderer>().material.color = Color.white;
+                gManager.transform.GetChild(currentSelction - 1).transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = Color.white;
 
             }
 
@@ -36,7 +36,7 @@ public class CustomerSelect : MonoBehaviour
                 // decrease selection
                 currentSelction--;
                 Debug.Log(currentSelction);
-                gManager.transform.GetChild(currentSelction + 1).gameObject.GetComponent<Renderer>().material.color = Color.white;
+                gManager.transform.GetChild(currentSelction + 1).transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = Color.white;
             }
 
             if (Input.GetKeyDown(KeyCode.T))
