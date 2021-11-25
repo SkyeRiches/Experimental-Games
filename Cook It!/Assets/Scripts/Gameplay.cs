@@ -138,12 +138,6 @@ public class Gameplay : MonoBehaviour
 
             currentIngredient.pulls++;
             // do the animation
-            // add whatever score you want
-
-
-            // Parameters = base score, error margin
-            // current values are placeholder for now
-            gameplayManager.GetComponent<ScoreManager>().CalculateIngredientScore(100, 0);
             
         }
     }
@@ -156,9 +150,6 @@ public class Gameplay : MonoBehaviour
             // do the animation
             // add whatever score you want
             currentIngredient.chops++;
-            // Parameters = base score, error margin
-            // current values are placeholder for now
-            gameplayManager.GetComponent<ScoreManager>().CalculateIngredientScore(100, 0);
 ;
         }
     }
@@ -170,10 +161,6 @@ public class Gameplay : MonoBehaviour
         {
             currentIngredient.tenderiseStage++;
             isCompleted = true;
-
-            // Parameters = base score, error margin
-            // current values are placeholder for now
-            gameplayManager.GetComponent<ScoreManager>().CalculateIngredientScore(100, 0);
         }
     }
 
@@ -186,9 +173,6 @@ public class Gameplay : MonoBehaviour
             // add whatever score you want
             isCompleted = true;
 
-            // Parameters = base score, error margin
-            // current values are placeholder for now
-            gameplayManager.GetComponent<ScoreManager>().CalculateIngredientScore(100, 0);
         }
     }
 
@@ -211,10 +195,6 @@ public class Gameplay : MonoBehaviour
             } else {
                 meatOnSideOne = true;
             }
-
-            // Parameters = base score, error margin
-            // current values are placeholder for now
-            gameplayManager.GetComponent<ScoreManager>().CalculateIngredientScore(100, 0);
         }
     }
 

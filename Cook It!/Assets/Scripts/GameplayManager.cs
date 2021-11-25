@@ -137,7 +137,6 @@ public class GameplayManager : MonoBehaviour
 
             if (game.ingredient.name == "completed")
             {
-                gameObject.GetComponent<ScoreManager>().CalculateOrderScore(orderTime, customerPatience);
                 orderTime = 0;
                 // This is placeholder, we need a proper customer patience system, im using this purely for testing values lol - skylar
                 customerPatience = 100;

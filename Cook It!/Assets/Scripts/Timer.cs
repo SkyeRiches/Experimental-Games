@@ -27,16 +27,8 @@ public class Timer : MonoBehaviour
             if (timer <= 0)
             {
                 timeUp = true;
-                Finish();
             }
         }
 
-    }
-    
-    public void Finish()
-    {
-        // End of round system will get triggered here
-        float finalScore = gameObject.GetComponent<ScoreManager>().CalculateFinalScore();
-        // Debug.Log(finalScore);
     }
 }
