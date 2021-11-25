@@ -116,6 +116,8 @@ public class GameplayManager : MonoBehaviour
 
         if (isReady)
         {
+            
+
             orderTime += Time.deltaTime; // how long the order has taken to be made
 
             if (currentCustomer) {

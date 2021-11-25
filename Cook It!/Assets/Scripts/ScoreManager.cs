@@ -40,11 +40,6 @@ public class ScoreManager : MonoBehaviour
         orderScores = new List<float>();
     }
 
-    private void Update()
-    {
-
-    }
-
     public void CalculateIngredientScore(float a_baseScore, float a_errorMargin)
     {
         float ingredScore = gameObject.GetComponent<ScoreCalculator>().CalculateIngredient(a_baseScore, a_errorMargin);

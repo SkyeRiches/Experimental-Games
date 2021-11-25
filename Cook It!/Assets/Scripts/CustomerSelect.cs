@@ -15,7 +15,7 @@ public class CustomerSelect : MonoBehaviour
         gManager.readyOrNot = false;
     }
 
-    private void OnEnabled()
+    private void OnEnable()
     {
         currentSelction = 0;
         gManager.readyOrNot = false;
