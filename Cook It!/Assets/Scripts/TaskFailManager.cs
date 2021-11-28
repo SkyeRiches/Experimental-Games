@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class TaskFailManager : MonoBehaviour
 {
-    [SerializeField] private Animator anim;
-
     public void TriggerPenalty(string a_step)
     {
         gameObject.GetComponent<ScoreSystem>().CasualtyNumber++;
@@ -13,18 +11,19 @@ public class TaskFailManager : MonoBehaviour
         switch (a_step)
         {
             case "PeelLeaves":
+                PullCustomer();
                 break;
 
             case "Chop":
+                ThrowKnife();
                 break;
 
             case "Tenderise":
-                break;
-
-            case "Salt":
+                ThrowKnife();
                 break;
 
             case "Cook":
+                ThrowOven();
                 break;
 
             default:
@@ -34,11 +33,16 @@ public class TaskFailManager : MonoBehaviour
 
     private void ThrowKnife()
     {
-
+        gameObject.GetComponent<AnimationManager>().ThrowKnife();
     }
 
     private void ThrowOven()
     {
+        gameObject.GetComponent<AnimationManager>().ThrowHob();
+    }
 
+    private void PullCustomer()
+    {
+        gameObject.GetComponent<AnimationManager>().PullCustomer();
     }
 }

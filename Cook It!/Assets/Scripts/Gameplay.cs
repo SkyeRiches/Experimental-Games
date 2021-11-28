@@ -90,13 +90,13 @@ public class Gameplay : MonoBehaviour
                     }
                     break;
 
-                case "Salt":
-                    currentMeat = (Meat)currentIngredient;
-                    if (currentMeat.IdealSalt != currentMeat.SaltAmount)
-                    {
-                        gameplayManager.GetComponent<TaskFailManager>().TriggerPenalty(currentState);
-                    }
-                    break;
+                //case "Salt":
+                //    currentMeat = (Meat)currentIngredient;
+                //    if (currentMeat.IdealSalt != currentMeat.SaltAmount)
+                //    {
+                //        gameplayManager.GetComponent<TaskFailManager>().TriggerPenalty(currentState);
+                //    }
+                //    break;
 
                 case "Cook":
                     currentMeat = (Meat)currentIngredient;
@@ -111,7 +111,8 @@ public class Gameplay : MonoBehaviour
             }
 
             customer.currentIngredient.stepTracker++;
-            
+            gameplayManager.GetComponent<GUIManager>().Counter = 0;
+
         } 
         else 
         {
@@ -135,17 +136,12 @@ public class Gameplay : MonoBehaviour
                 case "Salt":
                     gameplayManager.GetComponent<CameraPos>().IsPrepping = true;
                     gameplayManager.GetComponent<CameraPos>().IsCooking = false;
-                    Salt();
+                    Salt((Meat)currentIngredient);
                     break;
                 case "Cook":
                     gameplayManager.GetComponent<CameraPos>().IsPrepping = false;
                     gameplayManager.GetComponent<CameraPos>().IsCooking = true;
                     Cook((Meat)currentIngredient);
-                    break;
-                case "Bun Step":
-                    gameplayManager.GetComponent<CameraPos>().IsPrepping = true;
-                    gameplayManager.GetComponent<CameraPos>().IsCooking = false;
-                    BunStep();
                     break;
                 case "Complete":
                     gameplayManager.GetComponent<CameraPos>().IsCooking = false;
@@ -163,7 +159,8 @@ public class Gameplay : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Y)) 
         {
             currentIngredient.pulls++;
-            // do the animation
+            gameplayManager.GetComponent<GUIManager>().Counter++;
+            gameplayManager.GetComponent<AnimationManager>().PullLeaves();
         }
     }
 
@@ -171,8 +168,9 @@ public class Gameplay : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R)) 
         {
-            // do the animation
+            gameplayManager.GetComponent<AnimationManager>().Chop();
             currentIngredient.chops++;
+            gameplayManager.GetComponent<GUIManager>().Counter++;
         }
     }
 
@@ -181,11 +179,19 @@ public class Gameplay : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) 
         {
             currentIngredient.tenderiseStage++;
+            gameplayManager.GetComponent<GUIManager>().Counter++;
+            gameplayManager.GetComponent<AnimationManager>().Tenderise();
         }
     }
 
-    public void Salt() 
+    public void Salt(Meat currentIngredient) 
     {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            currentIngredient.SaltAmount++;
+            gameplayManager.GetComponent<GUIManager>().Counter++;
+            gameplayManager.GetComponent<AnimationManager>().Salt();
+        }
     }
 
     public void Cook(Meat currentIngredient) 
@@ -211,11 +217,8 @@ public class Gameplay : MonoBehaviour
             {
                 meatOnSideOne = true;
             }
+            gameplayManager.GetComponent<AnimationManager>().FlipPan();
         }
-    }
-
-    public void BunStep() 
-    {
     }
 
     public void Complete() 

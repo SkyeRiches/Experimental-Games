@@ -10,6 +10,10 @@ public class ScoreSystem : MonoBehaviour
     [SerializeField] private float leaverPenalty;
 
     private float totalScore;
+    private float rating;
+
+    private int numberOfErrors;
+    private int numberOfIngredients;
 
     public int CasualtyNumber
     {
@@ -23,13 +27,31 @@ public class ScoreSystem : MonoBehaviour
         set { numberOfLeavers = value; }
     }
 
+    public int ErrorNumber
+    {
+        get { return numberOfErrors; }
+        set { numberOfErrors = value; }
+    }
+    public int NumberIngredients
+    {
+        get { return numberOfIngredients; }
+        set { numberOfIngredients = value; }
+    }
+
     public void IncreaseScore(float a_score)
     {
         totalScore += a_score;
+        gameObject.GetComponent<GUIManager>().Orders++;
+        gameObject.GetComponent<GUIManager>().Score = totalScore;
     }
 
     public void CalculateTotalScore()
     {
         totalScore = totalScore - (numberOfCasualties * injuryPenalty) - (numberOfLeavers * leaverPenalty);
+    }
+
+    public void CalculateRating()
+    {
+        rating = 5 * (1 - (numberOfErrors / numberOfIngredients));
     }
 }

@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\ScoreSystem.cs" />
     <Compile Include="Assets\Scripts\GUIManager.cs" />
     <Compile Include="Assets\Scripts\TaskFailManager.cs" />
+    <Compile Include="Assets\Scripts\AnimationManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

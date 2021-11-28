@@ -15,9 +15,6 @@ public class CustomerControl : MonoBehaviour
     [SerializeField]
     private int maxNumberOfIngredientsPerOrder = 8; // maximum ingredients per order (+2 for buns on either side)
 
-    private Text text;
-    private string orderString;
-
     [SerializeField]
     private List<GameObject> items = new List<GameObject>();
     [SerializeField]
@@ -25,7 +22,8 @@ public class CustomerControl : MonoBehaviour
     [SerializeField]
     private GameObject completed;
 
-    private bool textCreated = true;
+    private float impatience = 100; // value tbd
+    private GameplayManager gManager;
 
     // getters and setters
     public Ingredient currentIngredient 
@@ -49,18 +47,27 @@ public class CustomerControl : MonoBehaviour
     private void Awake() 
     {
         ingredientInt = 0;
+        impatience = 100; //value tbd
     }
 
     void Start() 
     {
         customerActive = true;
-
+        gManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameplayManager>();
         ingredientInt = 0; // go the start of their order
     }
 
     // Update is called once per frame
     void Update()
     {
+        impatience -= Time.deltaTime;
+        if (impatience <= 0)
+        {
+            StartCoroutine(gManager.ReadjustDelay()); // Triggers the function to wait before readjusting the customers as it wont sort them otherwise as this customer wont have been removed yet
+            Destroy(gameObject);
+        }
+
+
         if (items.Count != 0)
         {
             ingredient = items[ingredientInt].GetComponent<Ingredient>();

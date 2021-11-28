@@ -7,6 +7,7 @@ TagManager:
   - bun
   - meat
   - vegetable
+  - GameManager
   layers:
   - Default
   - TransparentFX

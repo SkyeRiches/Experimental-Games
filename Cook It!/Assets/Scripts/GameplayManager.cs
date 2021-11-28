@@ -80,16 +80,15 @@ public class GameplayManager : MonoBehaviour
         // Getting info
         customerTimer -= Time.deltaTime;
 
-
-
         if(customerTimer <= 0.0f) {
 
             customerTimer = 10.0f;
-            if (currentIngredient) {
+            if (currentIngredient) 
+            {
                 needsToStoreData = true;
-
-
-            } else {
+            } 
+            else 
+            {
                 needsToStoreData = false;
             }
 
@@ -106,9 +105,6 @@ public class GameplayManager : MonoBehaviour
                 currentIngredient.nextStep = stepData;
                 currentIngredient.stepTracker = stepTrackerData;
             }
-
-
-
         }
 
         // this is placeholder for how long they have waited for their order
@@ -116,8 +112,6 @@ public class GameplayManager : MonoBehaviour
 
         if (isReady)
         {
-            
-
             orderTime += Time.deltaTime; // how long the order has taken to be made
 
             if (currentCustomer) {
@@ -131,9 +125,6 @@ public class GameplayManager : MonoBehaviour
             // Publishing info
             game.step = currentStep;
             game.ingredient = currentIngredient;
-
-
-
 
             if (game.ingredient.name == "completed")
             {
@@ -157,22 +148,29 @@ public class GameplayManager : MonoBehaviour
 
     }
 
-    void SpawnNewCustomer() {
-
+    void SpawnNewCustomer() 
+    {
         GameObject newCustomer = Instantiate(customerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity); // create a customer
         newCustomer.transform.SetParent(gameObject.transform);
         totalCustomers++;
         newCustomer.name = "Customer" + totalCustomers;
         ReadjustCustomers();
-
-
     }
 
-    void ReadjustCustomers() {
-        for (int i = 0; i < gameObject.transform.childCount; i++) {
+    public void ReadjustCustomers() 
+    {
+        for (int i = 0; i < gameObject.transform.childCount; i++) 
+        {
             // line the customers up nicely
             gameObject.transform.GetChild(i).transform.position = new Vector3(1.5f * i, 1f, -7f);
         }
+    }
+
+    public IEnumerator ReadjustDelay()
+    {
+        yield return new WaitForSeconds(1);
+        gameObject.GetComponent<ScoreSystem>().LeaverNumber++;
+        ReadjustCustomers();
     }
 }
 

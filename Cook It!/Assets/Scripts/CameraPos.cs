@@ -41,13 +41,30 @@ public class CameraPos : MonoBehaviour
     {
         if (isPrepping && !isPrepView)
         {
+            StartCoroutine(DelaySwap());
+        }
+        else if(!isCooking && !isPrepping && !isOrderView)
+        {
+            StartCoroutine(DelaySwap());
+        }
+        else if(isCooking && !isCookView)
+        {
+            StartCoroutine(DelaySwap());
+        }
+    }
+
+    private IEnumerator DelaySwap()
+    {
+        yield return new WaitForSeconds(3);
+        if (isPrepping && !isPrepView)
+        {
             camera.transform.position = prepPos;
             camera.transform.rotation = prepRot;
             isPrepView = true;
             isOrderView = false;
             isCookView = false;
         }
-        else if(!isCooking && !isPrepping && !isOrderView)
+        else if (!isCooking && !isPrepping && !isOrderView)
         {
             camera.transform.position = orderPos;
             camera.transform.rotation = orderRot;
@@ -55,7 +72,7 @@ public class CameraPos : MonoBehaviour
             isPrepView = false;
             isCookView = false;
         }
-        else if(isCooking && !isCookView)
+        else if (isCooking && !isCookView)
         {
             camera.transform.position = cookPos;
             camera.transform.rotation = cookRot;
@@ -63,5 +80,6 @@ public class CameraPos : MonoBehaviour
             isOrderView = false;
             isPrepView = false;
         }
+
     }
 }
