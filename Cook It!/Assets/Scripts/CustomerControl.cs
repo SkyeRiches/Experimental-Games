@@ -48,15 +48,7 @@ public class CustomerControl : MonoBehaviour
 
     private void Awake() 
     {
-
-
         ingredientInt = 0;
-        //GenerateCustomer();
-        
-        // this has to be called before start, or otherwise it will remain as
-        // a high number from the previous customer and immediately be asked to call from an empty list
-
-        // ingredient = items[ingredientInt].GetComponent<Ingredient>();
     }
 
     void Start() 
@@ -86,8 +78,6 @@ public class CustomerControl : MonoBehaviour
 
     public void GenerateCustomer() 
     {
-        Debug.Log("Generate Called");
-
         bool continueAdding = true; // whether we should keep adding
         float randomNumberForContinuation = (1/(float)maxNumberOfIngredientsPerOrder); // a float for probability
         int randomNumberForIngredient = Random.Range(0, ingredients.Length); // a float for randomizing ingredients

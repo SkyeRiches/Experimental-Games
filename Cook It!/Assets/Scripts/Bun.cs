@@ -16,8 +16,6 @@ public class Bun : Ingredient
     public override void Generate() {
         stepInt = 0;
 
-        Debug.Log("Called");
-
         ingredientSteps.Add("Bun Step");
         ingredientSteps.Add("Complete");
     }

@@ -38,34 +38,38 @@ public class Vegetable : Ingredient
     }
 
 
-    private void Awake() {
+    private void Awake() 
+    {
+        bestChops = Random.Range(1, 6);
 
-    bestChops = Random.Range(1, 6);
-
-    // Generate();
-
-}
+        // Generate();
+    }
 
     // Update is called once per frame
-    public override void Update() {
-        if (ingredientSteps.Count != 0) {
+    public override void Update() 
+    {
+        if (ingredientSteps.Count != 0) 
+        {
             
             nextStep = ingredientSteps[stepInt];
         }
     }
 
-    public override void Generate() {
+    public override void Generate() 
+    {
         stepInt = 0;
 
         Debug.Log("Called");
 
-        if (hasLeaves) {
+        if (hasLeaves) 
+        {
             ingredientSteps.Add("PeelLeaves");
             timesPulled = 0;
-            bestPulls = 3;
+            bestPulls = Random.Range(1, 6);
 
         }
-        if (needsChopping) {
+        if (needsChopping) 
+        {
             ingredientSteps.Add("Chop");
             timesChopped = 0;
             idealChops = Random.Range(1, 6);

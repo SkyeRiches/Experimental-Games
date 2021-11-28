@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\Meat.cs" />
     <Compile Include="Assets\Scripts\ScoreSystem.cs" />
     <Compile Include="Assets\Scripts\GUIManager.cs" />
+    <Compile Include="Assets\Scripts\TaskFailManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

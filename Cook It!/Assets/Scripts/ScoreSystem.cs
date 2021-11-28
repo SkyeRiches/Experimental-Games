@@ -6,10 +6,22 @@ public class ScoreSystem : MonoBehaviour
 {
     private int numberOfCasualties;
     private int numberOfLeavers;
-    private float injuryPenalty;
-    private float leaverPenalty;
+    [SerializeField] private float injuryPenalty;
+    [SerializeField] private float leaverPenalty;
 
     private float totalScore;
+
+    public int CasualtyNumber
+    {
+        get { return numberOfCasualties; }
+        set { numberOfCasualties = value; }
+    }
+
+    public int LeaverNumber
+    {
+        get { return numberOfLeavers; }
+        set { numberOfLeavers = value; }
+    }
 
     public void IncreaseScore(float a_score)
     {

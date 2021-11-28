@@ -14,8 +14,6 @@ public class Gameplay : MonoBehaviour
     private CustomerControl customer;
     GameObject newCustomer;
 
-    private bool isCompleted;
-
     private Ingredient currentIngredient;
 
     [SerializeField]
@@ -57,7 +55,6 @@ public class Gameplay : MonoBehaviour
     void Start() 
     {
         customersServed = 0;
-        isCompleted = false;
     }
 
     public void cookIngredient(string currentState) 
@@ -65,8 +62,55 @@ public class Gameplay : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.T))) 
         {
+            Vegetable currentVeg;
+            Meat currentMeat;
+            switch (currentState)
+            {
+                case "PeelLeaves":
+                    currentVeg = (Vegetable)currentIngredient;
+                    if (currentVeg.idealPulls != currentVeg.pulls)
+                    {
+                        gameplayManager.GetComponent<TaskFailManager>().TriggerPenalty(currentState);
+                    }
+                    break;
+
+                case "Chop":
+                    currentVeg = (Vegetable)currentIngredient;
+                    if (currentVeg.idealChops != currentVeg.chops)
+                    {
+                        gameplayManager.GetComponent<TaskFailManager>().TriggerPenalty(currentState);
+                    }
+                    break;
+
+                case "Tenderise":
+                    currentMeat = (Meat)currentIngredient;
+                    if (currentMeat.IdealTenderisation != currentMeat.tenderiseStage)
+                    {
+                        gameplayManager.GetComponent<TaskFailManager>().TriggerPenalty(currentState);
+                    }
+                    break;
+
+                case "Salt":
+                    currentMeat = (Meat)currentIngredient;
+                    if (currentMeat.IdealSalt != currentMeat.SaltAmount)
+                    {
+                        gameplayManager.GetComponent<TaskFailManager>().TriggerPenalty(currentState);
+                    }
+                    break;
+
+                case "Cook":
+                    currentMeat = (Meat)currentIngredient;
+                    if (currentMeat.TempSide1 != currentMeat.IdealTempSide1 || currentMeat.TempSide2 != currentMeat.TempSide2)
+                    {
+                        gameplayManager.GetComponent<TaskFailManager>().TriggerPenalty(currentState);
+                    }
+
+                    break;
+
+                default: break;
+            }
+
             customer.currentIngredient.stepTracker++;
-            isCompleted = false;
             
         } 
         else 
@@ -108,6 +152,8 @@ public class Gameplay : MonoBehaviour
                     gameplayManager.GetComponent<CameraPos>().IsCooking = false;
                     Complete();
                     break;
+
+                default: break;
             }
         }
     }
@@ -126,9 +172,7 @@ public class Gameplay : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) 
         {
             // do the animation
-            // add whatever score you want
             currentIngredient.chops++;
-;
         }
     }
 
@@ -137,36 +181,34 @@ public class Gameplay : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) 
         {
             currentIngredient.tenderiseStage++;
-            isCompleted = true;
         }
     }
 
     public void Salt() 
     {
-        if (Input.GetKeyDown(KeyCode.E)) 
-        {
-            // do the animation
-            // add whatever score you want
-            isCompleted = true;
-
-        }
     }
 
     public void Cook(Meat currentIngredient) 
     {
-        if (meatOnSideOne) {
+        if (meatOnSideOne) 
+        {
             currentIngredient.cookingSideOne += gameplayManager.GetComponent<GameplayManager>().gameHeat / 10000;
 
-        } else {
+        } 
+        else 
+        {
             currentIngredient.cookingSideTwo += gameplayManager.GetComponent<GameplayManager>().gameHeat / 10000;
         }
 
         if (Input.GetKeyDown(KeyCode.W)) 
         {
 
-            if (meatOnSideOne) {
+            if (meatOnSideOne) 
+            {
                 meatOnSideOne = false;
-            } else {
+            } 
+            else 
+            {
                 meatOnSideOne = true;
             }
         }
@@ -174,7 +216,6 @@ public class Gameplay : MonoBehaviour
 
     public void BunStep() 
     {
-        isCompleted = true;
     }
 
     public void Complete() 
