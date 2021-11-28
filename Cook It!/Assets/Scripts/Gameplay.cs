@@ -106,24 +106,38 @@ public class Gameplay : MonoBehaviour
             switch (currentState) 
             {
                 case "PeelLeaves":
+                    gameplayManager.GetComponent<CameraPos>().IsPrepping = true;
+                    gameplayManager.GetComponent<CameraPos>().IsCooking = false;
                     PeelLeaves((Vegetable)currentIngredient);
                     break;
                 case "Chop":
+                    gameplayManager.GetComponent<CameraPos>().IsPrepping = true;
+                    gameplayManager.GetComponent<CameraPos>().IsCooking = false;
                     Chop((Vegetable)currentIngredient);
                     break;
                 case "Tenderise":
+                    gameplayManager.GetComponent<CameraPos>().IsPrepping = true;
+                    gameplayManager.GetComponent<CameraPos>().IsCooking = false;
                     Tenderise((Meat)currentIngredient);
                     break;
                 case "Salt":
+                    gameplayManager.GetComponent<CameraPos>().IsPrepping = true;
+                    gameplayManager.GetComponent<CameraPos>().IsCooking = false;
                     Salt();
                     break;
                 case "Cook":
+                    gameplayManager.GetComponent<CameraPos>().IsPrepping = false;
+                    gameplayManager.GetComponent<CameraPos>().IsCooking = true;
                     Cook((Meat)currentIngredient);
                     break;
                 case "Bun Step":
+                    gameplayManager.GetComponent<CameraPos>().IsPrepping = true;
+                    gameplayManager.GetComponent<CameraPos>().IsCooking = false;
                     BunStep();
                     break;
                 case "Complete":
+                    gameplayManager.GetComponent<CameraPos>().IsCooking = false;
+                    gameplayManager.GetComponent<CameraPos>().IsCooking = false;
                     Complete();
                     break;
             }

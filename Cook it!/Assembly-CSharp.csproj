@@ -56,7 +56,7 @@
     <CodeAnalysisRuleSet></CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CompletedIngredient.cs" />
@@ -66,12 +66,11 @@
     <Compile Include="Assets\Scripts\Timer.cs" />
     <Compile Include="Assets\Scripts\Vegetable.cs" />
     <Compile Include="Assets\Scripts\GameplayManager.cs" />
-    <Compile Include="Assets\Scripts\ScoreManager.cs" />
-    <Compile Include="Assets\Scripts\ScoreCalculator.cs" />
     <Compile Include="Assets\Scripts\CustomerControl.cs" />
     <Compile Include="Assets\Scripts\HeatControl.cs" />
     <Compile Include="Assets\Scripts\Ingredient.cs" />
     <Compile Include="Assets\Scripts\Meat.cs" />
+    <Compile Include="Assets\Scripts\CameraPos.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

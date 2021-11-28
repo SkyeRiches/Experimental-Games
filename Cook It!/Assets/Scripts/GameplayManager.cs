@@ -145,6 +145,8 @@ public class GameplayManager : MonoBehaviour
                 ReadjustCustomers();
                 game.customersServed++;
                 gameObject.GetComponent<CustomerSelect>().enabled = true;
+                gameObject.GetComponent<CameraPos>().IsPrepping = false;
+                gameObject.GetComponent<CameraPos>().IsCooking = false;
 
             }
 
