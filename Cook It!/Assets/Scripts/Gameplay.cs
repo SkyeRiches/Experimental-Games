@@ -11,15 +11,10 @@ public class Gameplay : MonoBehaviour
     private int customersServed2; // number of customers served
     private string currentState;
 
-    [SerializeField]
-    private Text nextIngredient;
-    [SerializeField]
-    private Text meatText;
     private CustomerControl customer;
     GameObject newCustomer;
 
     private bool isCompleted;
-    private string completedText;
 
     private Ingredient currentIngredient;
 
@@ -61,35 +56,8 @@ public class Gameplay : MonoBehaviour
 
     void Start() 
     {
-        // newCustomer = Instantiate(customerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity); // create a customer
-        nextIngredient.text = "";
         customersServed = 0;
-        // customer = newCustomer.GetComponent<CustomerControl>();
         isCompleted = false;
-    }
-
-    void Update() 
-    {
-        if (customer != null)
-        {
-            // if the ingredient is bun, just 'add' the bun and move on to the next ingredient
-            // these needs to change to being part of a ui manager
-            if (isCompleted)
-            {
-                completedText = "Completed!";
-            }
-            else
-            {
-                completedText = "NotCompleted :(";
-            }
-
-            nextIngredient.text = "Current Ingredient is: " + currentIngredient.name + "\n Current Step is: " + currentState + "\nCompletion Status is: " + completedText + "\nCustomers Served: " + customersServed2;
-        } 
-        else 
-        {
-
-        }
-
     }
 
     public void cookIngredient(string currentState) 
@@ -146,19 +114,15 @@ public class Gameplay : MonoBehaviour
 
     public void PeelLeaves(Vegetable currentIngredient) 
     {
-        meatText.text = "Ideal Peels: " + currentIngredient.idealPulls + "\n Current Peels: " + currentIngredient.pulls;
         if (Input.GetKeyDown(KeyCode.Y)) 
         {
-
             currentIngredient.pulls++;
             // do the animation
-            
         }
     }
 
     public void Chop(Vegetable currentIngredient) 
     {
-        meatText.text = "Ideal Chops: " + currentIngredient.idealChops + "\n Current Chops: " + currentIngredient.chops;
         if (Input.GetKeyDown(KeyCode.R)) 
         {
             // do the animation
@@ -170,7 +134,6 @@ public class Gameplay : MonoBehaviour
 
     public void Tenderise(Meat currentIngredient) 
     {
-        meatText.text = "";
         if (Input.GetKeyDown(KeyCode.R)) 
         {
             currentIngredient.tenderiseStage++;
@@ -180,7 +143,6 @@ public class Gameplay : MonoBehaviour
 
     public void Salt() 
     {
-        meatText.text = "";
         if (Input.GetKeyDown(KeyCode.E)) 
         {
             // do the animation
@@ -199,8 +161,6 @@ public class Gameplay : MonoBehaviour
             currentIngredient.cookingSideTwo += gameplayManager.GetComponent<GameplayManager>().gameHeat / 10000;
         }
 
-        meatText.text = "Meat side one cookedness: " + (int)currentIngredient.cookingSideOne + "\n Meat Side two cookedness: " + (int)currentIngredient.cookingSideTwo;
-
         if (Input.GetKeyDown(KeyCode.W)) 
         {
 
@@ -212,14 +172,13 @@ public class Gameplay : MonoBehaviour
         }
     }
 
-    public void BunStep() {
-        meatText.text = "";
+    public void BunStep() 
+    {
         isCompleted = true;
     }
 
     public void Complete() 
     {
-        meatText.text = "";
         customer.ingredientTracker++; // move on to the next ingredient
     }
 }

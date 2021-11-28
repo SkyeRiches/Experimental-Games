@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Timer : MonoBehaviour
@@ -13,13 +14,13 @@ public class Timer : MonoBehaviour
     {
         timeBegin = true;
         timeUp = false;
-        timer = 30;
+        timer = 300;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (timeBegin)
+        if (timeBegin && !timeUp)
         {
             // lower the timers
             timer -= Time.deltaTime;
@@ -27,6 +28,8 @@ public class Timer : MonoBehaviour
             if (timer <= 0)
             {
                 timeUp = true;
+                gameObject.GetComponent<ScoreSystem>().CalculateTotalScore();
+                SceneManager.LoadScene(2);
             }
         }
 

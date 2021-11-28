@@ -66,11 +66,13 @@
     <Compile Include="Assets\Scripts\Timer.cs" />
     <Compile Include="Assets\Scripts\Vegetable.cs" />
     <Compile Include="Assets\Scripts\GameplayManager.cs" />
+    <Compile Include="Assets\Scripts\CameraPos.cs" />
     <Compile Include="Assets\Scripts\CustomerControl.cs" />
     <Compile Include="Assets\Scripts\HeatControl.cs" />
     <Compile Include="Assets\Scripts\Ingredient.cs" />
     <Compile Include="Assets\Scripts\Meat.cs" />
-    <Compile Include="Assets\Scripts\CameraPos.cs" />
+    <Compile Include="Assets\Scripts\ScoreSystem.cs" />
+    <Compile Include="Assets\Scripts\GUIManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
