@@ -48,6 +48,11 @@ public class ScoreSystem : MonoBehaviour
     public void CalculateTotalScore()
     {
         totalScore = totalScore - (numberOfCasualties * injuryPenalty) - (numberOfLeavers * leaverPenalty);
+
+        PlayerPrefs.SetFloat("Score", totalScore);
+        PlayerPrefs.SetFloat("Rating", rating);
+        PlayerPrefs.SetInt("Leavers", numberOfLeavers);
+        PlayerPrefs.SetInt("Victims", numberOfCasualties);
     }
 
     public void CalculateRating()

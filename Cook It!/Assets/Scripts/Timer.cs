@@ -20,10 +20,16 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (timeBegin && !timeUp)
         {
             // lower the timers
             timer -= Time.deltaTime;
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                timer = 0;
+            }
 
             if (timer <= 0)
             {
