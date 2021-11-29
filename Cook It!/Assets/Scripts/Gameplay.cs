@@ -19,6 +19,11 @@ public class Gameplay : MonoBehaviour
     [SerializeField]
     private GameObject gameplayManager;
 
+    [SerializeField]
+    private Vector3 currentIngredientPos;
+    [SerializeField]
+    private Vector3 completedIngredientPos;
+
     private bool meatOnSideOne;
 
     #region Getters/Setters
@@ -223,6 +228,9 @@ public class Gameplay : MonoBehaviour
 
     public void Complete() 
     {
+
+        customer.currentIngredient.transform.position = completedIngredientPos;
         customer.ingredientTracker++; // move on to the next ingredient
+        customer.currentIngredient.transform.position = currentIngredientPos;
     }
 }
