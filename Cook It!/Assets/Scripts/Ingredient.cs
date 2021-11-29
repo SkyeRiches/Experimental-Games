@@ -12,6 +12,13 @@ public class Ingredient : MonoBehaviour
     protected List<string> ingredientSteps = new List<string>();
     protected int stepInt = 0;
 
+    protected Vector3 idealPosition; 
+
+    public Vector3 bestPos {
+        get { return idealPosition; }
+        set { idealPosition = value; }
+    }
+
     public string nextStep {
         get { return currentStep; }
         set { currentStep = value; }

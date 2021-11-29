@@ -15,7 +15,7 @@ public class Bun : Ingredient
 
     public override void Generate() {
         stepInt = 0;
-
+        idealPosition = new Vector3(-0.2f, 1.8f, -9f);
         ingredientSteps.Add("Bun Step");
         ingredientSteps.Add("Complete");
     }

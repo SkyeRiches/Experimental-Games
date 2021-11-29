@@ -89,8 +89,9 @@ public class CustomerControl : MonoBehaviour
         float randomNumberForContinuation = (1/(float)maxNumberOfIngredientsPerOrder); // a float for probability
         int randomNumberForIngredient = Random.Range(0, ingredients.Length); // a float for randomizing ingredients
 
-        GameObject bunToAdd = bun;
 
+        GameObject bunToAdd = Instantiate(bun, new Vector3(-10f, -10f, -10f), Quaternion.identity); ;
+        bunToAdd.transform.parent = gameObject.transform;
         bunToAdd.GetComponent<Ingredient>().Generate();
 
         items.Add(bunToAdd);
@@ -121,5 +122,10 @@ public class CustomerControl : MonoBehaviour
         items.Add(bunToAdd);
 
         items.Add(completed);
+
+        // items[0].transform.position = new Vector3(0.5f, 1.8f, -9f);
+
+        // Debug.Log(items[0].name);
+       //  Debug.Log(items[0].transform.position.x + items[0].transform.position.y + items[0].transform.position.z);
     }
 }

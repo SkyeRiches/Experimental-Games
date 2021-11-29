@@ -20,9 +20,11 @@ public class Gameplay : MonoBehaviour
     private GameObject gameplayManager;
 
     [SerializeField]
-    private Vector3 currentIngredientPos;
+    private Vector3 VegetableIngredientPos;
     [SerializeField]
     private Vector3 completedIngredientPos;
+    [SerializeField]
+    private Vector3 meatIngredientPos;
 
     private bool meatOnSideOne;
 
@@ -64,7 +66,7 @@ public class Gameplay : MonoBehaviour
 
     public void cookIngredient(string currentState) 
     {
-
+        customer.currentIngredient.gameObject.transform.position = customer.currentIngredient.bestPos;
         if ((Input.GetKeyDown(KeyCode.T))) 
         {
             Vegetable currentVeg;
@@ -228,9 +230,9 @@ public class Gameplay : MonoBehaviour
 
     public void Complete() 
     {
-
-        customer.currentIngredient.transform.position = completedIngredientPos;
+        // send it to narnia
+        customer.currentIngredient.gameObject.transform.position = completedIngredientPos;
         customer.ingredientTracker++; // move on to the next ingredient
-        customer.currentIngredient.transform.position = currentIngredientPos;
+        
     }
 }

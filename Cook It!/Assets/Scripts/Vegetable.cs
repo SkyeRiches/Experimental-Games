@@ -11,6 +11,8 @@ public class Vegetable : Ingredient
     [SerializeField]
     private bool needsChopping;
 
+    
+
     private int timesChopped = 0;
     private int timesPulled = 0;
 
@@ -42,6 +44,7 @@ public class Vegetable : Ingredient
     {
         bestChops = Random.Range(1, 6);
 
+        
         // Generate();
     }
 
@@ -57,9 +60,8 @@ public class Vegetable : Ingredient
 
     public override void Generate() 
     {
+        idealPosition = new Vector3(-0.2f, 1.8f, -9f);
         stepInt = 0;
-
-        Debug.Log("Called");
 
         if (hasLeaves) 
         {

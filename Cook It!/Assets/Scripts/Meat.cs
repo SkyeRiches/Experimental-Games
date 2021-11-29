@@ -96,6 +96,10 @@ public class Meat : Ingredient {
         sideTemp1 = 0;
         sideTemp2 = 0;
 
+        idealPosition = new Vector3(1.1283f, 1.9f, -9.0132f);
+
+        gameObject.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
+
         idealTenderise = Random.Range(1, 6);
         idealSalt = Random.Range(1, 6);
         idealTemp1 = Random.Range(0, 10);
