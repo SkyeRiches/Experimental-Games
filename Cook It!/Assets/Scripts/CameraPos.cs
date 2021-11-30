@@ -55,7 +55,7 @@ public class CameraPos : MonoBehaviour
 
     private IEnumerator DelaySwap()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1.5f);
         if (isPrepping && !isPrepView)
         {
             camera.transform.position = prepPos;

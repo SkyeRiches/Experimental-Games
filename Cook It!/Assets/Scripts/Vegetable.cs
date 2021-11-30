@@ -19,6 +19,15 @@ public class Vegetable : Ingredient
     private int bestChops;
     private int bestPulls;
 
+    public bool hasLeaf
+    {
+        get { return hasLeaves; }
+    }
+    public bool needsChop
+    {
+        get { return needsChopping; }
+    }
+
     public int chops {
         get { return timesChopped; }
         set { timesChopped = value; }

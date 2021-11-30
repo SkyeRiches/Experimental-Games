@@ -34,7 +34,7 @@ public class GUIManager : MonoBehaviour
     void Update()
     {
         numbers.text = "X" + counter;
-        scoreText.text = "Score: " + score;
-        ordersText.text = "Served: " + orders;
+        scoreText.text =  score.ToString();
+        ordersText.text = orders.ToString();
     }
 }
