@@ -467,6 +467,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8945535245983850150, guid: ed8dafe01528547429f86b475b7f6aa6, type: 3}
+      propertyPath: van
+      value: 
+      objectReference: {fileID: 919132148899698635}
+    - target: {fileID: 8945535245983850150, guid: ed8dafe01528547429f86b475b7f6aa6, type: 3}
+      propertyPath: hand
+      value: 
+      objectReference: {fileID: 4555272591301961498}
+    - target: {fileID: 8945535245983850150, guid: ed8dafe01528547429f86b475b7f6aa6, type: 3}
+      propertyPath: knife
+      value: 
+      objectReference: {fileID: 1110119306}
+    - target: {fileID: 8945535245983850150, guid: ed8dafe01528547429f86b475b7f6aa6, type: 3}
       propertyPath: meatText
       value: 
       objectReference: {fileID: 0}
@@ -732,6 +744,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 308810836}
   m_CullTransparentMesh: 1
+--- !u!1 &430328687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 430328688}
+  m_Layer: 0
+  m_Name: HandObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &430328688
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430328687}
+  m_LocalRotation: {x: 0.7071068, y: -0.000000015454312, z: -0.000000015454312, w: 0.7071068}
+  m_LocalPosition: {x: 0.0045199986, y: 0.00058175327, z: -0.0050458675}
+  m_LocalScale: {x: 0.01, y: 0.009999997, z: 0.009999997}
+  m_Children: []
+  m_Father: {fileID: 6645823806053429498}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &507788530
 GameObject:
   m_ObjectHideFlags: 0
@@ -6389,6 +6431,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1110119306 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 927b3fbb7824e224bbdc69890391c7bb, type: 3}
+  m_PrefabInstance: {fileID: 782556984}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1130440355 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 927b3fbb7824e224bbdc69890391c7bb, type: 3}
@@ -11839,7 +11886,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh27682
+  m_Name: pb_Mesh48804
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -19387,7 +19434,7 @@ GameObject:
   - component: {fileID: 6645823806053429498}
   - component: {fileID: 5074512355079808877}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: ArmsGameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20549,7 +20596,8 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0.000000015454312, z: 0.000000015454312, w: 0.7071068}
   m_LocalPosition: {x: 0.00000014086254, y: 1.8651005, z: 0.0028505996}
   m_LocalScale: {x: 100, y: 100, z: 100}
-  m_Children: []
+  m_Children:
+  - {fileID: 430328688}
   m_Father: {fileID: 543450652280114464}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
