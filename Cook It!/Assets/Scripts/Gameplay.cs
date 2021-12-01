@@ -20,11 +20,22 @@ public class Gameplay : MonoBehaviour
     private GameObject gameplayManager;
 
     [SerializeField]
+    GameObject knife;
+    [SerializeField]
+    GameObject hand;
+    [SerializeField]
+    GameObject van;
+
+    [SerializeField]
     private Vector3 VegetableIngredientPos;
     [SerializeField]
     private Vector3 completedIngredientPos;
     [SerializeField]
     private Vector3 meatIngredientPos;
+
+    private bool needsToSetKnife;
+
+    Vector3 knifePosition = new Vector3(0f, 0f, 0f);
 
     private bool meatOnSideOne;
 
@@ -82,10 +93,15 @@ public class Gameplay : MonoBehaviour
                     break;
 
                 case "Chop":
+
                     currentVeg = (Vegetable)currentIngredient;
                     if (currentVeg.idealChops != currentVeg.chops)
                     {
+
                         gameplayManager.GetComponent<TaskFailManager>().TriggerPenalty(currentState);
+                        // if chop is complete, return the knife back to its original state
+                        knife.transform.SetParent(van.transform);
+                        knife.transform.position = new Vector3(-0.01107125f, 0.05332142f, 7.143625e-05f);
                     }
                     break;
 
@@ -173,6 +189,15 @@ public class Gameplay : MonoBehaviour
 
     public void Chop(Vegetable currentIngredient) 
     {
+        Debug.Log("In Chop");
+        if (needsToSetKnife) {
+            // put the knife in the hand
+            knife.transform.parent = hand.transform;
+            knife.transform.position = knifePosition;
+            needsToSetKnife = false;
+
+
+        }
         if (Input.GetKeyDown(KeyCode.R)) 
         {
             gameplayManager.GetComponent<AnimationManager>().Chop();
@@ -233,6 +258,7 @@ public class Gameplay : MonoBehaviour
         // send it to narnia
         customer.currentIngredient.gameObject.transform.position = completedIngredientPos;
         customer.ingredientTracker++; // move on to the next ingredient
+        needsToSetKnife = true;
         
     }
 }
