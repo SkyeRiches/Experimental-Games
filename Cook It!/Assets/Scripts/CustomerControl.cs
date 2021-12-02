@@ -123,9 +123,18 @@ public class CustomerControl : MonoBehaviour
 
         items.Add(completed);
 
+        foreach (gameObject orderItem in items) {
+            Ingredient ingredientInOrder = orderItem.GetComponent<ingredient>();
+            foreach (string step in ingredientInOrder.ingredientSteps) {
+                
+            }
+        }
+
         // items[0].transform.position = new Vector3(0.5f, 1.8f, -9f);
 
         // Debug.Log(items[0].name);
        //  Debug.Log(items[0].transform.position.x + items[0].transform.position.y + items[0].transform.position.z);
     }
 }
+
+

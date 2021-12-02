@@ -9,7 +9,7 @@ public class Ingredient : MonoBehaviour
 
     private string currentStep;
     protected bool isComplete;
-    protected List<string> ingredientSteps = new List<string>();
+    public List<string> ingredientSteps = new List<string>();
     protected int stepInt = 0;
 
     protected Vector3 idealPosition; 
