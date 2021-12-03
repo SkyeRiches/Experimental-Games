@@ -16,6 +16,13 @@ public class CustomerControl : MonoBehaviour
     private int maxNumberOfIngredientsPerOrder = 8; // maximum ingredients per order (+2 for buns on either side)
 
     [SerializeField]
+    private GameObject panelForOrderPrefab;
+    private GameObject canvas;
+
+    private GameObject panelForOrder;
+    // private Image imageToAdd;
+
+    [SerializeField]
     private List<GameObject> items = new List<GameObject>();
     [SerializeField]
     private Ingredient ingredient;
@@ -24,6 +31,25 @@ public class CustomerControl : MonoBehaviour
 
     private float impatience = 100; // value tbd
     private GameplayManager gManager;
+
+    // Ingredient Sprites
+    [SerializeField]
+    private Sprite lettuceSprite;
+    [SerializeField]
+    private Sprite tomatoSprite;
+    [SerializeField]
+    private Sprite burgerSprite;
+    [SerializeField]
+    private Sprite onionSprite;
+    [SerializeField]
+    private Sprite bunSprite;
+
+    // for updating active ingredientSprites
+    private List<GameObject> ingredientSprites = new List<GameObject>();
+    private GameObject currentSprite;
+
+    
+
 
     // getters and setters
     public Ingredient currentIngredient 
@@ -48,6 +74,12 @@ public class CustomerControl : MonoBehaviour
     {
         ingredientInt = 0;
         impatience = 100; //value tbd
+        // panelForOrderPrefab.SetActive(false);
+        canvas = new GameObject();
+        canvas.AddComponent<Canvas>();
+        canvas.name = "CustomerCanvas";
+        canvas.transform.SetParent(this.gameObject.transform);
+        canvas.transform.localPosition = new Vector3(-2.76f, -5.84f, -4.7f);
     }
 
     void Start() 
@@ -81,20 +113,39 @@ public class CustomerControl : MonoBehaviour
         {
             customerActive = false;
         }
+
+        UpdateSprites();
+
+
+
     }
 
     public void GenerateCustomer() 
     {
+        // set the panel to be active
+        panelForOrder = Instantiate(panelForOrderPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        panelForOrder.transform.SetParent(canvas.transform);
+
+        panelForOrder.SetActive(true);
+        panelForOrder.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
+        panelForOrder.transform.localPosition = new Vector3(5, 5, 5);
         bool continueAdding = true; // whether we should keep adding
         float randomNumberForContinuation = (1/(float)maxNumberOfIngredientsPerOrder); // a float for probability
         int randomNumberForIngredient = Random.Range(0, ingredients.Length); // a float for randomizing ingredients
 
 
+        GameObject bunImageObject = new GameObject();
+        Image bunImageToAdd = bunImageObject.AddComponent<Image>();
+        ingredientSprites.Add(bunImageObject);
+        bunImageToAdd.sprite = bunSprite;
+        bunImageToAdd.transform.SetParent(panelForOrder.transform, false);
+        bunImageToAdd.transform.localPosition = new Vector3(-800 + 100 * items.Count, 500, 0);
         GameObject bunToAdd = Instantiate(bun, new Vector3(-10f, -10f, -10f), Quaternion.identity); ;
         bunToAdd.transform.parent = gameObject.transform;
         bunToAdd.GetComponent<Ingredient>().Generate();
 
         items.Add(bunToAdd);
+
 
         while (continueAdding == true) // while we should keep adding
         {
@@ -103,6 +154,8 @@ public class CustomerControl : MonoBehaviour
             objectToAdd.GetComponent<Ingredient>().Generate();
             items.Add(objectToAdd); // add an ingredient
             float testNumber = Random.Range(0.0f, 1.0f); // create a random number between 0 and 1
+
+            
 
             // test whether random number is bigger than our test value squared (squaring weights it towards bigger numbers)
             if (testNumber <= randomNumberForContinuation * randomNumberForContinuation) 
@@ -114,27 +167,69 @@ public class CustomerControl : MonoBehaviour
                 randomNumberForContinuation += (1 / (float)maxNumberOfIngredientsPerOrder); // increase our test number
                 randomNumberForIngredient = Random.Range(0, ingredients.Length); // choose a new test value
             }
+            GameObject imageObject = new GameObject();
+            Image imageToAdd = imageObject.AddComponent<Image>();
+            imageToAdd.gameObject.SetActive(true);
+            imageToAdd.enabled = true;
+            ingredientSprites.Add(imageObject);
+            if (objectToAdd.name == "lettuce(Clone)") {
+                imageToAdd.sprite = lettuceSprite;
+            } else if (objectToAdd.name == "Tomato(Clone)") {
+                imageToAdd.sprite = tomatoSprite;
+            } else if (objectToAdd.name == "burger(Clone)") {
+                imageToAdd.sprite = burgerSprite;
+            } else if (objectToAdd.name == "Onion(Clone)") {
+                imageToAdd.sprite = onionSprite;
+            } else {
+                imageToAdd.sprite = bunSprite;
+            }
+
+            imageToAdd.transform.SetParent(panelForOrder.transform, false);
+            // No idea why this has to be -900 instead of -800 like the other 2 but for some reason it works
+            imageToAdd.transform.localPosition = new Vector3(-900 + 100 * items.Count, 500, 0);
+
+
 
         }
 
+        GameObject bunTwoImageObject = new GameObject();
+        Image bunTwoImageToAdd = bunTwoImageObject.AddComponent<Image>();
+        ingredientSprites.Add(bunTwoImageObject);
+        bunTwoImageToAdd.sprite = bunSprite;
+        bunTwoImageToAdd.transform.SetParent(panelForOrder.transform, false);
+        bunTwoImageToAdd.transform.localPosition = new Vector3(-800 + 100 * items.Count, 500, 0);
 
         completed.name = "completed";
         items.Add(bunToAdd);
 
         items.Add(completed);
 
-        foreach (gameObject orderItem in items) {
-            Ingredient ingredientInOrder = orderItem.GetComponent<ingredient>();
-            foreach (string step in ingredientInOrder.ingredientSteps) {
-                
+
+
+        //foreach (GameObject orderItem in items) {
+        //    Ingredient ingredientInOrder = orderItem.GetComponent<Ingredient>();
+        //    foreach (string step in ingredientInOrder.ingredientSteps) {
+        //    
+        //    }
+        //}
+
+        
+    }
+
+    public void UpdateSprites() {
+        currentSprite = ingredientSprites[ingredientInt];
+        foreach (GameObject sprite in ingredientSprites) {
+            Vector3 spritePos = sprite.transform.localPosition;
+            if (sprite != currentSprite) {
+                spritePos.y = 500f;
+            } else {
+                spritePos.y = 400f;
             }
+            sprite.transform.localPosition = spritePos;
         }
-
-        // items[0].transform.position = new Vector3(0.5f, 1.8f, -9f);
-
-        // Debug.Log(items[0].name);
-       //  Debug.Log(items[0].transform.position.x + items[0].transform.position.y + items[0].transform.position.z);
     }
 }
+
+
 
 

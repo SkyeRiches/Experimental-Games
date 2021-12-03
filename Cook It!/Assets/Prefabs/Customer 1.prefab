@@ -118,9 +118,15 @@ MonoBehaviour:
   - {fileID: 5280449270734518882, guid: da8dcd45851f2a84088f1d47390cfe84, type: 3}
   bun: {fileID: 3834418820784116206, guid: b5c70682897aa1f4dab4f2f99947963d, type: 3}
   maxNumberOfIngredientsPerOrder: 5
+  panelForOrderPrefab: {fileID: 4632678142455749709, guid: 4b1541d14601361478b75a5ba28c02f0, type: 3}
   items: []
   ingredient: {fileID: 0}
   completed: {fileID: 766366869991635478, guid: 22f84500cd71f3f448f009a3e1744c97, type: 3}
+  lettuceSprite: {fileID: 21300000, guid: 3c179ff3c0061ab4a8e30513880dd5f4, type: 3}
+  tomatoSprite: {fileID: 21300000, guid: 5027e780287af5242b852010a4763b0b, type: 3}
+  burgerSprite: {fileID: 21300000, guid: 15bd1c59f18e2d042bb48dd38feae0b0, type: 3}
+  onionSprite: {fileID: 21300000, guid: 3964a39e1cd881b4b83ecefa5d5b8d29, type: 3}
+  bunSprite: {fileID: 21300000, guid: d7912763cbd0dd44b97201a99cab70b7, type: 3}
 --- !u!1 &6838647078575334529
 GameObject:
   m_ObjectHideFlags: 0

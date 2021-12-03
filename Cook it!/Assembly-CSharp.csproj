@@ -61,8 +61,21 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CompletedIngredient.cs" />
     <Compile Include="Assets\Scripts\Bun.cs" />
+    <Compile Include="Assets\Scripts\Gameplay.cs" />
+    <Compile Include="Assets\Scripts\TaskFailManager.cs" />
+    <Compile Include="Assets\Scripts\ScoreSystem.cs" />
+    <Compile Include="Assets\Scripts\CustomerSelect.cs" />
+    <Compile Include="Assets\Scripts\Timer.cs" />
+    <Compile Include="Assets\Scripts\StartMenu.cs" />
+    <Compile Include="Assets\Scripts\Vegetable.cs" />
+    <Compile Include="Assets\Scripts\GUIManager.cs" />
+    <Compile Include="Assets\Scripts\EndScreen.cs" />
+    <Compile Include="Assets\Scripts\GameplayManager.cs" />
+    <Compile Include="Assets\Scripts\CameraPos.cs" />
+    <Compile Include="Assets\Scripts\AnimationManager.cs" />
     <Compile Include="Assets\Scripts\CustomerControl.cs" />
     <Compile Include="Assets\Scripts\HeatControl.cs" />
+    <Compile Include="Assets\Scripts\DataManager.cs" />
     <Compile Include="Assets\Scripts\Ingredient.cs" />
     <Compile Include="Assets\Scripts\Meat.cs" />
   </ItemGroup>
