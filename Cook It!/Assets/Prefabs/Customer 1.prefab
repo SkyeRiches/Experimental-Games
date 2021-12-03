@@ -127,6 +127,9 @@ MonoBehaviour:
   burgerSprite: {fileID: 21300000, guid: 15bd1c59f18e2d042bb48dd38feae0b0, type: 3}
   onionSprite: {fileID: 21300000, guid: 3964a39e1cd881b4b83ecefa5d5b8d29, type: 3}
   bunSprite: {fileID: 21300000, guid: d7912763cbd0dd44b97201a99cab70b7, type: 3}
+  knifeSprite: {fileID: 21300000, guid: b061da92f2c22f44b91abc8bf3fca205, type: 3}
+  fireSprite: {fileID: 21300000, guid: 2fde200e235e1a1458532636d6cef613, type: 3}
+  saltSprite: {fileID: 21300000, guid: d09c63406dc16c645917e4804eca1ee7, type: 3}
 --- !u!1 &6838647078575334529
 GameObject:
   m_ObjectHideFlags: 0

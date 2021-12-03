@@ -43,13 +43,24 @@ public class CustomerControl : MonoBehaviour
     private Sprite onionSprite;
     [SerializeField]
     private Sprite bunSprite;
+    [SerializeField]
+    private Sprite knifeSprite;
+    [SerializeField]
+    private Sprite fireSprite;
+    [SerializeField]
+    private Sprite saltSprite;
 
     // for updating active ingredientSprites
     private List<GameObject> ingredientSprites = new List<GameObject>();
     private GameObject currentSprite;
 
-    
-
+    private GameObject StepSpriteObjectOne;
+    private GameObject StepSpriteObjectTwo;
+    private GameObject StepSpriteObjectThree;
+    private Image StepSpriteOne;
+    private Image StepSpriteTwo;
+    private Image StepSpriteThree;
+    private List<Image> stepSpriteList = new List<Image>();
 
     // getters and setters
     public Ingredient currentIngredient 
@@ -79,7 +90,17 @@ public class CustomerControl : MonoBehaviour
         canvas.AddComponent<Canvas>();
         canvas.name = "CustomerCanvas";
         canvas.transform.SetParent(this.gameObject.transform);
-        canvas.transform.localPosition = new Vector3(-2.76f, -5.84f, -4.7f);
+        canvas.transform.localPosition = new Vector3(-4.62f, -4.087f, -4.749f);
+
+        StepSpriteObjectOne = new GameObject();
+        StepSpriteOne = StepSpriteObjectOne.AddComponent<Image>();
+        stepSpriteList.Add(StepSpriteOne);
+        StepSpriteObjectTwo = new GameObject();
+        StepSpriteTwo = StepSpriteObjectTwo.AddComponent<Image>();
+        stepSpriteList.Add(StepSpriteTwo);
+        StepSpriteObjectThree = new GameObject();
+        StepSpriteThree = StepSpriteObjectThree.AddComponent<Image>();
+        stepSpriteList.Add(StepSpriteThree);
     }
 
     void Start() 
@@ -114,7 +135,9 @@ public class CustomerControl : MonoBehaviour
             customerActive = false;
         }
 
-        UpdateSprites();
+        if (customerActive) {
+            UpdateSprites();
+        }
 
 
 
@@ -127,11 +150,13 @@ public class CustomerControl : MonoBehaviour
         panelForOrder.transform.SetParent(canvas.transform);
 
         panelForOrder.SetActive(true);
-        panelForOrder.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
+        panelForOrder.transform.localScale = new Vector3(0.0025f, 0.0025f, 0.0025f);
+        panelForOrder.transform.localPosition = new Vector3(0f,0f,0f);
         panelForOrder.transform.localPosition = new Vector3(5, 5, 5);
         bool continueAdding = true; // whether we should keep adding
         float randomNumberForContinuation = (1/(float)maxNumberOfIngredientsPerOrder); // a float for probability
         int randomNumberForIngredient = Random.Range(0, ingredients.Length); // a float for randomizing ingredients
+
 
 
         GameObject bunImageObject = new GameObject();
@@ -139,7 +164,7 @@ public class CustomerControl : MonoBehaviour
         ingredientSprites.Add(bunImageObject);
         bunImageToAdd.sprite = bunSprite;
         bunImageToAdd.transform.SetParent(panelForOrder.transform, false);
-        bunImageToAdd.transform.localPosition = new Vector3(-800 + 100 * items.Count, 500, 0);
+        bunImageToAdd.transform.localPosition = new Vector3(-800, 500 - 100 * items.Count, 0);
         GameObject bunToAdd = Instantiate(bun, new Vector3(-10f, -10f, -10f), Quaternion.identity); ;
         bunToAdd.transform.parent = gameObject.transform;
         bunToAdd.GetComponent<Ingredient>().Generate();
@@ -186,23 +211,29 @@ public class CustomerControl : MonoBehaviour
 
             imageToAdd.transform.SetParent(panelForOrder.transform, false);
             // No idea why this has to be -900 instead of -800 like the other 2 but for some reason it works
-            imageToAdd.transform.localPosition = new Vector3(-900 + 100 * items.Count, 500, 0);
+            imageToAdd.transform.localPosition = new Vector3(-900, 600 - 100 * items.Count, 0);
 
 
 
         }
+
 
         GameObject bunTwoImageObject = new GameObject();
         Image bunTwoImageToAdd = bunTwoImageObject.AddComponent<Image>();
         ingredientSprites.Add(bunTwoImageObject);
         bunTwoImageToAdd.sprite = bunSprite;
         bunTwoImageToAdd.transform.SetParent(panelForOrder.transform, false);
-        bunTwoImageToAdd.transform.localPosition = new Vector3(-800 + 100 * items.Count, 500, 0);
+        bunTwoImageToAdd.transform.localPosition = new Vector3(-800, 500 - 100 * items.Count, 0);
 
         completed.name = "completed";
         items.Add(bunToAdd);
 
         items.Add(completed);
+
+        for (int i = 0; i<=stepSpriteList.Count - 1; i++) {
+            stepSpriteList[i].gameObject.transform.SetParent(panelForOrder.transform, false);
+            stepSpriteList[i].gameObject.transform.localPosition = new Vector3(0, 500 - i * 100, 0);
+        }
 
 
 
@@ -221,12 +252,32 @@ public class CustomerControl : MonoBehaviour
         foreach (GameObject sprite in ingredientSprites) {
             Vector3 spritePos = sprite.transform.localPosition;
             if (sprite != currentSprite) {
-                spritePos.y = 500f;
+                spritePos.x = -800f;
             } else {
-                spritePos.y = 400f;
+                spritePos.x = -700f;
             }
             sprite.transform.localPosition = spritePos;
         }
+        for (int i = 0; i <= currentIngredient.ingredientSteps.Count - 1; i++) {
+
+            stepSpriteList[i].sprite = StepImage(currentIngredient.ingredientSteps[i]);
+        }
+    }
+
+    private Sprite StepImage(string step) {
+        switch (step) {
+            case "PeelLeaves":
+                return lettuceSprite;
+            case "Chop":
+                return knifeSprite;
+            case "Tenderise":
+                return burgerSprite;
+            case "Salt":
+                return saltSprite;    
+            case "Cook":
+                return fireSprite;
+        }
+        return null;
     }
 }
 
