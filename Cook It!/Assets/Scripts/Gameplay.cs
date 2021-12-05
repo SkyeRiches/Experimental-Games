@@ -88,7 +88,6 @@ public class Gameplay : MonoBehaviour
                     currentVeg = (Vegetable)currentIngredient;
                     if (currentVeg.idealPulls != currentVeg.pulls)
                     {
-                        gameplayManager.GetComponent<TaskFailManager>().TriggerPenalty(currentState);
                     }
                     break;
 
@@ -98,7 +97,6 @@ public class Gameplay : MonoBehaviour
                     if (currentVeg.idealChops != currentVeg.chops)
                     {
 
-                        gameplayManager.GetComponent<TaskFailManager>().TriggerPenalty(currentState);
                         // if chop is complete, return the knife back to its original state
                         knife.transform.SetParent(van.transform);
                         knife.transform.position = new Vector3(-0.01107125f, 0.05332142f, 7.143625e-05f);
@@ -109,23 +107,20 @@ public class Gameplay : MonoBehaviour
                     currentMeat = (Meat)currentIngredient;
                     if (currentMeat.IdealTenderisation != currentMeat.tenderiseStage)
                     {
-                        gameplayManager.GetComponent<TaskFailManager>().TriggerPenalty(currentState);
                     }
                     break;
 
-                //case "Salt":
-                //    currentMeat = (Meat)currentIngredient;
-                //    if (currentMeat.IdealSalt != currentMeat.SaltAmount)
-                //    {
-                //        gameplayManager.GetComponent<TaskFailManager>().TriggerPenalty(currentState);
-                //    }
-                //    break;
+                case "Salt":
+                    currentMeat = (Meat)currentIngredient;
+                    if (currentMeat.IdealSalt != currentMeat.SaltAmount)
+                    {
+                    }
+                    break;
 
                 case "Cook":
                     currentMeat = (Meat)currentIngredient;
                     if (currentMeat.TempSide1 != currentMeat.IdealTempSide1 || currentMeat.TempSide2 != currentMeat.TempSide2)
                     {
-                        gameplayManager.GetComponent<TaskFailManager>().TriggerPenalty(currentState);
                     }
 
                     break;
