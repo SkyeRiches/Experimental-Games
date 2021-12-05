@@ -81,7 +81,7 @@ public class CustomerControl : MonoBehaviour
         set { ingredientInt = value; }
     }
 
-    private void Awake() 
+    private void Initialise() 
     {
         ingredientInt = 0;
         impatience = 100; //value tbd
@@ -145,6 +145,8 @@ public class CustomerControl : MonoBehaviour
 
     public void GenerateCustomer() 
     {
+
+        Initialise();
         // set the panel to be active
         panelForOrder = Instantiate(panelForOrderPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         panelForOrder.transform.SetParent(canvas.transform);
@@ -192,6 +194,7 @@ public class CustomerControl : MonoBehaviour
                 randomNumberForContinuation += (1 / (float)maxNumberOfIngredientsPerOrder); // increase our test number
                 randomNumberForIngredient = Random.Range(0, ingredients.Length); // choose a new test value
             }
+
             GameObject imageObject = new GameObject();
             Image imageToAdd = imageObject.AddComponent<Image>();
             imageToAdd.gameObject.SetActive(true);
@@ -232,19 +235,9 @@ public class CustomerControl : MonoBehaviour
 
         for (int i = 0; i<=stepSpriteList.Count - 1; i++) {
             stepSpriteList[i].gameObject.transform.SetParent(panelForOrder.transform, false);
-            stepSpriteList[i].gameObject.transform.localPosition = new Vector3(0, 500 - i * 100, 0);
-        }
-
-
-
-        //foreach (GameObject orderItem in items) {
-        //    Ingredient ingredientInOrder = orderItem.GetComponent<Ingredient>();
-        //    foreach (string step in ingredientInOrder.ingredientSteps) {
-        //    
-        //    }
-        //}
-
-        
+            stepSpriteList[i].gameObject.transform.localPosition = new Vector3(-110, -85, -900 - i *100);
+            stepSpriteList[i].gameObject.transform.rotation = Quaternion.Euler(90, 0, 0);
+        }        
     }
 
     public void UpdateSprites() {
