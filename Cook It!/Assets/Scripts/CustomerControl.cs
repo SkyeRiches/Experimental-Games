@@ -84,7 +84,7 @@ public class CustomerControl : MonoBehaviour
     private void Initialise() 
     {
         ingredientInt = 0;
-        impatience = 100; //value tbd
+        impatience = 500; //value tbd
         // panelForOrderPrefab.SetActive(false);
         canvas = new GameObject();
         canvas.AddComponent<Canvas>();
