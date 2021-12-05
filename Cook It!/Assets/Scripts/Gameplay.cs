@@ -184,14 +184,13 @@ public class Gameplay : MonoBehaviour
 
     public void Chop(Vegetable currentIngredient) 
     {
-        knifePosition = new Vector3(0f, 0f, 0f);
-        knife.transform.position = knifePosition;
+
         Debug.Log("In Chop");
         if (needsToSetKnife) {
             // put the knife in the hand#
             knifePosition = new Vector3(0f, 0f, 0f);
             knife.transform.parent = hand.transform;
-            knife.transform.position = knifePosition;
+            knife.transform.localPosition = knifePosition;
             needsToSetKnife = false;
         }
         if (Input.GetKeyDown(KeyCode.R)) 
