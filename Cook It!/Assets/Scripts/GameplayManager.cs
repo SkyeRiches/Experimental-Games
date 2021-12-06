@@ -138,7 +138,7 @@ public class GameplayManager : MonoBehaviour
                 gameObject.GetComponent<CustomerSelect>().enabled = true;
                 gameObject.GetComponent<CameraPos>().IsPrepping = false;
                 gameObject.GetComponent<CameraPos>().IsCooking = false;
-                gameObject.GetComponent<ScoreSystem>().IncreaseScore(100f);
+                gameObject.GetComponent<GUIManager>().Orders++;
 
             }
 

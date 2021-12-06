@@ -9,7 +9,6 @@ public class EndScreen : MonoBehaviour
     [SerializeField] private Text rating;
     [SerializeField] private Text score;
     [SerializeField] private Text leavers;
-    [SerializeField] private Text victims;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +16,6 @@ public class EndScreen : MonoBehaviour
         rating.text = "Rating: " + PlayerPrefs.GetFloat("Rating");
         score.text = "Score: " + PlayerPrefs.GetFloat("Score");
         leavers.text = "Leavers: " + PlayerPrefs.GetInt("Leavers");
-        victims.text = "Injuries: " + PlayerPrefs.GetInt("Victims");
     }
 
     // Update is called once per frame

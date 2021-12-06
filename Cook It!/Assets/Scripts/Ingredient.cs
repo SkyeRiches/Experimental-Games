@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class Ingredient : MonoBehaviour
 {
 
@@ -12,7 +10,13 @@ public class Ingredient : MonoBehaviour
     public List<string> ingredientSteps = new List<string>();
     protected int stepInt = 0;
 
-    protected Vector3 idealPosition; 
+    protected Vector3 idealPosition;
+    protected Vector3 idealCookPos;
+
+    public Vector3 cookPos
+    {
+        get { return idealCookPos; }
+    }
 
     public Vector3 bestPos {
         get { return idealPosition; }

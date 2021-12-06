@@ -19,6 +19,8 @@ public class CameraPos : MonoBehaviour
 
     [SerializeField] private GameObject camera;
 
+    [SerializeField] private GameObject arms;
+
     public bool IsPrepping
     {
         get { return isPrepping; }
@@ -55,11 +57,13 @@ public class CameraPos : MonoBehaviour
 
     private IEnumerator DelaySwap()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0f);
         if (isPrepping && !isPrepView)
         {
             camera.transform.position = prepPos;
             camera.transform.rotation = prepRot;
+            camera.GetComponent<Camera>().fieldOfView = 35;
+            arms.SetActive(true);
             isPrepView = true;
             isOrderView = false;
             isCookView = false;
@@ -68,6 +72,8 @@ public class CameraPos : MonoBehaviour
         {
             camera.transform.position = orderPos;
             camera.transform.rotation = orderRot;
+            camera.GetComponent<Camera>().fieldOfView = 60;
+            arms.SetActive(false);
             isOrderView = true;
             isPrepView = false;
             isCookView = false;
@@ -76,6 +82,8 @@ public class CameraPos : MonoBehaviour
         {
             camera.transform.position = cookPos;
             camera.transform.rotation = cookRot;
+            camera.GetComponent<Camera>().fieldOfView = 35;
+            arms.SetActive(true);
             isCookView = true;
             isOrderView = false;
             isPrepView = false;

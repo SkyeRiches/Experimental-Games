@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class ScoreSystem : MonoBehaviour
 {
-    private int numberOfCasualties;
     private int numberOfLeavers;
-    [SerializeField] private float injuryPenalty;
     [SerializeField] private float leaverPenalty;
 
     private float totalScore;
@@ -14,12 +12,6 @@ public class ScoreSystem : MonoBehaviour
 
     private int numberOfErrors;
     private int numberOfIngredients;
-
-    public int CasualtyNumber
-    {
-        get { return numberOfCasualties; }
-        set { numberOfCasualties = value; }
-    }
 
     public int LeaverNumber
     {
@@ -41,18 +33,17 @@ public class ScoreSystem : MonoBehaviour
     public void IncreaseScore(float a_score)
     {
         totalScore += a_score;
-        gameObject.GetComponent<GUIManager>().Orders++;
+        
         gameObject.GetComponent<GUIManager>().Score = totalScore;
     }
 
     public void CalculateTotalScore()
     {
-        totalScore = totalScore - (numberOfCasualties * injuryPenalty) - (numberOfLeavers * leaverPenalty);
+        totalScore = totalScore- (numberOfLeavers * leaverPenalty);
 
         PlayerPrefs.SetFloat("Score", totalScore);
         PlayerPrefs.SetFloat("Rating", rating);
         PlayerPrefs.SetInt("Leavers", numberOfLeavers);
-        PlayerPrefs.SetInt("Victims", numberOfCasualties);
     }
 
     public void CalculateRating()

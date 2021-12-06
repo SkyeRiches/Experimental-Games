@@ -5,13 +5,9 @@ using UnityEngine;
 
 [System.Serializable]
 public class Meat : Ingredient {
-    private float sideTemp1;
+    private float cook;
     private int temp1;
-    private int idealTemp1;
-
-    private float sideTemp2;
-    private int temp2;
-    private int idealTemp2;
+    private int idealCook;
 
     private int tenderise;
     private int idealTenderise;
@@ -22,14 +18,9 @@ public class Meat : Ingredient {
 
     private bool stepIsComplete;
 
-    public float cookingSideOne {
-        get { return sideTemp1; }
-        set { sideTemp1 = value; }
-    }
-
-    public float cookingSideTwo{
-        get { return sideTemp2; }
-        set { sideTemp2 = value; }
+    public float cooking {
+        get { return cook; }
+        set { cook = value; }
     }
 
     public int TempSide1
@@ -37,21 +28,11 @@ public class Meat : Ingredient {
         get { return temp1; }
         set { temp1 = value; }
     }
-    public int TempSide2
-    {
-        get { return temp2; }
-        set { temp2 = value; }
-    }
 
-    public int IdealTempSide1
+    public int IdealCook
     {
-        get { return idealTemp1; }
-        set { idealTemp1 = value; }
-    }
-    public int IdealTempSide2
-    {
-        get { return idealTemp2; }
-        set { idealTemp2 = value; }
+        get { return idealCook; }
+        set { idealCook = value; }
     }
 
 
@@ -80,8 +61,7 @@ public class Meat : Ingredient {
 
     // Update is called once per frame
     public override void Update() {
-        temp1 = (int)sideTemp1;
-        temp2 = (int)sideTemp2;
+        temp1 = (int)cook;
         tenderiseStage = (int)tenderise;
         saltStage = (int)salt;
 
@@ -93,17 +73,16 @@ public class Meat : Ingredient {
 
     public override void Generate() {
         stepInt = 0;
-        sideTemp1 = 0;
-        sideTemp2 = 0;
+        cook = 0;
 
-        idealPosition = new Vector3(1.1283f, 1.9f, -9.0132f);
+        idealCookPos = new Vector3(1.106f, 0.896f, -2.039f);
+        idealPosition = new Vector3(-0.441f, 0.8f, -2.4f);
 
         gameObject.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
 
         idealTenderise = Random.Range(1, 6);
         idealSalt = Random.Range(1, 6);
-        idealTemp1 = Random.Range(0, 10);
-        idealTemp2 = Random.Range(0, 10);
+        idealCook = Random.Range(0, 10);
 
         ingredientSteps.Add("Tenderise");
         ingredientSteps.Add("Salt");

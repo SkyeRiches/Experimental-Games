@@ -57,10 +57,16 @@ public class CustomerControl : MonoBehaviour
     private GameObject StepSpriteObjectOne;
     private GameObject StepSpriteObjectTwo;
     private GameObject StepSpriteObjectThree;
+
+    private GameObject step1Text;
+    private GameObject step2Text;
+    private GameObject step3Text;
+
     private Image StepSpriteOne;
     private Image StepSpriteTwo;
     private Image StepSpriteThree;
     private List<Image> stepSpriteList = new List<Image>();
+    private GameObject[] stepNumbers = new GameObject[3];
 
     // getters and setters
     public Ingredient currentIngredient 
@@ -101,6 +107,27 @@ public class CustomerControl : MonoBehaviour
         StepSpriteObjectThree = new GameObject();
         StepSpriteThree = StepSpriteObjectThree.AddComponent<Image>();
         stepSpriteList.Add(StepSpriteThree);
+
+        step1Text = new GameObject();
+        step1Text.AddComponent<Text>();
+        step1Text.GetComponent<Text>().font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
+        step1Text.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
+        step1Text.GetComponent<Text>().color = Color.red;
+        stepNumbers[0] = step1Text;
+
+        step2Text = new GameObject();
+        step2Text.AddComponent<Text>();
+        step2Text.GetComponent<Text>().font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
+        step2Text.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
+        step2Text.GetComponent<Text>().color = Color.red;
+        stepNumbers[1] = step2Text;
+
+        step3Text = new GameObject();
+        step3Text.AddComponent<Text>();
+        step3Text.GetComponent<Text>().font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
+        step3Text.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
+        step3Text.GetComponent<Text>().color = Color.red;
+        stepNumbers[2] = step3Text;
     }
 
     void Start() 
@@ -138,8 +165,6 @@ public class CustomerControl : MonoBehaviour
         if (customerActive) {
             UpdateSprites();
         }
-
-
 
     }
 
@@ -200,15 +225,24 @@ public class CustomerControl : MonoBehaviour
             imageToAdd.gameObject.SetActive(true);
             imageToAdd.enabled = true;
             ingredientSprites.Add(imageObject);
-            if (objectToAdd.name == "lettuce(Clone)") {
+            if (objectToAdd.name == "lettuce(Clone)") 
+            {
                 imageToAdd.sprite = lettuceSprite;
-            } else if (objectToAdd.name == "Tomato(Clone)") {
+            } 
+            else if (objectToAdd.name == "Tomato(Clone)") 
+            {
                 imageToAdd.sprite = tomatoSprite;
-            } else if (objectToAdd.name == "burger(Clone)") {
+            } 
+            else if (objectToAdd.name == "burger(Clone)") 
+            {
                 imageToAdd.sprite = burgerSprite;
-            } else if (objectToAdd.name == "Onion(Clone)") {
+            } 
+            else if (objectToAdd.name == "Onion(Clone)") 
+            {
                 imageToAdd.sprite = onionSprite;
-            } else {
+            } 
+            else 
+            {
                 imageToAdd.sprite = bunSprite;
             }
 
@@ -237,6 +271,10 @@ public class CustomerControl : MonoBehaviour
             stepSpriteList[i].gameObject.transform.SetParent(panelForOrder.transform, false);
             stepSpriteList[i].gameObject.transform.localPosition = new Vector3(-110, -85, -900 - i *100);
             stepSpriteList[i].gameObject.transform.rotation = Quaternion.Euler(90, 0, 0);
+
+            stepNumbers[i].gameObject.transform.SetParent(panelForOrder.transform, false);
+            stepNumbers[i].gameObject.transform.localPosition = new Vector3(-110, -84, -900 - i * 100);
+            stepNumbers[i].gameObject.transform.rotation = Quaternion.Euler(90, 0, 0);
         }        
     }
 
@@ -254,6 +292,7 @@ public class CustomerControl : MonoBehaviour
         for (int i = 0; i <= currentIngredient.ingredientSteps.Count - 1; i++) {
 
             stepSpriteList[i].sprite = StepImage(currentIngredient.ingredientSteps[i]);
+            stepNumbers[i].GetComponent<Text>().text = StepText(currentIngredient.ingredientSteps[i]).ToString(); 
         }
     }
 
@@ -271,6 +310,45 @@ public class CustomerControl : MonoBehaviour
                 return fireSprite;
         }
         return null;
+    }
+
+    private int StepText(string step)
+    {
+        switch (step)
+        {
+            case "PeelLeaves":
+                if (ingredient.GetComponent<Vegetable>())
+                {
+                    return ingredient.GetComponent<Vegetable>().idealPulls;
+                }
+                return 0;
+            case "Chop":
+                if (ingredient.GetComponent<Vegetable>())
+                {
+                    return ingredient.GetComponent<Vegetable>().idealChops;
+                }
+                return 0;
+
+            case "Tenderise":
+                if (ingredient.GetComponent<Meat>())
+                {
+                    return ingredient.GetComponent<Meat>().IdealTenderisation;
+                }
+                return 0;
+            case "Salt":
+                if (ingredient.GetComponent<Meat>())
+                {
+                    return ingredient.GetComponent<Meat>().IdealSalt;
+                }
+                return 0;
+            case "Cook":
+                if (ingredient.GetComponent<Meat>())
+                {
+                    return ingredient.GetComponent<Meat>().IdealCook;
+                }
+                return 0;
+        }
+        return 0;
     }
 }
 

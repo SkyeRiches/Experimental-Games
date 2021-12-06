@@ -11,8 +11,6 @@ public class Vegetable : Ingredient
     [SerializeField]
     private bool needsChopping;
 
-    
-
     private int timesChopped = 0;
     private int timesPulled = 0;
 
@@ -52,9 +50,6 @@ public class Vegetable : Ingredient
     private void Awake() 
     {
         bestChops = Random.Range(1, 6);
-
-        
-        // Generate();
     }
 
     // Update is called once per frame
@@ -69,7 +64,7 @@ public class Vegetable : Ingredient
 
     public override void Generate() 
     {
-        idealPosition = new Vector3(-0.2f, 1.8f, -9f);
+        idealPosition = new Vector3(-0.441f, 0.8f, -2.4f);
         stepInt = 0;
 
         if (hasLeaves) 
@@ -84,10 +79,8 @@ public class Vegetable : Ingredient
             ingredientSteps.Add("Chop");
             timesChopped = 0;
             idealChops = Random.Range(1, 6);
-            // Debug.Log(idealChops);
         }
         ingredientSteps.Add("Complete");
-        // Debug.Log("Steps: " + ingredientSteps);
     }
 
 }
