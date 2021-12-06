@@ -289,10 +289,21 @@ public class CustomerControl : MonoBehaviour
             }
             sprite.transform.localPosition = spritePos;
         }
-        for (int i = 0; i <= currentIngredient.ingredientSteps.Count - 1; i++) {
-
+        for (int i = 0; i <= 3; i++) 
+        {
+            stepSpriteList[i].gameObject.SetActive(true);
             stepSpriteList[i].sprite = StepImage(currentIngredient.ingredientSteps[i]);
-            stepNumbers[i].GetComponent<Text>().text = StepText(currentIngredient.ingredientSteps[i]).ToString(); 
+            if (stepSpriteList[i].sprite == null)
+            {
+                stepSpriteList[i].gameObject.SetActive(false);
+            }
+
+            stepNumbers[i].SetActive(true);
+            stepNumbers[i].GetComponent<Text>().text = StepText(currentIngredient.ingredientSteps[i]).ToString();
+            if (StepText(currentIngredient.ingredientSteps[i]) == 0)
+            {
+                stepNumbers[i].gameObject.SetActive(false);
+            }
         }
     }
 

@@ -261,6 +261,7 @@ public class Gameplay : MonoBehaviour
     public void Cook(Meat currentIngredient) 
     {
         currentIngredient.cooking += gameplayManager.GetComponent<GameplayManager>().gameHeat / 10000;
+        currentIngredient.GetComponentInChildren<Text>().text = ((int)currentIngredient.cooking).ToString();
     }
 
     public void Complete() 
