@@ -12,8 +12,8 @@ public class GameplayManager : MonoBehaviour
     private Ingredient currentIngredient;
 
     // customer management
-    [SerializeField]
-    private GameObject customerPrefab;
+    [SerializeField] private GameObject customerPrefab1;
+    [SerializeField] private GameObject customerPrefab2;
     private float customerTimer;
     private GameObject currentCustomer;
     private int totalCustomers;
@@ -150,10 +150,22 @@ public class GameplayManager : MonoBehaviour
 
     void SpawnNewCustomer() 
     {
-        GameObject newCustomer = Instantiate(customerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity); // create a customer
-        newCustomer.transform.SetParent(gameObject.transform);
-        totalCustomers++;
-        newCustomer.name = "Customer" + totalCustomers;
+        int customerType = Random.Range(0, 2);
+
+        if (customerType == 1)
+        {
+            GameObject newCustomer = Instantiate(customerPrefab1, new Vector3(0f, -1f, 0f), Quaternion.identity); // create a customer
+            newCustomer.transform.SetParent(gameObject.transform);
+            totalCustomers++;
+            newCustomer.name = "Customer" + totalCustomers;
+        }
+        else
+        {
+            GameObject newCustomer = Instantiate(customerPrefab2, new Vector3(0f, -1f, 0f), Quaternion.identity); // create a customer
+            newCustomer.transform.SetParent(gameObject.transform);
+            totalCustomers++;
+            newCustomer.name = "Customer" + totalCustomers;
+        }
         ReadjustCustomers();
     }
 

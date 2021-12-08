@@ -18,6 +18,8 @@ public class Meat : Ingredient {
 
     private bool stepIsComplete;
 
+    [SerializeField] private Material[] burgerMaterials = new Material[5];
+
     public float cooking {
         get { return cook; }
         set { cook = value; }
@@ -69,6 +71,36 @@ public class Meat : Ingredient {
             
             nextStep = ingredientSteps[stepInt];
         }
+
+        switch (temp1)
+        {
+            case 0:
+                // do nothing
+                break;
+
+            case 1:
+                gameObject.GetComponent<Renderer>().material = burgerMaterials[0];
+                break;
+
+            case 2:
+                gameObject.GetComponent<Renderer>().material = burgerMaterials[1];
+                break;
+
+            case 3:
+                gameObject.GetComponent<Renderer>().material = burgerMaterials[2];
+                break;
+
+            case 4:
+                gameObject.GetComponent<Renderer>().material = burgerMaterials[3];
+                break;
+
+            case 5:
+                gameObject.GetComponent<Renderer>().material = burgerMaterials[4];
+                break;
+
+            default:
+                break;
+        }
     }
 
     public override void Generate() {
@@ -82,12 +114,14 @@ public class Meat : Ingredient {
 
         idealTenderise = Random.Range(1, 6);
         idealSalt = Random.Range(1, 6);
-        idealCook = Random.Range(0, 10);
+        idealCook = Random.Range(0, 5);
 
         ingredientSteps.Add("Tenderise");
         ingredientSteps.Add("Salt");
         ingredientSteps.Add("Cook");
         ingredientSteps.Add("Complete");
+
+        gameObject.GetComponent<Renderer>().material = burgerMaterials[0];
     }
 
 }

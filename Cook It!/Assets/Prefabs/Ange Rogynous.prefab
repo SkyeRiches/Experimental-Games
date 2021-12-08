@@ -391,6 +391,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6501855689056864275}
   - component: {fileID: 6751320459461050528}
+  - component: {fileID: 5846528972961150842}
   m_Layer: 0
   m_Name: Ange Rogynous
   m_TagString: Untagged
@@ -406,7 +407,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5868449668708831913}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6651989, y: 0.00010037422, z: -7.174907}
+  m_LocalPosition: {x: 0.6651989, y: 0, z: -7.174907}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2777575416171174029}
@@ -433,6 +434,38 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5846528972961150842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5868449668708831913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3d02588ff793da4eab9a5891eb54629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customerActive: 0
+  ingredients:
+  - {fileID: 4577772600566661484, guid: e9874d4b756030c42b1c4b465e243ce1, type: 3}
+  - {fileID: 7341455736996548136, guid: f6d94599d7826a84f9ce521141a0ba4c, type: 3}
+  - {fileID: 3010653356535527791, guid: a126432a1312e894fa9bf103f63f296b, type: 3}
+  - {fileID: 5280449270734518882, guid: da8dcd45851f2a84088f1d47390cfe84, type: 3}
+  bun: {fileID: 3834418820784116206, guid: b5c70682897aa1f4dab4f2f99947963d, type: 3}
+  maxNumberOfIngredientsPerOrder: 5
+  panelForOrderPrefab: {fileID: 4632678142455749709, guid: 4b1541d14601361478b75a5ba28c02f0, type: 3}
+  items: []
+  ingredient: {fileID: 0}
+  completed: {fileID: 766366869991635478, guid: 22f84500cd71f3f448f009a3e1744c97, type: 3}
+  lettuceSprite: {fileID: 21300000, guid: 3c179ff3c0061ab4a8e30513880dd5f4, type: 3}
+  tomatoSprite: {fileID: 21300000, guid: 5027e780287af5242b852010a4763b0b, type: 3}
+  burgerSprite: {fileID: 21300000, guid: 15bd1c59f18e2d042bb48dd38feae0b0, type: 3}
+  onionSprite: {fileID: 21300000, guid: 3964a39e1cd881b4b83ecefa5d5b8d29, type: 3}
+  bunSprite: {fileID: 21300000, guid: d7912763cbd0dd44b97201a99cab70b7, type: 3}
+  knifeSprite: {fileID: 21300000, guid: b061da92f2c22f44b91abc8bf3fca205, type: 3}
+  fireSprite: {fileID: 21300000, guid: 2fde200e235e1a1458532636d6cef613, type: 3}
+  saltSprite: {fileID: 21300000, guid: d09c63406dc16c645917e4804eca1ee7, type: 3}
 --- !u!1 &8945006373262072362
 GameObject:
   m_ObjectHideFlags: 0
