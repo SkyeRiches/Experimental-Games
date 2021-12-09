@@ -179,7 +179,7 @@ public class CustomerControl : MonoBehaviour
         panelForOrder.SetActive(true);
         panelForOrder.transform.localScale = new Vector3(0.0025f, 0.0025f, 0.0025f);
         panelForOrder.transform.localPosition = new Vector3(0f,0f,0f);
-        panelForOrder.transform.localPosition = new Vector3(5, 5, 5);
+        panelForOrder.transform.localPosition = new Vector3(5, 6, 5);
         bool continueAdding = true; // whether we should keep adding
         float randomNumberForContinuation = (1/(float)maxNumberOfIngredientsPerOrder); // a float for probability
         int randomNumberForIngredient = Random.Range(0, ingredients.Length); // a float for randomizing ingredients
@@ -269,11 +269,11 @@ public class CustomerControl : MonoBehaviour
 
         for (int i = 0; i<=stepSpriteList.Count - 1; i++) {
             stepSpriteList[i].gameObject.transform.SetParent(panelForOrder.transform, false);
-            stepSpriteList[i].gameObject.transform.localPosition = new Vector3(-110, -85, -900 - i *100);
+            stepSpriteList[i].gameObject.transform.localPosition = new Vector3(-110, 315, -900 - i *100);
             stepSpriteList[i].gameObject.transform.rotation = Quaternion.Euler(90, 0, 0);
 
             stepNumbers[i].gameObject.transform.SetParent(panelForOrder.transform, false);
-            stepNumbers[i].gameObject.transform.localPosition = new Vector3(-110, -84, -900 - i * 100);
+            stepNumbers[i].gameObject.transform.localPosition = new Vector3(-110, 316, -900 - i * 100);
             stepNumbers[i].gameObject.transform.rotation = Quaternion.Euler(90, 0, 0);
         }        
     }

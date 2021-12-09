@@ -174,7 +174,7 @@ public class GameplayManager : MonoBehaviour
         for (int i = 0; i < gameObject.transform.childCount; i++) 
         {
             // line the customers up nicely
-            gameObject.transform.GetChild(i).transform.position = new Vector3(1.5f * i, 1f, -7f);
+            gameObject.transform.GetChild(i).transform.position = new Vector3(1.5f * i, 0f, -7f);
         }
     }
 
