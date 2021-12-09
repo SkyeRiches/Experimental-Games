@@ -329,6 +329,8 @@ public class CustomerControl : MonoBehaviour
                 return saltSprite;    
             case "Cook":
                 return fireSprite;
+            case "Bun Step":
+                return bunSprite;
         }
         return null;
     }
