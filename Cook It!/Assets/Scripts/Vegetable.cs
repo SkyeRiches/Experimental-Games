@@ -64,7 +64,7 @@ public class Vegetable : Ingredient
 
     public override void Generate() 
     {
-        idealPosition = new Vector3(-0.441f, 0.8f, -2.4f);
+        idealPosition = new Vector3(-0.441f, 1.8f, -2.4f);
         stepInt = 0;
 
         if (hasLeaves) 

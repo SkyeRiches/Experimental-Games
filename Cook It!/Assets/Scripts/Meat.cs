@@ -107,8 +107,8 @@ public class Meat : Ingredient {
         stepInt = 0;
         cook = 0;
 
-        idealCookPos = new Vector3(1.106f, 0.896f, -2.039f);
-        idealPosition = new Vector3(-0.441f, 0.8f, -2.4f);
+        idealCookPos = new Vector3(1.106f, 1.896f, -2.039f);
+        idealPosition = new Vector3(-0.441f, 1.8f, -2.4f);
 
         gameObject.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
 
