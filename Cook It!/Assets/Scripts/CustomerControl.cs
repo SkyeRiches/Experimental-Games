@@ -148,6 +148,7 @@ public class CustomerControl : MonoBehaviour
         impatience -= Time.deltaTime;
         if (impatience <= 0)
         {
+            gManager.GetComponent<ScoreSystem>().LeaverNumber++;
             StartCoroutine(gManager.ReadjustDelay()); // Triggers the function to wait before readjusting the customers as it wont sort them otherwise as this customer wont have been removed yet
             Destroy(gameObject);
         }

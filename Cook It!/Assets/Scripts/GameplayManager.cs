@@ -133,7 +133,7 @@ public class GameplayManager : MonoBehaviour
                 customerPatience = 100;
 
                 Destroy(currentCustomer);
-                ReadjustCustomers();
+                StartCoroutine(ReadjustDelay());
                 game.customersServed++;
                 gameObject.GetComponent<CustomerSelect>().enabled = true;
                 gameObject.GetComponent<CameraPos>().IsPrepping = false;
@@ -171,6 +171,7 @@ public class GameplayManager : MonoBehaviour
 
     public void ReadjustCustomers() 
     {
+        Debug.Log("readjusting..." + gameObject.transform.childCount);
         for (int i = 0; i < gameObject.transform.childCount; i++) 
         {
             // line the customers up nicely
@@ -181,7 +182,6 @@ public class GameplayManager : MonoBehaviour
     public IEnumerator ReadjustDelay()
     {
         yield return new WaitForSeconds(1);
-        gameObject.GetComponent<ScoreSystem>().LeaverNumber++;
         ReadjustCustomers();
     }
 }
