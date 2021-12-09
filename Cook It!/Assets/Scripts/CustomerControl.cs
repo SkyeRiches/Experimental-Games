@@ -100,12 +100,17 @@ public class CustomerControl : MonoBehaviour
 
         StepSpriteObjectOne = new GameObject();
         StepSpriteOne = StepSpriteObjectOne.AddComponent<Image>();
+        StepSpriteOne.name = "Sprite1";
         stepSpriteList.Add(StepSpriteOne);
+
         StepSpriteObjectTwo = new GameObject();
         StepSpriteTwo = StepSpriteObjectTwo.AddComponent<Image>();
+        StepSpriteTwo.name = "Sprite2";
         stepSpriteList.Add(StepSpriteTwo);
+
         StepSpriteObjectThree = new GameObject();
         StepSpriteThree = StepSpriteObjectThree.AddComponent<Image>();
+        StepSpriteThree.name = "Sprite3";
         stepSpriteList.Add(StepSpriteThree);
 
         step1Text = new GameObject();
@@ -289,7 +294,7 @@ public class CustomerControl : MonoBehaviour
             }
             sprite.transform.localPosition = spritePos;
         }
-        for (int i = 0; i <= 3; i++) 
+        for (int i = 0; i <= currentIngredient.ingredientSteps.Count - 1; i++) 
         {
             stepSpriteList[i].sprite = null;
             stepSpriteList[i].gameObject.SetActive(true);
@@ -305,6 +310,10 @@ public class CustomerControl : MonoBehaviour
             {
                 stepNumbers[i].gameObject.SetActive(false);
             }
+        }
+        for (int i = currentIngredient.ingredientSteps.Count; i<=2; i++) {
+            stepSpriteList[i].gameObject.SetActive(false);
+            stepNumbers[i].SetActive(false);
         }
     }
 
