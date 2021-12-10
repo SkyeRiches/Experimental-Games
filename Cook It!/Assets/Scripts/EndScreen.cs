@@ -13,9 +13,8 @@ public class EndScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rating.text = "Rating: " + PlayerPrefs.GetFloat("Rating");
-        score.text = "Score: " + PlayerPrefs.GetFloat("Score");
-        leavers.text = "Leavers: " + PlayerPrefs.GetInt("Leavers");
+        score.text = PlayerPrefs.GetFloat("Score").ToString();
+        leavers.text = PlayerPrefs.GetInt("Leavers").ToString();
     }
 
     // Update is called once per frame

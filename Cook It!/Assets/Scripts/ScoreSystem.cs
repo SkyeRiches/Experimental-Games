@@ -42,7 +42,6 @@ public class ScoreSystem : MonoBehaviour
         totalScore = totalScore- (numberOfLeavers * leaverPenalty);
 
         PlayerPrefs.SetFloat("Score", totalScore);
-        PlayerPrefs.SetFloat("Rating", rating);
         PlayerPrefs.SetInt("Leavers", numberOfLeavers);
     }
 
