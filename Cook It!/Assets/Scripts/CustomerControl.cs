@@ -68,6 +68,10 @@ public class CustomerControl : MonoBehaviour
     private List<Image> stepSpriteList = new List<Image>();
     private GameObject[] stepNumbers = new GameObject[3];
 
+
+    [SerializeField] private GameObject activeIndicator;
+    private bool isChosen = false;
+
     // getters and setters
     public Ingredient currentIngredient 
     {
@@ -373,6 +377,12 @@ public class CustomerControl : MonoBehaviour
                 return 0;
         }
         return 0;
+    }
+
+
+    public void ActiveIndicator(bool a_value)
+    {
+        activeIndicator.SetActive(a_value);
     }
 }
 

@@ -25,14 +25,14 @@ public class CustomerSelect : MonoBehaviour
     {
         if (gManager.transform.childCount != 0)
         {
-            //gManager.transform.GetChild(currentSelction).transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = Color.red;
+            gManager.transform.GetChild(currentSelction).gameObject.GetComponent<CustomerControl>().ActiveIndicator(true);
 
             if (Input.GetKeyDown(KeyCode.W))
             {
                 // increase selection
                 currentSelction++;
 
-                //gManager.transform.GetChild(currentSelction - 1).transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = Color.white;
+                gManager.transform.GetChild(currentSelction - 1).gameObject.GetComponent<CustomerControl>().ActiveIndicator(false);
 
             }
 
@@ -41,7 +41,7 @@ public class CustomerSelect : MonoBehaviour
                 // decrease selection
                 currentSelction--;
 
-                //gManager.transform.GetChild(currentSelction + 1).transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = Color.white;
+                gManager.transform.GetChild(currentSelction + 1).gameObject.GetComponent<CustomerControl>().ActiveIndicator(false);
             }
 
             if (Input.GetKeyDown(KeyCode.T))
