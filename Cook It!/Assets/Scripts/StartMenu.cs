@@ -16,8 +16,7 @@ public class StartMenu : MonoBehaviour
     int CurrentButtonStart = 0;
     int StartLimit = 4;
     int CurrentButtonOptions = 0;
-    int OptionsLimit = 3;
-    int difficultyLimit = 3;
+    int OptionsLimit = 2;
     int CurrentButtonQuit = 0;
     int QuitLimit = 2;
 
@@ -39,17 +38,12 @@ public class StartMenu : MonoBehaviour
     GameObject QuitButton1;
     GameObject QuitButton2;
     GameObject[][] menu;
-    GameObject[] difficultyMenu;
 
     //Options Variables
     float volume;
-    int difficulty;
 
     //Options Objects
     GameObject volumeSlider;
-    GameObject easyButton;
-    GameObject normalButton;
-    GameObject hardButton;
     
     //Handles Setting The Menu To Its Default Values
     void Start()
@@ -66,20 +60,12 @@ public class StartMenu : MonoBehaviour
         OptionsButton1 = optionsMenu.transform.GetChild(0).gameObject;
         volumeSlider = OptionsButton1.transform.GetChild(0).gameObject;
         OptionsButton2 = optionsMenu.transform.GetChild(1).gameObject;
-        easyButton = OptionsButton2.transform.GetChild(0).gameObject;
-        normalButton = OptionsButton2.transform.GetChild(1).gameObject;
-        hardButton = OptionsButton2.transform.GetChild(2).gameObject;
-        OptionsButton3 = optionsMenu.transform.GetChild(2).gameObject;
+
         tutorialMenu = transform.GetChild(2).gameObject;
         TutorialButton = tutorialMenu.transform.GetChild(0).gameObject;
         //Setting Up Options Sliders
         volume = 1;
-        difficulty = 1;
         volumeSlider.GetComponent<Slider>().value = volume;//Sets Slider To Default Value
-        easyButton.GetComponent<Button>().interactable = false;
-        normalButton.GetComponent<Button>().interactable = true;
-        hardButton.GetComponent<Button>().interactable = false;
-
 
 
         //Quit Menu Declarations
@@ -89,7 +75,6 @@ public class StartMenu : MonoBehaviour
 
         //Menu Setup
         GameObject[][] menu = menuSet();
-        GameObject[] difficultyMenu = difficultySet();
         resetMenu();
         buttonSelect(ActiveMenu, CurrentButtonStart, StartLimit, menu);//Handles Visual Button Interactivity
     }
@@ -152,27 +137,10 @@ public class StartMenu : MonoBehaviour
                     volumeSlider.GetComponent<Slider>().value = volume;//Sets Slider To Updated Value
                     SetVoulume(volume);//Sets Audio On AudioManager To The Changed Value
                 }
-                else if (CurrentButtonOptions == 1)//Difficulty Select
-                {
-                    difficulty = cycleMenu(difficulty, difficultyLimit);
-                    difficultyMenu = difficultySet();
-                    for (int i = 0; i<difficultyLimit; i++)//Handles Visual Button Interactivity
-                    {
-                        if (i == difficulty)
-                        {
-                            difficultyMenu[i].GetComponent<Button>().interactable = true;
-                        }
-                        else
-                        {
-                            difficultyMenu[i].GetComponent<Button>().interactable = false;
-                        }
-                    }
-                    SetDifficulty(difficulty);//Sets The Selected Difficulty On The DataManager
-                }
             }
             if (Input.GetKeyDown("r"))//Bop It!
             {
-                if (CurrentButtonOptions == 2)
+                if (CurrentButtonOptions == 1)
                 {
                     ActiveMenu = 0;
                     resetMenu();
@@ -228,12 +196,6 @@ public class StartMenu : MonoBehaviour
             new GameObject[] { TutorialButton },//Tutorial Menu
             new GameObject[] { QuitButton1, QuitButton2 }//Quit Menu
         };
-        return setup;
-    }
-    //Used To Set Up The Difficulty Array
-    public GameObject[] difficultySet()
-    {
-        GameObject[] setup = { easyButton, normalButton, hardButton };
         return setup;
     }
     //Cycles Menus
