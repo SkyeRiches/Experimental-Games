@@ -20,6 +20,15 @@ public class HeatControl : MonoBehaviour
     [SerializeField]
     private float secondsToHeat; // exposed to the editor - how long it takes to heat after we flick
     private float floatTimeForHeat; // a float used for a real version of the above ^^ 
+
+    [SerializeField]
+    private GameObject hob;
+    [SerializeField]
+    private Material[] hobMaterial = new Material[2];
+    private float intensityValue;
+    private Color baseColor;
+    private Color currentColor;
+
     // Start is called before the first frame update
 
     public float publicHeat {
@@ -36,6 +45,16 @@ public class HeatControl : MonoBehaviour
         coolingTimer = timePerCool / fluidness;
         currentHeat = 20f;
         floatTimeForHeat = secondsToHeat / 40;
+
+        
+
+        hobMaterial = hob.GetComponent<Renderer>().materials;
+        for (int i = 0; i<=1; i++) {
+            hobMaterial[i].EnableKeyword("_Emission");
+
+        }
+        baseColor = hobMaterial[0].GetColor("_EmissionColor");
+
     }
 
     // Update is called once per frame
@@ -72,7 +91,13 @@ public class HeatControl : MonoBehaviour
         if (currentHeat > 100 || currentHeat < 0) {
             // failure mechanic
         }
+        // intensity as a range from 0-20
+        intensityValue = currentHeat / 100;
+        // readjust so intensity is between -10 and 10
 
+        for (int i = 0; i <= 1; i++) {
+            currentColor = new Color(1, 1, 1) * intensityValue;
+            hobMaterial[i].SetColor("_EmissionColor", currentColor);
+        }
     }
-
 }
