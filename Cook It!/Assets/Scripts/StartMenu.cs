@@ -211,8 +211,8 @@ public class StartMenu : MonoBehaviour
     //Changes Sliders
     public float sliderChange(float i)
     {
-        i -= 0.2f;
-        if (i<0)
+        i -= 0.05f;
+        if (i < 0)
         {
             i = 1.0f;
         }
@@ -271,7 +271,8 @@ public class StartMenu : MonoBehaviour
     //Sets The Value of Volume on the audioManager
     public void SetVoulume(float Volume)
     {
-        audioMixer.SetFloat("Volume", Volume);
+        PlayerPrefs.SetFloat("Volume", Volume);
+        gameObject.GetComponent<AudioSource>().volume = Volume;
     }
     //Sets The Value of Difficulty on the DataManager
     public void SetDifficulty(int difficultySet)
