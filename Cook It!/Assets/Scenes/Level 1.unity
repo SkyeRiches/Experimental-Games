@@ -419,6 +419,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 835668152}
     m_Modifications:
     - target: {fileID: 8945535245983850148, guid: ed8dafe01528547429f86b475b7f6aa6, type: 3}
+      propertyPath: hob
+      value: 
+      objectReference: {fileID: 2193423311985319142}
+    - target: {fileID: 8945535245983850148, guid: ed8dafe01528547429f86b475b7f6aa6, type: 3}
       propertyPath: heatSlider
       value: 
       objectReference: {fileID: 1485124938}
