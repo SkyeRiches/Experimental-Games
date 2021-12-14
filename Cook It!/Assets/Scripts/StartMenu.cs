@@ -11,6 +11,12 @@ public class StartMenu : MonoBehaviour
     public AudioMixer audioMixer;
     public DataManager dataManager;
 
+    //Sound Effect Declarations
+    public AudioSource source;
+    public AudioClip MenuSelect;
+    public AudioClip MenuCycle;
+    public AudioClip MenuAdjust;
+
     //Menu Variables
     int ActiveMenu = 0;
     int CurrentButtonStart = 0;
@@ -93,6 +99,7 @@ public class StartMenu : MonoBehaviour
             }
             if (Input.GetKeyDown("r"))//Bop It!
             {
+                source.PlayOneShot(MenuSelect);
                 if (CurrentButtonStart == 0)//Start Option
                 {
                     StartGame();//Starts Game
@@ -140,6 +147,7 @@ public class StartMenu : MonoBehaviour
             }
             if (Input.GetKeyDown("r"))//Bop It!
             {
+                source.PlayOneShot(MenuSelect);
                 if (CurrentButtonOptions == 1)
                 {
                     ActiveMenu = 0;
@@ -155,6 +163,7 @@ public class StartMenu : MonoBehaviour
         {
             if (Input.GetKeyDown("r"))//Bop It!
             {
+                source.PlayOneShot(MenuSelect);
                 ActiveMenu = 0;
                 resetMenu();
                 menu = menuSet();
@@ -172,7 +181,8 @@ public class StartMenu : MonoBehaviour
             }
             if (Input.GetKeyDown("r"))//Bop It!
             {
-                if(CurrentButtonQuit==0)
+                source.PlayOneShot(MenuSelect);
+                if (CurrentButtonQuit==0)
                 {
                     ActiveMenu = 0;
                     resetMenu();
@@ -206,6 +216,7 @@ public class StartMenu : MonoBehaviour
         {
             i = 0;
         }
+        source.PlayOneShot(MenuCycle);
         return i;
     }
     //Changes Sliders
@@ -216,6 +227,7 @@ public class StartMenu : MonoBehaviour
         {
             i = 1.0f;
         }
+        source.PlayOneShot(MenuAdjust);
         return i;
     }
     //Handles Visual Button Interactivity
@@ -275,7 +287,7 @@ public class StartMenu : MonoBehaviour
         gameObject.GetComponent<AudioSource>().volume = Volume;
     }
     //Sets The Value of Difficulty on the DataManager
-    public void SetDifficulty(int difficultySet)
+    public void SetDifficulty(int difficultySet)//Unused
     {
         dataManager.Difficulty = difficultySet;
     }

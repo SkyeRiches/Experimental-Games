@@ -5,7 +5,18 @@ using UnityEngine.UI;
 
 public class Gameplay : MonoBehaviour
 {
-    
+
+    //Sound Effect Declarations
+    public AudioSource source;
+    public AudioClip Ambience;
+    public AudioClip CompleteAudio;
+    public AudioClip[] ChopAudio;
+    public AudioClip[] SaltAudio;
+    public AudioClip[] TenderiseAudio;
+    public AudioClip[] PeelAudio;
+    public AudioClip[] CookAudio;
+
+
     [SerializeField]
     private GameObject customerPrefab; // a customer
     private int customersServed2; // number of customers served
@@ -76,6 +87,7 @@ public class Gameplay : MonoBehaviour
     void Start() 
     {
         customersServed = 0;
+        source.PlayOneShot(Ambience);
     }
 
     public void cookIngredient(string currentState) 
@@ -200,6 +212,7 @@ public class Gameplay : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Y)) 
         {
+            SoundEffect(PeelAudio);
             currentIngredient.pulls++;
             gameplayManager.GetComponent<GUIManager>().Counter++;
             gameplayManager.GetComponent<AnimationManager>().PullLeaves();
@@ -218,6 +231,7 @@ public class Gameplay : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.R)) 
         {
+            SoundEffect(ChopAudio);
             gameplayManager.GetComponent<AnimationManager>().Chop();
             currentIngredient.chops++;
             gameplayManager.GetComponent<GUIManager>().Counter++;
@@ -235,6 +249,7 @@ public class Gameplay : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.R)) 
         {
+            SoundEffect(TenderiseAudio);
             currentIngredient.tenderiseStage++;
             gameplayManager.GetComponent<GUIManager>().Counter++;
             gameplayManager.GetComponent<AnimationManager>().Tenderise();
@@ -252,6 +267,7 @@ public class Gameplay : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
+            SoundEffect(SaltAudio);
             currentIngredient.SaltAmount++;
             gameplayManager.GetComponent<GUIManager>().Counter++;
             gameplayManager.GetComponent<AnimationManager>().Salt();
@@ -260,8 +276,15 @@ public class Gameplay : MonoBehaviour
 
     public void Cook(Meat currentIngredient) 
     {
+        SoundEffect(CookAudio);
         currentIngredient.cooking += gameplayManager.GetComponent<GameplayManager>().gameHeat / 10000;
         currentIngredient.GetComponentInChildren<Text>().text = ((int)currentIngredient.cooking).ToString();
+    }
+
+    public void SoundEffect(AudioClip[] audio)
+    {
+        int random = Random.Range(0, 2);
+        source.PlayOneShot(audio[random]);
     }
 
     public void Complete() 

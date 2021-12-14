@@ -664,6 +664,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 1e2acbfab1aa7894fac149ffdaacf00e, type: 2}
   dataManager: {fileID: 1131133856}
+  source: {fileID: 412110649}
+  MenuSelect: {fileID: 8300000, guid: 9dad3ffdea3dc7446a1740e51d96e249, type: 3}
+  MenuCycle: {fileID: 8300000, guid: edbf084c9b594ea42b7c369b6b32e1b4, type: 3}
+  MenuAdjust: {fileID: 8300000, guid: b079f39d3ee48b14f8957b2a6447071a, type: 3}
 --- !u!82 &412110649
 AudioSource:
   m_ObjectHideFlags: 0

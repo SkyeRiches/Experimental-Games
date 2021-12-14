@@ -3,7 +3,26 @@ guid: a1e149f5e3201d34eaa01aba6d97e970
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - source: {instanceID: 0}
+  - Ambience: {fileID: 8300000, guid: 9854b37de8851c0469e9da7d30e2db52, type: 3}
+  - Chop1: {fileID: 8300000, guid: de91d636f673dc54fbe17068e17b2a2b, type: 3}
+  - Chop2: {fileID: 8300000, guid: cf5f2324df1cbec4aa630846ca3fcab0, type: 3}
+  - Salt1: {fileID: 8300000, guid: 8d455aebc372cb244a8c7f09b3f0bf62, type: 3}
+  - Salt2: {fileID: 8300000, guid: 48b9839d067a891488116713a8ac7011, type: 3}
+  - Tenderise1: {fileID: 8300000, guid: 3d67a1d23b6f1494fb74ac571c0efcf8, type: 3}
+  - Tenderise2: {fileID: 8300000, guid: fe8ab4063c766784fb7560a5250bb0db, type: 3}
+  - Peel1: {fileID: 8300000, guid: 76ea95163b3bf614b8ba959bd894d23c, type: 3}
+  - Peel2: {fileID: 8300000, guid: e2a302b5b1431464f98c94b575ea6e65, type: 3}
+  - Cook1: {fileID: 8300000, guid: afe72d0fa53860d49962244600aa863b, type: 3}
+  - Cook2: {fileID: 8300000, guid: 2dfaf4c3075456b4cac75aa5655d9530, type: 3}
+  - customerPrefab: {instanceID: 0}
+  - gameplayManager: {instanceID: 0}
+  - knife: {instanceID: 0}
+  - hammer: {instanceID: 0}
+  - salt: {instanceID: 0}
+  - hand: {instanceID: 0}
+  - van: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
