@@ -14,6 +14,7 @@ public class GUIManager : MonoBehaviour
     private float score;
     private int orders;
 
+    #region Getters/Setters
     public int Counter
     {
         get { return counter; }
@@ -29,8 +30,9 @@ public class GUIManager : MonoBehaviour
         get { return orders; }
         set { orders = value; }
     }
+    #endregion
 
-    // Update is called once per frame
+    // Updates the UI elements each frame
     void Update()
     {
         numbers.text = "X" + counter;

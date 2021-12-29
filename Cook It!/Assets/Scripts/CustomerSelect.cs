@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The class responsible for allowing the player to select which customer they serve next
+/// </summary>
 public class CustomerSelect : MonoBehaviour
 {
     private int currentSelction;
@@ -25,8 +28,10 @@ public class CustomerSelect : MonoBehaviour
     {
         if (gManager.transform.childCount != 0)
         {
+            // Sets the indicator active on the customer that is selected
             gManager.transform.GetChild(currentSelction).gameObject.GetComponent<CustomerControl>().ActiveIndicator(true);
 
+            // Increase the selection and remove the indicator from previously selected customer
             if (Input.GetKeyDown(KeyCode.W))
             {
                 // increase selection
@@ -36,6 +41,7 @@ public class CustomerSelect : MonoBehaviour
 
             }
 
+            // Decrease the selection and remove the indicator from previously selected customer
             if (Input.GetKeyDown(KeyCode.Y))
             {
                 // decrease selection
@@ -44,6 +50,8 @@ public class CustomerSelect : MonoBehaviour
                 gManager.transform.GetChild(currentSelction + 1).gameObject.GetComponent<CustomerControl>().ActiveIndicator(false);
             }
 
+            // Confirm selection.
+            // The customer scripts are then triggered and normal gameplay is resumed
             if (Input.GetKeyDown(KeyCode.T))
             {
                 // finalise selection

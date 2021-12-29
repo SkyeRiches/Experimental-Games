@@ -21,6 +21,7 @@ public class CameraPos : MonoBehaviour
 
     [SerializeField] private GameObject arms;
 
+    #region Getters/Setters
     public bool IsPrepping
     {
         get { return isPrepping; }
@@ -31,6 +32,7 @@ public class CameraPos : MonoBehaviour
         get { return isCooking; }
         set { isCooking = value; }
     }
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -41,14 +43,17 @@ public class CameraPos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // If they are prepping, the camera is moved to look down at the counter
         if (isPrepping && !isPrepView)
         {
             StartCoroutine(DelaySwap());
         }
+        // If they are not prepping food, the camera looks at the customers
         else if(!isCooking && !isPrepping && !isOrderView)
         {
             StartCoroutine(DelaySwap());
         }
+        // If they are on a cooking step, the camera moves to look at the hob
         else if(isCooking && !isCookView)
         {
             StartCoroutine(DelaySwap());
@@ -58,6 +63,7 @@ public class CameraPos : MonoBehaviour
     private IEnumerator DelaySwap()
     {
         yield return new WaitForSeconds(0f);
+        // Move camera to look at the counter and adjust the fov to fit it
         if (isPrepping && !isPrepView)
         {
             camera.transform.position = prepPos;
@@ -68,6 +74,7 @@ public class CameraPos : MonoBehaviour
             isOrderView = false;
             isCookView = false;
         }
+        // Move the camera to look at customers and increase fov again
         else if (!isCooking && !isPrepping && !isOrderView)
         {
             camera.transform.position = orderPos;
@@ -78,6 +85,7 @@ public class CameraPos : MonoBehaviour
             isPrepView = false;
             isCookView = false;
         }
+        // Adjust camera to look at the cooker and decrease fov to fit it
         else if (isCooking && !isCookView)
         {
             camera.transform.position = cookPos;
