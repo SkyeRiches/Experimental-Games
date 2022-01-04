@@ -6,31 +6,33 @@ using UnityEngine.UI;
 public class CustomerControl : MonoBehaviour 
 {
     [SerializeField]
-    private bool customerActive; // whether the customer is active
-    private int ingredientInt; // which ingredient of the order is the player on
-    [SerializeField]
     private GameObject[] ingredients; // the list of possible ingredients
     [SerializeField]
-    private GameObject bun;
+    private GameObject bun; // a bun ingredient
+    [SerializeField]
+    private GameObject completed; // the completion ingredient
     [SerializeField]
     private int maxNumberOfIngredientsPerOrder = 8; // maximum ingredients per order (+2 for buns on either side)
 
+    // gameObjects to hold the HUD sprites
     [SerializeField]
-    private GameObject panelForOrderPrefab;
+    private GameObject panelForOrderPrefab; 
     private GameObject canvas;
 
     private GameObject panelForOrder;
     // private Image imageToAdd;
 
+    // Customer variables
     [SerializeField]
-    private List<GameObject> items = new List<GameObject>();
+    private List<GameObject> items = new List<GameObject>(); // the ingredients in the order
     [SerializeField]
-    private Ingredient ingredient;
+    private Ingredient ingredient; // the current ingredient
+    private int ingredientInt; // which ingredient of the order is the player on
     [SerializeField]
-    private GameObject completed;
+    private bool customerActive; // whether the customer is active
+    private float impatience = 100; // impatience tracker for the customer
 
-    private float impatience = 100; // value tbd
-    private GameplayManager gManager;
+    private GameplayManager gManager; 
 
     // Ingredient Sprites
     [SerializeField]
@@ -54,14 +56,17 @@ public class CustomerControl : MonoBehaviour
     private List<GameObject> ingredientSprites = new List<GameObject>();
     private GameObject currentSprite;
 
+    // the step sprite gameObjects
     private GameObject StepSpriteObjectOne;
     private GameObject StepSpriteObjectTwo;
     private GameObject StepSpriteObjectThree;
 
+    // the gameObjects for the text for the step sprites
     private GameObject step1Text;
     private GameObject step2Text;
     private GameObject step3Text;
 
+    // the images to be loaded into the sprite gameObjects
     private Image StepSpriteOne;
     private Image StepSpriteTwo;
     private Image StepSpriteThree;
@@ -91,17 +96,20 @@ public class CustomerControl : MonoBehaviour
         set { ingredientInt = value; }
     }
 
+    // steps to be run when the customer needs to be generated
     private void Initialise() 
     {
+        // set the initial values
         ingredientInt = 0;
-        impatience = 500; //value tbd
-        // panelForOrderPrefab.SetActive(false);
+        impatience = 500;
+        // set up the GUI canvas
         canvas = new GameObject();
         canvas.AddComponent<Canvas>();
         canvas.name = "CustomerCanvas";
         canvas.transform.SetParent(this.gameObject.transform);
         canvas.transform.localPosition = new Vector3(-4.62f, -4.087f, -4.749f);
 
+        // set up the sprite holder gameObjects
         StepSpriteObjectOne = new GameObject();
         StepSpriteOne = StepSpriteObjectOne.AddComponent<Image>();
         StepSpriteOne.name = "Sprite1";
@@ -117,6 +125,7 @@ public class CustomerControl : MonoBehaviour
         StepSpriteThree.name = "Sprite3";
         stepSpriteList.Add(StepSpriteThree);
 
+        // set up the GUI text holder gameObjects
         step1Text = new GameObject();
         step1Text.AddComponent<Text>();
         step1Text.GetComponent<Text>().font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
@@ -146,9 +155,9 @@ public class CustomerControl : MonoBehaviour
         ingredientInt = 0; // go the start of their order
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // update impatience and check if customer is ready to leave
         impatience -= Time.deltaTime;
         if (impatience <= 0)
         {
@@ -156,13 +165,12 @@ public class CustomerControl : MonoBehaviour
             StartCoroutine(gManager.ReadjustDelay()); // Triggers the function to wait before readjusting the customers as it wont sort them otherwise as this customer wont have been removed yet
             Destroy(gameObject);
         }
-
-
+        // update current ingredient
         if (items.Count != 0)
         {
             ingredient = items[ingredientInt].GetComponent<Ingredient>();
         }
-
+        // update the current ingredient
         if (ingredient != null)
         {
             ingredient.Update();
@@ -171,7 +179,7 @@ public class CustomerControl : MonoBehaviour
         {
             customerActive = false;
         }
-
+        // update the sprites
         if (customerActive) {
             UpdateSprites();
         }
@@ -180,9 +188,8 @@ public class CustomerControl : MonoBehaviour
 
     public void GenerateCustomer() 
     {
-
         Initialise();
-        // set the panel to be active
+        // set up the panel for the GUI
         panelForOrder = Instantiate(panelForOrderPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         panelForOrder.transform.SetParent(canvas.transform);
 
@@ -190,34 +197,33 @@ public class CustomerControl : MonoBehaviour
         panelForOrder.transform.localScale = new Vector3(0.0025f, 0.0025f, 0.0025f);
         panelForOrder.transform.localPosition = new Vector3(0f,0f,0f);
         panelForOrder.transform.localPosition = new Vector3(5, 6, 5);
+
+        // Generate the ingredient
         bool continueAdding = true; // whether we should keep adding
         float randomNumberForContinuation = (1/(float)maxNumberOfIngredientsPerOrder); // a float for probability
         int randomNumberForIngredient = Random.Range(0, ingredients.Length); // a float for randomizing ingredients
-
-
-
-        GameObject bunImageObject = new GameObject();
-        Image bunImageToAdd = bunImageObject.AddComponent<Image>();
-        ingredientSprites.Add(bunImageObject);
-        bunImageToAdd.sprite = bunSprite;
+        GameObject bunImageObject = new GameObject(); 
+        // set up bun GUI
+        Image bunImageToAdd = bunImageObject.AddComponent<Image>(); 
+        ingredientSprites.Add(bunImageObject); 
+        bunImageToAdd.sprite = bunSprite; 
         bunImageToAdd.transform.SetParent(panelForOrder.transform, false);
         bunImageToAdd.transform.localPosition = new Vector3(-800, 500 - 100 * items.Count, 0);
         GameObject bunToAdd = Instantiate(bun, new Vector3(-10f, -10f, -10f), Quaternion.identity); ;
+        // create and initialize the bun
         bunToAdd.transform.parent = gameObject.transform;
         bunToAdd.GetComponent<Ingredient>().Generate();
 
-        items.Add(bunToAdd);
-
+        items.Add(bunToAdd); // add the bun to the list
 
         while (continueAdding == true) // while we should keep adding
         {
+            // create and add an ingredient
             GameObject objectToAdd = Instantiate(ingredients[randomNumberForIngredient], new Vector3(-10f, -10f, -10f), Quaternion.identity);
             objectToAdd.transform.parent = gameObject.transform;
             objectToAdd.GetComponent<Ingredient>().Generate();
             items.Add(objectToAdd); // add an ingredient
             float testNumber = Random.Range(0.0f, 1.0f); // create a random number between 0 and 1
-
-            
 
             // test whether random number is bigger than our test value squared (squaring weights it towards bigger numbers)
             if (testNumber <= randomNumberForContinuation * randomNumberForContinuation) 
@@ -230,6 +236,7 @@ public class CustomerControl : MonoBehaviour
                 randomNumberForIngredient = Random.Range(0, ingredients.Length); // choose a new test value
             }
 
+            // set up the gameObject GUI
             GameObject imageObject = new GameObject();
             Image imageToAdd = imageObject.AddComponent<Image>();
             imageToAdd.gameObject.SetActive(true);
@@ -255,17 +262,13 @@ public class CustomerControl : MonoBehaviour
             {
                 imageToAdd.sprite = bunSprite;
             }
-
             imageToAdd.transform.SetParent(panelForOrder.transform, false);
             // No idea why this has to be -900 instead of -800 like the other 2 but for some reason it works
             imageToAdd.transform.localPosition = new Vector3(-900, 600 - 100 * items.Count, 0);
-
-
-
         }
-
-
+        // add another bun at the end
         GameObject bunTwoImageObject = new GameObject();
+        // Set up GUI for the second bun
         Image bunTwoImageToAdd = bunTwoImageObject.AddComponent<Image>();
         ingredientSprites.Add(bunTwoImageObject);
         bunTwoImageToAdd.sprite = bunSprite;
@@ -277,6 +280,7 @@ public class CustomerControl : MonoBehaviour
 
         items.Add(completed);
 
+        // set up the positioning of the GUI sprites
         for (int i = 0; i<=stepSpriteList.Count - 1; i++) {
             stepSpriteList[i].gameObject.transform.SetParent(panelForOrder.transform, false);
             stepSpriteList[i].gameObject.transform.localPosition = new Vector3(-110, -85, -900 - i *100);
@@ -289,6 +293,7 @@ public class CustomerControl : MonoBehaviour
     }
 
     public void UpdateSprites() {
+        // find the active sprite and make it jut out so its obvious which step is active
         currentSprite = ingredientSprites[ingredientInt];
         foreach (GameObject sprite in ingredientSprites) {
             Vector3 spritePos = sprite.transform.localPosition;
@@ -299,6 +304,8 @@ public class CustomerControl : MonoBehaviour
             }
             sprite.transform.localPosition = spritePos;
         }
+        // clear the sprite images and then find what sprite should be displayed
+        // set active the correct sprites
         for (int i = 0; i <= currentIngredient.ingredientSteps.Count - 1; i++) 
         {
             stepSpriteList[i].sprite = null;
@@ -322,6 +329,7 @@ public class CustomerControl : MonoBehaviour
         }
     }
 
+    // retrieve the correct image
     private Sprite StepImage(string step) {
         switch (step) {
             case "PeelLeaves":
@@ -340,6 +348,7 @@ public class CustomerControl : MonoBehaviour
         return null;
     }
 
+    // update the text based on what the ingredient step is
     private int StepText(string step)
     {
         switch (step)
@@ -378,7 +387,6 @@ public class CustomerControl : MonoBehaviour
         }
         return 0;
     }
-
 
     public void ActiveIndicator(bool a_value)
     {

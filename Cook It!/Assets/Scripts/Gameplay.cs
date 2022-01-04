@@ -19,16 +19,17 @@ public class Gameplay : MonoBehaviour
 
     [SerializeField]
     private GameObject customerPrefab; // a customer
-    private int customersServed2; // number of customers served
-    private string currentState;
-
-    private CustomerControl customer;
-    GameObject newCustomer;
-
-    private Ingredient currentIngredient;
-
     [SerializeField]
     private GameObject gameplayManager;
+
+    private int customersServed2; // number of customers served
+
+    // current customer variables
+    private string currentState;
+    private CustomerControl customer;
+    private Ingredient currentIngredient;
+
+    GameObject newCustomer;
 
     [SerializeField] GameObject knife;
     [SerializeField] GameObject hammer;
@@ -36,18 +37,19 @@ public class Gameplay : MonoBehaviour
     [SerializeField] GameObject hand;
     [SerializeField] GameObject van;
 
+    // positions for gameObjects
     [SerializeField]
     private Vector3 VegetableIngredientPos;
     [SerializeField]
     private Vector3 completedIngredientPos;
     [SerializeField]
     private Vector3 meatIngredientPos;
+    Vector3 knifePosition = new Vector3(0f, 0f, 0f);
 
+    // trackers for if things are in correct place
     private bool needsToSetKnife;
     private bool needsToSetHammer;
     private bool needsToSetSalt;
-
-    Vector3 knifePosition = new Vector3(0f, 0f, 0f);
 
     private bool meatOnSideOne;
 
@@ -92,6 +94,7 @@ public class Gameplay : MonoBehaviour
 
     public void cookIngredient(string currentState) 
     {
+        // Work out the score accumalated when the player moves on from an ingredient
         if ((Input.GetKeyDown(KeyCode.T))) 
         {
             Vegetable currentVeg;
@@ -157,14 +160,15 @@ public class Gameplay : MonoBehaviour
             }
 
             gameplayManager.GetComponent<ScoreSystem>().IncreaseScore(scoreToAdd);
-
+            // move to next ingredient
             customer.currentIngredient.stepTracker++;
             gameplayManager.GetComponent<GUIManager>().Counter = 0;
 
         } 
         else 
         {
-            switch (currentState) 
+            // set positions of the camera and ingredients based on the current game state
+            switch (currentState)
             {
                 case "PeelLeaves":
                     customer.currentIngredient.gameObject.transform.localPosition = customer.currentIngredient.bestPos;
@@ -202,12 +206,12 @@ public class Gameplay : MonoBehaviour
                     gameplayManager.GetComponent<CameraPos>().IsCooking = false;
                     Complete();
                     break;
-
                 default: break;
             }
         }
     }
 
+    // peel the leaves
     public void PeelLeaves(Vegetable currentIngredient) 
     {
         if (Input.GetKeyDown(KeyCode.Y)) 
@@ -219,10 +223,11 @@ public class Gameplay : MonoBehaviour
         }
     }
 
+    // chop a vegetable
     public void Chop(Vegetable currentIngredient) 
     {
         if (needsToSetKnife) {
-            // put the knife in the hand#
+            // put the knife in the hand
             knifePosition = new Vector3(0f, 0f, 0f);
             knife.transform.parent = hand.transform;
             knife.transform.localPosition = knifePosition;
@@ -238,6 +243,7 @@ public class Gameplay : MonoBehaviour
         }
     }
 
+    // tenderise meat
     public void Tenderise(Meat currentIngredient) 
     {
         if (needsToSetHammer)
@@ -256,6 +262,7 @@ public class Gameplay : MonoBehaviour
         }
     }
 
+    // salt meat
     public void Salt(Meat currentIngredient) 
     {
         if (needsToSetSalt)
@@ -274,6 +281,7 @@ public class Gameplay : MonoBehaviour
         }
     }
 
+    // cook meat
     public void Cook(Meat currentIngredient) 
     {
         SoundEffect(CookAudio);
@@ -281,12 +289,14 @@ public class Gameplay : MonoBehaviour
         currentIngredient.GetComponentInChildren<Text>().text = ((int)currentIngredient.cooking).ToString();
     }
 
+    // play a sound effect
     public void SoundEffect(AudioClip[] audio)
     {
         int random = Random.Range(0, 2);
         source.PlayOneShot(audio[random]);
     }
 
+    // if your on the completion step (i.e. ingredient is complete)
     public void Complete() 
     {
         // send it to narnia

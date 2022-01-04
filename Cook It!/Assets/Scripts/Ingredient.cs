@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Ingredient : MonoBehaviour
 {
-
+    // ingredient data
     private string currentStep;
     protected bool isComplete;
     public List<string> ingredientSteps = new List<string>();
     protected int stepInt = 0;
-
     protected Vector3 idealPosition;
     protected Vector3 idealCookPos;
 
+    // Getters and setters
     public Vector3 cookPos
     {
         get { return idealCookPos; }
@@ -28,13 +28,13 @@ public class Ingredient : MonoBehaviour
         set { currentStep = value; }
     }
 
-    public virtual void Generate() {
-
-    }
-
     public int stepTracker {
         get { return stepInt; }
         set { stepInt = value; }
+    }
+
+    public virtual void Generate() {
+
     }
 
     private void Awake() {

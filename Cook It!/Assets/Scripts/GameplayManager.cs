@@ -7,9 +7,14 @@ public class GameplayManager : MonoBehaviour
     [SerializeField]
     private GameObject eventSystem;
 
+    // gameplay variables
     private float currentHeat;
     private string currentStep;
     private Ingredient currentIngredient;
+    private bool needsToStoreData;
+    private Ingredient ingredientData;
+    private string stepData;
+    private int stepTrackerData;
 
     // customer management
     [SerializeField] private GameObject customerPrefab1;
@@ -18,18 +23,15 @@ public class GameplayManager : MonoBehaviour
     private GameObject currentCustomer;
     private int totalCustomers;
 
+    // instantiate heat control system and gameplay
     HeatControl heatControlSystem;
     Gameplay game;
 
+    // track the customers patience
     private float orderTime;
     private float customerPatience = 100; // THis is placeholder for now
 
     private bool isReady;
-
-    private bool needsToStoreData;
-    private Ingredient ingredientData;
-    private string stepData;
-    private int stepTrackerData;
 
     #region Getters/Setters
     public bool readyOrNot
@@ -62,26 +64,26 @@ public class GameplayManager : MonoBehaviour
         set { currentIngredient = value; }
     }
     #endregion
-
     #region Functions
 
     // Start is called before the first frame update
     void Start()
     {
+        // initialise gameplay systems
         heatControlSystem = eventSystem.GetComponent<HeatControl>();
         game = eventSystem.GetComponent<Gameplay>();
         customerTimer = 5.0f;
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Getting info
+        // lower customer spawn cooldown timer
         customerTimer -= Time.deltaTime;
 
+        // check if customer spawn cooldown is 0
+        // if it is 0, spawn a new customer
         if(customerTimer <= 0.0f) {
-
             customerTimer = 10.0f;
             if (currentIngredient) 
             {
@@ -114,22 +116,20 @@ public class GameplayManager : MonoBehaviour
         {
             orderTime += Time.deltaTime; // how long the order has taken to be made
 
+            // update gameplay variables
             if (currentCustomer) {
                 game.gameplayCustomer = currentCustomer.GetComponent<CustomerControl>();
             }
-
             currentHeat = heatControlSystem.publicHeat;
             currentIngredient = game.gameplayCustomer.currentIngredient;
             currentStep = game.gameplayCustomer.currentIngredient.nextStep;
-
-            // Publishing info
             game.step = currentStep;
             game.ingredient = currentIngredient;
 
+            // check if we need to move to the next customer
             if (game.ingredient.name == "completed")
             {
                 orderTime = 0;
-                // This is placeholder, we need a proper customer patience system, im using this purely for testing values lol - skylar
                 customerPatience = 100;
 
                 Destroy(currentCustomer);
@@ -139,19 +139,16 @@ public class GameplayManager : MonoBehaviour
                 gameObject.GetComponent<CameraPos>().IsPrepping = false;
                 gameObject.GetComponent<CameraPos>().IsCooking = false;
                 gameObject.GetComponent<GUIManager>().Orders++;
-
             }
-
             // Game Loop
             game.cookIngredient(currentStep);
         }
-
     }
 
     void SpawnNewCustomer() 
     {
+        // spawn a customer, there are two types of customer so pick a random one
         int customerType = Random.Range(0, 2);
-
         if (customerType == 1)
         {
             GameObject newCustomer = Instantiate(customerPrefab1, new Vector3(0f, -1f, 0f), Quaternion.identity); // create a customer

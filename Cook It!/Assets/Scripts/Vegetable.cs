@@ -5,18 +5,20 @@ using UnityEngine;
 
 public class Vegetable : Ingredient
 {
-
+    // what type of vegetable it is will dictate which steps it requires (no need to peel leaves off a tomato)
     [SerializeField]
     private bool hasLeaves;
     [SerializeField]
     private bool needsChopping;
 
+    // data variables
     private int timesChopped = 0;
     private int timesPulled = 0;
 
     private int bestChops;
     private int bestPulls;
 
+    // getters and setters
     public bool hasLeaf
     {
         get { return hasLeaves; }
@@ -46,9 +48,9 @@ public class Vegetable : Ingredient
         set { bestPulls = value; }
     }
 
-
     private void Awake() 
     {
+        // randomise how many chops the vegetable needs
         bestChops = Random.Range(1, 6);
     }
 
@@ -57,16 +59,18 @@ public class Vegetable : Ingredient
     {
         if (ingredientSteps.Count != 0) 
         {
-            
+            // update the active step
             nextStep = ingredientSteps[stepInt];
         }
     }
 
     public override void Generate() 
     {
+        // initialise values
         idealPosition = new Vector3(-0.441f, 1.8f, -2.4f);
         stepInt = 0;
 
+        // add steps based on type of vegetable
         if (hasLeaves) 
         {
             ingredientSteps.Add("PeelLeaves");
@@ -82,5 +86,4 @@ public class Vegetable : Ingredient
         }
         ingredientSteps.Add("Complete");
     }
-
 }

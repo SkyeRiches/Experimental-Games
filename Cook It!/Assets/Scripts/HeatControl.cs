@@ -21,6 +21,7 @@ public class HeatControl : MonoBehaviour
     private float secondsToHeat; // exposed to the editor - how long it takes to heat after we flick
     private float floatTimeForHeat; // a float used for a real version of the above ^^ 
 
+    // hob coloring variables
     [SerializeField]
     private GameObject hob;
     [SerializeField]
@@ -29,8 +30,7 @@ public class HeatControl : MonoBehaviour
     private Color baseColor;
     private Color currentColor;
 
-    // Start is called before the first frame update
-
+    // getter/setter for heat
     public float publicHeat {
         get { return currentHeat; }
         set { currentHeat = value; }
@@ -46,8 +46,7 @@ public class HeatControl : MonoBehaviour
         currentHeat = 20f;
         floatTimeForHeat = secondsToHeat / 40;
 
-        
-
+        // allow emmision colour on the hob object
         hobMaterial = hob.GetComponent<Renderer>().materials;
         for (int i = 0; i<=1; i++) {
             hobMaterial[i].EnableKeyword("_Emission");

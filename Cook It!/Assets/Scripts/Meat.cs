@@ -5,13 +5,12 @@ using UnityEngine;
 
 [System.Serializable]
 public class Meat : Ingredient {
+    // data variables for meat
     private float cook;
     private int temp1;
     private int idealCook;
-
     private int tenderise;
     private int idealTenderise;
-
     private float salt;
     private int saltStage;
     private int idealSalt;
@@ -20,6 +19,7 @@ public class Meat : Ingredient {
 
     [SerializeField] private Material[] burgerMaterials = new Material[5];
 
+    // Getters and setters
     public float cooking {
         get { return cook; }
         set { cook = value; }
@@ -72,6 +72,7 @@ public class Meat : Ingredient {
             nextStep = ingredientSteps[stepInt];
         }
 
+        // set the material of the burger based on how cooked it is
         switch (temp1)
         {
             case 0:
@@ -103,25 +104,27 @@ public class Meat : Ingredient {
         }
     }
 
+    // generate the meat
     public override void Generate() {
+        // initialise valus
         stepInt = 0;
         cook = 0;
 
+        gameObject.GetComponent<Renderer>().material = burgerMaterials[0];
+        gameObject.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
+
         idealCookPos = new Vector3(1.106f, 1.896f, -2.039f);
         idealPosition = new Vector3(-0.441f, 1.8f, -2.4f);
-
-        gameObject.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
 
         idealTenderise = Random.Range(1, 6);
         idealSalt = Random.Range(1, 6);
         idealCook = Random.Range(0, 5);
 
+        // add the steps
         ingredientSteps.Add("Tenderise");
         ingredientSteps.Add("Salt");
         ingredientSteps.Add("Cook");
         ingredientSteps.Add("Complete");
-
-        gameObject.GetComponent<Renderer>().material = burgerMaterials[0];
     }
 
 }
