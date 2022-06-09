@@ -30,7 +30,7 @@ public class CustomerControl : MonoBehaviour
     private int ingredientInt; // which ingredient of the order is the player on
     [SerializeField]
     private bool customerActive; // whether the customer is active
-    private float impatience = 100; // impatience tracker for the customer
+    private float impatience = 500; // impatience tracker for the customer
 
     private GameplayManager gManager; 
 
@@ -101,7 +101,7 @@ public class CustomerControl : MonoBehaviour
     {
         // set the initial values
         ingredientInt = 0;
-        impatience = 500;
+        impatience = 500f;
         // set up the GUI canvas
         canvas = new GameObject();
         canvas.AddComponent<Canvas>();
@@ -161,9 +161,9 @@ public class CustomerControl : MonoBehaviour
         impatience -= Time.deltaTime;
         if (impatience <= 0)
         {
+            impatience = 3f;
             gManager.GetComponent<ScoreSystem>().LeaverNumber++;
-            StartCoroutine(gManager.ReadjustDelay()); // Triggers the function to wait before readjusting the customers as it wont sort them otherwise as this customer wont have been removed yet
-            Destroy(gameObject);
+            StartCoroutine(gManager.ReadjustDelay(gameObject)); // Triggers the function to wait before readjusting the customers as it wont sort them otherwise as this customer wont have been removed yet
         }
         // update current ingredient
         if (items.Count != 0)
@@ -202,14 +202,16 @@ public class CustomerControl : MonoBehaviour
         bool continueAdding = true; // whether we should keep adding
         float randomNumberForContinuation = (1/(float)maxNumberOfIngredientsPerOrder); // a float for probability
         int randomNumberForIngredient = Random.Range(0, ingredients.Length); // a float for randomizing ingredients
-        GameObject bunImageObject = new GameObject(); 
+        GameObject bunImageObject = new GameObject();
+        
         // set up bun GUI
         Image bunImageToAdd = bunImageObject.AddComponent<Image>(); 
         ingredientSprites.Add(bunImageObject); 
         bunImageToAdd.sprite = bunSprite; 
         bunImageToAdd.transform.SetParent(panelForOrder.transform, false);
         bunImageToAdd.transform.localPosition = new Vector3(-800, 500 - 100 * items.Count, 0);
-        GameObject bunToAdd = Instantiate(bun, new Vector3(-10f, -10f, -10f), Quaternion.identity); ;
+        GameObject bunToAdd = Instantiate(bun, new Vector3(-10f, -10f, -10f), Quaternion.identity);
+
         // create and initialize the bun
         bunToAdd.transform.parent = gameObject.transform;
         bunToAdd.GetComponent<Ingredient>().Generate();

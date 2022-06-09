@@ -72,7 +72,7 @@ public class GameplayManager : MonoBehaviour
         // initialise gameplay systems
         heatControlSystem = eventSystem.GetComponent<HeatControl>();
         game = eventSystem.GetComponent<Gameplay>();
-        customerTimer = 5.0f;
+        customerTimer = 1.0f;
     }
 
     // Update is called once per frame
@@ -84,7 +84,7 @@ public class GameplayManager : MonoBehaviour
         // check if customer spawn cooldown is 0
         // if it is 0, spawn a new customer
         if(customerTimer <= 0.0f) {
-            customerTimer = 10.0f;
+            customerTimer = 10f;
             if (currentIngredient) 
             {
                 needsToStoreData = true;
@@ -94,7 +94,8 @@ public class GameplayManager : MonoBehaviour
                 needsToStoreData = false;
             }
 
-            if (needsToStoreData) {
+            if (needsToStoreData) 
+            {
                 ingredientData = currentIngredient;
                 stepData = currentIngredient.nextStep;
                 stepTrackerData = currentIngredient.stepTracker;
@@ -102,7 +103,8 @@ public class GameplayManager : MonoBehaviour
 
             SpawnNewCustomer();
 
-            if (needsToStoreData) {
+            if (needsToStoreData) 
+            {
                 currentIngredient = ingredientData;
                 currentIngredient.nextStep = stepData;
                 currentIngredient.stepTracker = stepTrackerData;
@@ -117,9 +119,11 @@ public class GameplayManager : MonoBehaviour
             orderTime += Time.deltaTime; // how long the order has taken to be made
 
             // update gameplay variables
-            if (currentCustomer) {
+            if (currentCustomer) 
+            {
                 game.gameplayCustomer = currentCustomer.GetComponent<CustomerControl>();
             }
+
             currentHeat = heatControlSystem.publicHeat;
             currentIngredient = game.gameplayCustomer.currentIngredient;
             currentStep = game.gameplayCustomer.currentIngredient.nextStep;
@@ -130,10 +134,9 @@ public class GameplayManager : MonoBehaviour
             if (game.ingredient.name == "completed")
             {
                 orderTime = 0;
-                customerPatience = 100;
+                customerPatience = 500;
 
-                Destroy(currentCustomer);
-                StartCoroutine(ReadjustDelay());
+                StartCoroutine(ReadjustDelay(currentCustomer));
                 game.customersServed++;
                 gameObject.GetComponent<CustomerSelect>().enabled = true;
                 gameObject.GetComponent<CameraPos>().IsPrepping = false;
@@ -176,7 +179,14 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
-    public IEnumerator ReadjustDelay()
+    public IEnumerator ReadjustDelay(GameObject go)
+    {
+        yield return new WaitForSeconds(.1f);
+        StartCoroutine(VanishDelay());
+        Destroy(go);
+    }
+
+    private IEnumerator VanishDelay()
     {
         yield return new WaitForSeconds(1);
         ReadjustCustomers();
