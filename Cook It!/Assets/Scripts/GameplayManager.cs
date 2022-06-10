@@ -83,7 +83,7 @@ public class GameplayManager : MonoBehaviour
         // check if customer spawn cooldown is 0
         // if it is 0, spawn a new customer
         if(customerTimer <= 0.0f) {
-            customerTimer = 3f;
+            customerTimer = 10f;
             if (currentIngredient) 
             {
                 needsToStoreData = true;
@@ -166,7 +166,6 @@ public class GameplayManager : MonoBehaviour
 
     public void ReadjustCustomers() 
     {
-        Debug.Log("readjusting..." + gameObject.transform.childCount);
         for (int i = 0; i < gameObject.transform.childCount; i++) 
         {
             // line the customers up nicely
