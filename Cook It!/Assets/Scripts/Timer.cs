@@ -19,7 +19,7 @@ public class Timer : MonoBehaviour
     {
         timeBegin = true;
         timeUp = false;
-        timer = 300;
+        timer = 180;
     }
 
     // Update is called once per frame

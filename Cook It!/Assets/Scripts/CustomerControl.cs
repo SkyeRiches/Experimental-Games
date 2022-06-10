@@ -30,7 +30,7 @@ public class CustomerControl : MonoBehaviour
     private int ingredientInt; // which ingredient of the order is the player on
     [SerializeField]
     private bool customerActive; // whether the customer is active
-    private float impatience = 500; // impatience tracker for the customer
+    private float impatience = 30; // impatience tracker for the customer
 
     private GameplayManager gManager; 
 
@@ -101,7 +101,7 @@ public class CustomerControl : MonoBehaviour
     {
         // set the initial values
         ingredientInt = 0;
-        impatience = 500f;
+        impatience = 30;
         // set up the GUI canvas
         canvas = new GameObject();
         canvas.AddComponent<Canvas>();

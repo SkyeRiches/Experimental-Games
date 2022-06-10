@@ -228,10 +228,10 @@ public class Gameplay : MonoBehaviour
     {
         if (needsToSetKnife) {
             // put the knife in the hand
-            knifePosition = new Vector3(0f, 0f, 0f);
+            knifePosition = new Vector3(0.000339999999f, 7.00000019e-05f, -9.99999975e-05f);
             knife.transform.parent = hand.transform;
             knife.transform.localPosition = knifePosition;
-            knife.transform.localRotation = Quaternion.Euler(8.196f, 230.969f, 66.549f);
+            knife.transform.localRotation = Quaternion.Euler(359.704926f, 233.018097f, 61.5224228f);
             needsToSetKnife = false;
         }
         if (Input.GetKeyDown(KeyCode.R)) 
@@ -248,9 +248,10 @@ public class Gameplay : MonoBehaviour
     {
         if (needsToSetHammer)
         {
+            Vector3 hammerPos = new Vector3(0.000339999999f, 7.00000019e-05f, -0.000199999995f);
             hammer.transform.parent = hand.transform;
-            hammer.transform.localPosition = knifePosition;
-            hammer.transform.localRotation = Quaternion.Euler(8.196f, 230.969f, 66.549f);
+            hammer.transform.localPosition = hammerPos;
+            hammer.transform.localRotation = Quaternion.Euler(345.764862f, 240.749176f, 66.0224838f);
             needsToSetHammer = false;
         }
         if (Input.GetKeyDown(KeyCode.R)) 
@@ -267,9 +268,10 @@ public class Gameplay : MonoBehaviour
     {
         if (needsToSetSalt)
         {
+            Vector3 saltPos = new Vector3(-1.99999995e-05f, -3.9999999e-05f, -0.000899999985f);
             salt.transform.parent = hand.transform;
-            salt.transform.localPosition = knifePosition;
-            salt.transform.localRotation = Quaternion.Euler(180, -24.996f, 0);
+            salt.transform.localPosition = saltPos;
+            salt.transform.localRotation = Quaternion.Euler(342.41156f, 147.28978f, 154.90834f);
             needsToSetSalt = false;
         }
         if (Input.GetKeyDown(KeyCode.E))

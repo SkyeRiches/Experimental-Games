@@ -29,7 +29,6 @@ public class GameplayManager : MonoBehaviour
 
     // track the customers patience
     private float orderTime;
-    private float customerPatience = 100; // THis is placeholder for now
 
     private bool isReady;
 
@@ -84,7 +83,7 @@ public class GameplayManager : MonoBehaviour
         // check if customer spawn cooldown is 0
         // if it is 0, spawn a new customer
         if(customerTimer <= 0.0f) {
-            customerTimer = 10f;
+            customerTimer = 3f;
             if (currentIngredient) 
             {
                 needsToStoreData = true;
@@ -111,9 +110,6 @@ public class GameplayManager : MonoBehaviour
             }
         }
 
-        // this is placeholder for how long they have waited for their order
-        customerPatience -= Time.deltaTime;
-
         if (isReady)
         {
             orderTime += Time.deltaTime; // how long the order has taken to be made
@@ -134,7 +130,6 @@ public class GameplayManager : MonoBehaviour
             if (game.ingredient.name == "completed")
             {
                 orderTime = 0;
-                customerPatience = 500;
 
                 StartCoroutine(ReadjustDelay(currentCustomer));
                 game.customersServed++;
