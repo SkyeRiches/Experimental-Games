@@ -82,7 +82,7 @@ public class GameplayManager : MonoBehaviour
 
         // check if customer spawn cooldown is 0
         // if it is 0, spawn a new customer
-        if(customerTimer <= 0.0f) {
+        if(customerTimer <= 0.0f && gameObject.transform.childCount < 10) {
             customerTimer = 10f;
             if (currentIngredient) 
             {

@@ -31,24 +31,24 @@ public class CustomerSelect : MonoBehaviour
             // Sets the indicator active on the customer that is selected
             gManager.transform.GetChild(currentSelction).gameObject.GetComponent<CustomerControl>().ActiveIndicator(true);
 
-            // Increase the selection and remove the indicator from previously selected customer
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                // increase selection
-                currentSelction++;
+            //// Increase the selection and remove the indicator from previously selected customer
+            //if (Input.GetKeyDown(KeyCode.W))
+            //{
+            //    // increase selection
+            //    currentSelction++;
 
-                gManager.transform.GetChild(currentSelction - 1).gameObject.GetComponent<CustomerControl>().ActiveIndicator(false);
+            //    gManager.transform.GetChild(currentSelction - 1).gameObject.GetComponent<CustomerControl>().ActiveIndicator(false);
 
-            }
+            //}
 
-            // Decrease the selection and remove the indicator from previously selected customer
-            if (Input.GetKeyDown(KeyCode.Y))
-            {
-                // decrease selection
-                currentSelction--;
+            //// Decrease the selection and remove the indicator from previously selected customer
+            //if (Input.GetKeyDown(KeyCode.Y))
+            //{
+            //    // decrease selection
+            //    currentSelction--;
 
-                gManager.transform.GetChild(currentSelction + 1).gameObject.GetComponent<CustomerControl>().ActiveIndicator(false);
-            }
+            //    gManager.transform.GetChild(currentSelction + 1).gameObject.GetComponent<CustomerControl>().ActiveIndicator(false);
+            //}
 
             // Confirm selection.
             // The customer scripts are then triggered and normal gameplay is resumed

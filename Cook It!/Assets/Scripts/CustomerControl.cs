@@ -159,7 +159,7 @@ public class CustomerControl : MonoBehaviour
     void Update()
     {
         // update impatience and check if customer is ready to leave
-        impatience -= Time.deltaTime;
+        //impatience -= Time.deltaTime;
         if (impatience <= 0)
         {
             impatience = 3f;
