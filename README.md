@@ -16,6 +16,7 @@ Your score is calculated based on how many orders you get right vs how many orde
 
 #Video
 Trailer: https://www.youtube.com/watch?v=L-nHx77ETLQ
+
 Walkthrough: https://www.youtube.com/watch?v=UsedxOvHI9o
 
 # Possible improvements
@@ -24,3 +25,12 @@ Walkthrough: https://www.youtube.com/watch?v=UsedxOvHI9o
 - rework the menus and endgame screen to be easier to use
 - rework the gameplay to make it more interesting, make it more quick time event based like bop it is by design
 - have more of a consequence to getting an action wrong
+
+# Others on this project
+Danny Lee - https://mldanny19.wixsite.com/mldanny
+
+Jordan Brayne - https://jordlbray2310.wixsite.com/home
+
+Dawid Wlodarski - https://www.artstation.com/dawid_wlodarski
+
+Rory Wallace - https://github.com/artica2
