@@ -14,6 +14,10 @@ When playing the game you have a few minutes to serve as many customers and prep
 
 Your score is calculated based on how many orders you get right vs how many orders you get wrong.
 
+#Video
+Trailer: https://www.youtube.com/watch?v=L-nHx77ETLQ
+Walkthrough: https://www.youtube.com/watch?v=UsedxOvHI9o
+
 # Possible improvements
 - add more feedback to the player when they perform actions
 - make the controls and GUI clearer to the player
